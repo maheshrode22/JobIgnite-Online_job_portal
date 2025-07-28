@@ -5,7 +5,7 @@ let conn=mysql.createConnection({
     host:process.env.db_host,
     user:process.env.db_username,
     password:process.env.db_password,
-    database:process.db_dbname
+    database:process.env.db_dbname
 });
 
 conn.connect((err)=>{

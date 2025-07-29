@@ -11,7 +11,6 @@ exports.adminLogin=(adusername,adpassword)=>{
                 else
                 {
                     resolve(result);
-                   
                 }
         });
     });

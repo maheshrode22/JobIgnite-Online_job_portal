@@ -20,3 +20,27 @@ exports.hrLogin=(req,res)=>{
     });
 }
 
+exports.hrRegister=(req,res)=>{
+    let {name,company,email,password,phone}=req.body;
+
+    let promise=hrModel.hrRegisterMod(name,company,email,password,phone);
+
+    promise.then((result)=>{
+        res.send({msg:"wait for hr aprover"});
+    });
+    promise.catch=((err)=>{
+        res.send({msg:"registation fail"});
+    });
+}
+
+exports.AllHr=(req,res)=>{
+    let promise=hrModel.viewHr();
+
+    promise.then((result)=>{
+        res.send(result);
+    });
+    promise.catch((err)=>{
+        res.send(err);
+    });
+}
+

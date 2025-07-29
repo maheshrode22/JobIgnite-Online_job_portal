@@ -10,15 +10,7 @@ exports.adminLogin=(adusername,adpassword)=>{
                 }
                 else
                 {
-                    if(result.length>0)
-                    {
-                        resolve(result);
-
-                    }else{
-                        reject("invalid login");
-
-                    }
-
+                    resolve(result);
                    
                 }
         });

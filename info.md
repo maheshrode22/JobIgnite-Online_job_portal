@@ -25,17 +25,36 @@ git remote add origin https://github.com/maheshrode22/JobIgnite-Online_job_porta
 git branch -M main
 git push -u origin main
 
+-------------------------------------------------
 
-
-___________________________________
-git fetch 
-git branch
-git switch branch job_portal
-git switch main
-git merge  job_portal
+git pull origin main
+git fetch origin
+git checkout resume-feature
+git pull origin resume-feature
+git checkout main
+git merge resume-feature
 git push origin main
-_________________________________
-git switch main
-get fetch 
-git pull
+
+__________________________________________
+
+✅ Extra: जर conflict आले merge करताना?
+मित्राने आणि तू दोघांनी एकाच फाईलमध्ये वेगवेगळं काम केलं तर conflict येऊ शकतो. त्या वेळेस Git तुमचं manually resolve करायला सांगेल. उदा.:
+
+bash
+Copy
+Edit
+<<<<<<< HEAD
+(tuza code)
+=======
+(mitrache code)
+>>>>>>> resume-feature
+तो conflict resolve करून save कर, मग:
+
+bash
+Copy
+Edit
+git add .
+git commit -m "Resolved conflict and merged"
+git push origin main
+
 

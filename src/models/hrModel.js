@@ -9,8 +9,15 @@ exports.hrLoginMod=(hrUser,hrPass)=>{
                     reject(err);
                 }
                 else
-                {
-                    resolve(result);
+                {if(result.length>0)
+                    {
+                        resolve(result);
+
+                    }else{
+                        reject("invalid login");
+
+                    }
+
                 }
         });
     });

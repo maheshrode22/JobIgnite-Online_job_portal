@@ -4,6 +4,7 @@ let db=require("../src/config/db");
 require("dotenv").config();
 let app=express();
 let router=require("../src/routes/route.js");
+
 app.set("view engine","ejs");
 app.use(express.static("public"));
 

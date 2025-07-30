@@ -25,7 +25,7 @@ git remote add origin https://github.com/maheshrode22/JobIgnite-Online_job_porta
 git branch -M main
 git push -u origin main
 
--------------------------------------------------
+----------------------------------------------
 
 git pull origin main
 git fetch origin

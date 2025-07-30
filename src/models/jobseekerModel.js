@@ -15,3 +15,17 @@ exports.jobSeekerLogin=(jobUser,jobPass)=>{
         });
     });
 }
+
+exports.jobSeekerRegister=((...data)=>{
+    return new Promise((resolve,reject)=>{
+        db.query("insert into hr(name,email,password,phone,address) values(?,?,?,?,?)",[...data],(err,result)=>{
+            if(err){
+                reject(err);
+
+            }else{
+                resolve(result);
+
+            };
+        });
+    });
+});

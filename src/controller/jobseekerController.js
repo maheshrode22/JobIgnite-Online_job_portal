@@ -17,3 +17,19 @@ exports.jobSeeker=(req,res)=>{
             res.send(err);
         });
 }
+
+
+
+exports.jobSeekerRegister=(req,res)=>{
+    let {name,email,password,phone,address}=req.body;
+    
+    
+    let Promise=jobseekerModel.jobSeekerRegister(name,email,password,phone,address);
+    Promise.then((err)=>{
+        res.send({msg:"your Registration is successfully"});
+
+    }).catch((result)=>{
+        res.send(err);
+        
+    })
+    }

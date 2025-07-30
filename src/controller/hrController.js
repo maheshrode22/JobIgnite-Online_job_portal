@@ -73,3 +73,16 @@ exports.delHr=(req,res)=>{
     })
 
 }
+
+exports.updateStatusHr=((req,res)=>{
+    let {id,status}=req.body;
+    let Promise=hrModel.updateStatusHr(id,status);
+    Promise.then((result)=>{
+        res.send({msg:"status updated"});
+
+    }).catch((err)=>{
+        res.send({msg:"status not updated / id not found"});
+
+    })
+
+})

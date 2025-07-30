@@ -80,3 +80,17 @@ exports.deleteHr=(id)=>{
         })
     })
 }
+
+exports.updateStatusHr=(id,status)=>{
+    return new Promise((resolve,reject)=>{
+        db.query("update hr set status=? where hr_id=?",[status,id],(err,result)=>{
+            if(err)
+            {
+                reject(err);
+            }else{
+                resolve(result);
+                
+            }
+        })
+    })
+}

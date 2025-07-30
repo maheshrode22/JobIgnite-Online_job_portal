@@ -67,32 +67,15 @@ exports.updateHr = (hr_name, company_name,  password, phone,hr_id) => {
     });
   };
   
-
-//   exports.deleteHr=((hr_name)=>{
-//     return new Promise((resolve,reject)=>{
-//         db.query("delete from hr where hr_name=?",[hr_name],(err,result)=>{
-//             if(err){
-//                 reject(err);
-
-//             }else{
-//                 resolve(result);
-
-//             }
-//         })
-//     })
-
-//   })
-
-
-exports.deleteHr=(hr_id)=>{
+exports.deleteHr=(id)=>{
     return new Promise((resolve ,reject)=>{
-        db.query("delete from hr where hr_id=?",[hr_id],(err, result)=>{
+        db.query("delete from hr where hr_id=?",[id],(err, result)=>{
             if(err)
             {
-                 reject("Hr Not Deleted...");
+                 reject(err);
             }
             else{
-             resolve("HR DELETE SuccessFully.........");
+             resolve(result);
             }
         })
     })

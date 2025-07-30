@@ -56,30 +56,15 @@ exports.updateHr = (req, res) => {
       res.status(500).send({ msg: "Update failed", error: err });
     });
 };
+//delete
 
-
-
-
-// exports.deleteHr = (req, res) => {
-//     let {hr_name}=req.body;
-//     console.log(hr_name);
-//     let Promise= hrModel.deleteHr(hr_name);
-//         Promise.then((result)=>{
-//         res.send(result);
-//         }).catch((err)=>{
-//         res.send(err);
-//     });
-
-// }; 
-
-
-exports.deleteHr=(req,res)=>{
-    let {hr_id}=req.body;
-    let Promice=hrModel.deleteHr(hr_id);
-    Promice.then((result)=>{
-        res.send(result);
+exports.delHr=(req,res)=>{
+    let {id}=req.body;
+    let promise=hrModel.deleteHr(id);
+    promise.then((result)=>{
+        res.send({msg:"delete suceesfull"});
     }).catch((err)=>{
-        res.send(err);
+        res.send({msg:"not delee somting error"});
     })
 
 }

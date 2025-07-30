@@ -6,7 +6,7 @@ let jobseekCtr=require("../controller/jobseekerController.js");
 
 
 router.post("/adminLogin",admincon.adminLogin);
-// router.post("/makeHr",hrctr.makeHr);
+
 
 
 router.post("/hrlogin",hrctr.hrLogin);
@@ -15,6 +15,9 @@ router.post("/jobseekerLogin",jobseekCtr.jobSeeker);
 router.post("/hrregister",hrctr.hrRegister);
 
 router.get("/viewAllHr",hrctr.AllHr);
+router.put("/updateHr",hrctr.updateHr);
+router.delete('/deleteHr', hrctr.deleteHr);
+
 
 module.exports=router;
 

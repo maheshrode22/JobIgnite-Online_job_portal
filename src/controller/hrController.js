@@ -44,3 +44,42 @@ exports.AllHr=(req,res)=>{
     });
 }
 
+exports.updateHr = (req, res) => {
+  const { hr_id, hr_name, company_name,  password, phone} = req.body;
+
+  let Promise=hrModel.updateHr(hr_name, company_name,  password, phone, hr_id)
+    .then(() => {
+      res.send({ msg: "HR profile updated successfully" });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send({ msg: "Update failed", error: err });
+    });
+};
+
+
+
+
+// exports.deleteHr = (req, res) => {
+//     let {hr_name}=req.body;
+//     console.log(hr_name);
+//     let Promise= hrModel.deleteHr(hr_name);
+//         Promise.then((result)=>{
+//         res.send(result);
+//         }).catch((err)=>{
+//         res.send(err);
+//     });
+
+// }; 
+
+
+exports.deleteHr=(req,res)=>{
+    let {hr_id}=req.body;
+    let Promice=hrModel.deleteHr(hr_id);
+    Promice.then((result)=>{
+        res.send(result);
+    }).catch((err)=>{
+        res.send(err);
+    })
+
+}

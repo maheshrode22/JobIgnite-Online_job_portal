@@ -43,11 +43,7 @@ __________________________________________
 bash
 Copy
 Edit
-<<<<<<< HEAD
-(tuza code)
-=======
 (mitrache code)
->>>>>>> resume-feature
 तो conflict resolve करून save कर, मग:
 
 bash

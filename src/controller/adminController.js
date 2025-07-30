@@ -6,12 +6,12 @@ exports.adminLogin=((req,res)=>{
     let Promise=adminModel.adminLogin(adusername,adpassword);
 
     Promise.then((result)=>{
-                if(result.length>0){
-                    res.send({msg:"admin login succesfully"});
-                }
-                else{
-                    res.send({msg:"login fail"});
-                }
+            if(result.length>0){
+                res.send({msg:"admin login succesfully"});
+            }
+            else{
+                res.send({msg:"login fail"});
+            }
     }).catch((err)=>{
        res.send(err);
     })

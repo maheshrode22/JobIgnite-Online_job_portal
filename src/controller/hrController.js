@@ -66,7 +66,7 @@ exports.delHr=(req,res)=>{
             res.send({msg:"delete suceesfull"});
         }
         else{
-            res.send({msg:"not delee somting error /id not found"});
+            res.send({msg:"not delete something error /id not found"});
         }
     }).catch((err)=>{
         res.send(err);

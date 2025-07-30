@@ -16,7 +16,7 @@ router.post("/hrregister",hrctr.hrRegister);
 
 router.get("/viewAllHr",hrctr.AllHr);
 router.put("/updateHr",hrctr.updateHr);
-router.delete('/deleteHr', hrctr.deleteHr);
+router.post('/deleteHr',hrctr.delHr);
 
 
 module.exports=router;

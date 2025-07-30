@@ -8,12 +8,12 @@ exports.hrLogin=(req,res)=>{
     promise.then((result)=>{
          
         if(result>0)
-            {
-                res.send({msg:"HR login succesfully"});
-            }else{
-                res.send({msg:"HR login faild"});
-
-            }
+        {
+            res.send({msg:"HR login succesfully"});
+        }
+        else{
+            res.send({msg:"HR login faild"});
+        }
     });
     promise.catch((err)=>{
         res.send({msg:"login fail"});

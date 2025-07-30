@@ -14,3 +14,15 @@ exports.createJobs = (req, res) => {
         res.send(err);
     });
 };
+
+
+exports.viewallJobPost=((req,res)=>{
+    let Promise=jobPostModel.viewallJobPost()
+    .then((result)=>{
+        res.send(result);
+
+    }).catch((err)=>{
+        res.send(err);
+
+    })
+})

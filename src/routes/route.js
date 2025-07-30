@@ -33,7 +33,7 @@ router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister);
 
 // job post
 router.post("/createJobs",jobsPost.createJobs);
-// router.get("/viewallJobPost"jobsPost.viewallJobPost);
+router.get("/viewallJobPost",jobsPost.viewallJobPost);
 
 
 

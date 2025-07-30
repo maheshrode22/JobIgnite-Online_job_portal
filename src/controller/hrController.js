@@ -56,6 +56,7 @@ exports.updateHr = (req, res) => {
       res.status(500).send({ msg: "Update failed", error: err });
     });
 };
+//delete
 
 exports.delHr=(req,res)=>{
     let {id}=req.body;

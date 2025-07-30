@@ -1,6 +1,6 @@
-let jobseekerModel=require("../models/jobseekerModel");
+let jobseekerModel=require("../models/jobseekerModel.js");
 
-exports.jobSeeker=(req,res)=>{
+exports.jobSeekerLog=(req,res)=>{
 
     let {jobUser,jobPass}=req.body;
     
@@ -14,6 +14,7 @@ exports.jobSeeker=(req,res)=>{
         }
     });
     promise.catch((err)=>{
-            res.send(err);
-        });
+        res.send(err);
+    });
+
 }

@@ -29,10 +29,10 @@ git push -u origin main
 
 git pull origin main
 git fetch origin
-git checkout resume-feature
-git pull origin resume-feature
+git checkout job_portal
+
 git checkout main
-git merge resume-feature
+git merge job_portal
 git push origin main
 
 __________________________________________

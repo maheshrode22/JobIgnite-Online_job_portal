@@ -62,9 +62,14 @@ exports.delHr=(req,res)=>{
     let {id}=req.body;
     let promise=hrModel.deleteHr(id);
     promise.then((result)=>{
-        res.send({msg:"delete suceesfull"});
+        if (result.affectedRows > 0){
+            res.send({msg:"delete suceesfull"});
+        }
+        else{
+            res.send({msg:"not delee somting error /id not found"});
+        }
     }).catch((err)=>{
-        res.send({msg:"not delee somting error"});
+        res.send(err);
     })
 
 }

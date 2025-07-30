@@ -1,7 +1,7 @@
 let jobseekerModel=require("../models/jobseekerModel.js");
 
-exports.jobSeekerLog=(req,res)=>{
 
+exports.jobSeekerLogin=(req,res)=>{
     let {jobUser,jobPass}=req.body;
     
     let promise=jobseekerModel.jobSeekerLogin(jobUser,jobPass);
@@ -16,5 +16,23 @@ exports.jobSeekerLog=(req,res)=>{
     promise.catch((err)=>{
         res.send(err);
     });
+}
 
+exports.jobSeekerProfile=(req,res)=>{
+    let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
+
+    let promise=jobseekerModel.jobSeekerProfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks);
+
+    promise.then((result)=>{
+        if(result.affectedRows>0)
+        {
+            res.send({msg:"Profile is added"});
+        }
+        else{
+            res.send({msg:"profile is not added something error"});
+        }
+    });
+    promise.catch((err)=>{
+        res.send(err);
+    });
 }

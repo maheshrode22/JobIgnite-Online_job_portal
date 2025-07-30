@@ -3,7 +3,6 @@ let router=express.Router();
 let admincon=require("../controller/adminController");
 let hrctr=require("../controller/hrController.js");
 let jobseekCtr=require("../controller/jobseekerController.js");
-const { route } = require("../app.js");
 
 let jobsPost=require("../controller/jobsPostControler.js");
 
@@ -26,8 +25,9 @@ router.post("/updateStatusHr",hrctr.updateStatusHr)
 
 //job seeker 
 
-router.post("/jobseekerLogin",jobseekCtr.jobSeekerLog);
+router.post("/jobseekerLogin",jobseekCtr.jobSeekerLogin);
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister);
+router.post("/jobSeekerProfile",jobseekCtr.jobSeekerProfile);
 
 
 

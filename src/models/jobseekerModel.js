@@ -26,6 +26,8 @@ exports.jobSeekerRegister = (...data) => {
     });
 }
 
+
+
 exports.jobSeekerProfile=(...data)=>{
 
     return new Promise((resolve,reject)=>{

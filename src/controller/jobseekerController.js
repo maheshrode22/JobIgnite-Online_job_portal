@@ -18,6 +18,20 @@ exports.jobSeekerLogin=(req,res)=>{
     });
 }
 
+exports.jobSeekerRegister=(req,res)=>{
+    let {name,email,password,phone,address}=req.body;
+    
+    
+    let Promise=jobseekerModel.jobSeekerRegister(name,email,password,phone,address);
+    Promise.then((result)=>{
+        res.send({msg:"your Registration is successfully"});
+
+    }).catch((err)=>{
+        res.send(err);
+        
+    })
+    }
+
 exports.jobSeekerProfile=(req,res)=>{
     let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
 

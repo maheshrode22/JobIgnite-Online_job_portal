@@ -50,3 +50,20 @@ exports.jobSeekerProfile=(req,res)=>{
         res.send(err);
     });
 }
+
+exports.deletejobSeeker=(req,res)=>{
+    let id=req.body.id;
+    let promise=jobseekerModel.deletejobSeeker(id);
+    promise.then((result)=>{
+        if (result.affectedRows > 0)
+        {
+            res.send({msg:"job seeker is delete sucessfully"});
+        }
+        else{
+            res.send({msg:"jobseeker not delete somthing error"});
+        }
+    });
+    promise.catch((err)=>{
+        res.send(err);
+    });
+}

@@ -43,3 +43,18 @@ exports.jobSeekerProfile=(...data)=>{
         });
     });
 }
+
+exports.deletejobSeeker=(id)=>{
+    return new Promise((resolve,reject)=>{
+        db.query("delete from job_seekers where seeker_id=?",[id],(err,result)=>{
+            if(err)
+            {
+                reject(err);
+            }
+            else
+            {
+                resolve(result);
+            }
+        });
+    });
+}

@@ -35,7 +35,7 @@ exports.hrRegisterMod = (...data) => {
     });
 }
 
-exports.viewHr = (req, res) => {
+exports.viewHr = () => {
 
     return new Promise((resolve, reject) => {
         db.query("select * from hr", (err, result) => {

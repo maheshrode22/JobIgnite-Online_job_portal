@@ -8,6 +8,9 @@ let jobsPost=require("../controller/jobsPostControler.js");
 
 //admin model
 router.post("/adminLogin",admincon.adminLogin);
+router.get("/viewAlljobSeeker",admincon.viewAllJobseeker);
+router.post("/viewJobSeekerDetailed",admincon.jobseekerDetailed);
+
 
 
 // hr model
@@ -28,6 +31,8 @@ router.post("/updateStatusHr",hrctr.updateStatusHr)
 router.post("/jobseekerLogin",jobseekCtr.jobSeekerLogin);
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister);
 router.post("/jobSeekerProfile",jobseekCtr.jobSeekerProfile);
+
+router.post("/deletejoSeeker",jobseekCtr.deletejobSeeker);
 
 
 

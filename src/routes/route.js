@@ -24,16 +24,25 @@ router.post("/updateStatusHr",hrctr.updateStatusHr)
 
 
 
-//job seeker 
-
+//job seekerrouters
+// job seeker login
 router.post("/jobseekerLogin",jobseekCtr.jobSeeker);
+//job seeker register
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister);
 
 
 
-// job post
+// job post routers 
 router.post("/createJobs",jobsPost.createJobs);
+
+// view all job post
 router.get("/viewallJobPost",jobsPost.viewallJobPost);
+
+// deleter job post
+router.post("/deletePost",jobsPost.deletePost);
+
+// search job post using title
+router.post("/searchJob",jobsPost.searchJob);
 
 
 

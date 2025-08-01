@@ -30,3 +30,35 @@ exports.viewallJobPost = (() => {
         })
     })
 })
+
+
+
+
+exports.deletePost = (id) => {
+    return new Promise((resolve, reject) => {
+        db.query("DELETE FROM jobs WHERE job_id = ?", [id], (err, result) => {
+            if (err){
+                reject(err);
+            } 
+            else{
+                resolve(result);
+            } 
+        });
+    });
+};
+
+
+
+exports.searchJob=(title)=>{
+return new Promise((resolve,reject)=>{
+    db.query("select *from jobs where title like ?",[`%${title}%`],(err,result)=>{
+        if(err){
+            reject(err);
+
+        }else{
+            resolve(result);
+
+        }
+    })
+})
+}

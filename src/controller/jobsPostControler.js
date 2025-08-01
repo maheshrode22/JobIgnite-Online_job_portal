@@ -26,3 +26,34 @@ exports.viewallJobPost=((req,res)=>{
 
     })
 })
+
+
+
+
+
+exports.deletePost=(req,res)=>{
+    let {id}=req.body;
+        let promise=jobPostModel.deletePost(id);
+        promise.then((result)=>{
+            if (result.affectedRows > 0){
+                res.send({msg:"delete suceesfull"});
+            }
+            else{
+                res.send({msg:"not delee somting error /id not found"});
+            }
+        }).catch((err)=>{
+            res.send("error"+err);
+        })
+}
+
+
+exports.searchJob=(req,res)=>{
+    let {title}=req.body;
+
+    let Promise=jobPostModel.searchJob(title)
+    .then((result)=>{
+        res.send(result);
+    }).catch(()=>{
+        res.send("something error"+err);
+    })
+}

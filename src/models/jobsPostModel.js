@@ -29,6 +29,7 @@ exports.viewallJobPost = (() => {
             }
         })
     })
+<<<<<<< HEAD
 })
 
 
@@ -62,3 +63,6 @@ return new Promise((resolve,reject)=>{
     })
 })
 }
+=======
+});
+>>>>>>> b68bf0466f8737a3e3581e984cd4c3680544d62d

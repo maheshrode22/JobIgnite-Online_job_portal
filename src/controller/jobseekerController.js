@@ -1,7 +1,7 @@
-let jobseekerModel=require("../models/jobseekerModel");
+let jobseekerModel=require("../models/jobseekerModel.js");
 
-exports.jobSeeker=(req,res)=>{
 
+exports.jobSeekerLogin=(req,res)=>{
     let {jobUser,jobPass}=req.body;
     
     let promise=jobseekerModel.jobSeekerLogin(jobUser,jobPass);
@@ -14,22 +14,56 @@ exports.jobSeeker=(req,res)=>{
         }
     });
     promise.catch((err)=>{
-            res.send(err);
-        });
+        res.send(err);
+    });
 }
-
-
 
 exports.jobSeekerRegister=(req,res)=>{
     let {name,email,password,phone,address}=req.body;
     
     
     let Promise=jobseekerModel.jobSeekerRegister(name,email,password,phone,address);
-    Promise.then((err)=>{
+    Promise.then((result)=>{
         res.send({msg:"your Registration is successfully"});
 
-    }).catch((result)=>{
+    }).catch((err)=>{
         res.send(err);
         
     })
     }
+
+exports.jobSeekerProfile=(req,res)=>{
+    let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
+
+    let promise=jobseekerModel.jobSeekerProfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks);
+
+    promise.then((result)=>{
+        if(result.affectedRows>0)
+        {
+            res.send({msg:"Profile is added"});
+        }
+        else{
+            res.send({msg:"profile is not added something error"});
+        }
+    });
+    promise.catch((err)=>{
+        res.send(err);
+    });
+}
+
+exports.deletejobSeeker=(req,res)=>{
+    let id=req.body.id;
+    let promise=jobseekerModel.deletejobSeeker(id);
+    promise.then((result)=>{
+        if (result.affectedRows > 0)
+        {
+            res.send({msg:"job seeker is delete sucessfully"});
+        }
+        else{
+            res.send({msg:"jobseeker not delete somthing error"});
+        }
+    });
+    promise.catch((err)=>{
+        res.send(err);
+    });
+}

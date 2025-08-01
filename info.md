@@ -15,6 +15,7 @@ echo "# JobIgnite-Online_job_portal" >> README.md
 git init
 git add  .
 git commit -m "first commit"
+
 git branch -M main
 git remote add origin https://github.com/maheshrode22/JobIgnite-Online_job_portal.git
 git push -u origin main

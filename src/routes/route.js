@@ -6,6 +6,8 @@ let jobseekCtr=require("../controller/jobseekerController.js");
 
 let jobsPost=require("../controller/jobsPostControler.js");
 
+
+
 //admin model
 router.post("/adminLogin",admincon.adminLogin);
 router.get("/viewAlljobSeeker",admincon.viewAllJobseeker);
@@ -26,11 +28,10 @@ router.post("/updateStatusHr",hrctr.updateStatusHr)
 
 
 
-//job seekerrouters
-// job seeker login
-router.post("/jobseekerLogin",jobseekCtr.jobSeeker);
-//job seeker register
-//job seeker 
+//job seeker routers
+
+
+
 
 router.post("/jobseekerLogin",jobseekCtr.jobSeekerLogin);
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister);

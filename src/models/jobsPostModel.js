@@ -1,11 +1,13 @@
 const { resource } = require("../app.js");
 let db = require("../config/db.js");
 
-exports.createJobs = (...data) => {
+exports.createJobs = (hr_id, title, company, opening, experience_required, location,
+    package, skills_required, description, deadline) => {
     return new Promise((resolve, reject) => {
         db.query(
             "insert into jobs (hr_id, title, company, opening, experience_required, location, package, skills_required, description, deadline) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            [...data],
+            [hr_id, title, company, opening, experience_required, location,
+                package, skills_required, description, deadline],
             (err, result) => {
                 if (err) {
                     reject(err);
@@ -29,8 +31,8 @@ exports.viewallJobPost = (() => {
             }
         })
     })
-<<<<<<< HEAD
-})
+
+});
 
 
 
@@ -50,7 +52,7 @@ exports.deletePost = (id) => {
 
 
 
-exports.searchJob=(title)=>{
+exports.searchJob=((title)=>{
 return new Promise((resolve,reject)=>{
     db.query("select *from jobs where title like ?",[`%${title}%`],(err,result)=>{
         if(err){
@@ -62,7 +64,4 @@ return new Promise((resolve,reject)=>{
         }
     })
 })
-}
-=======
 });
->>>>>>> b68bf0466f8737a3e3581e984cd4c3680544d62d

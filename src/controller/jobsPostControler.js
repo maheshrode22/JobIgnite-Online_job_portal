@@ -25,7 +25,8 @@ exports.viewallJobPost=((req,res)=>{
         res.send(err);
 
     })
-})
+});
+
 
 
 
@@ -57,4 +58,4 @@ exports.searchJob=(req,res)=>{
     }).catch((err)=>{
         res.send("something error"+err);
     })
-}
+};

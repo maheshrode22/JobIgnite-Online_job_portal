@@ -1,5 +1,5 @@
 let db = require("../config/db.js");
-
+// hr Login
 exports.hrLoginMod = (hrUser, hrPass) => {
 
     return new Promise((resolve, reject) => {
@@ -20,7 +20,7 @@ exports.hrLoginMod = (hrUser, hrPass) => {
         });
     });
 }
-
+// register Hr 
 exports.hrRegisterMod = (...data) => {
 
     return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ exports.hrRegisterMod = (...data) => {
         });
     });
 }
-
+// view alll hr list
 exports.viewHr = () => {
 
     return new Promise((resolve, reject) => {
@@ -48,6 +48,8 @@ exports.viewHr = () => {
         });
     });
 }
+
+// update hr details
 exports.updateHr = (hr_name, company_name, password, phone, hr_id) => {
     return new Promise((resolve, reject) => {
         db.query(
@@ -60,7 +62,7 @@ exports.updateHr = (hr_name, company_name, password, phone, hr_id) => {
         );
     });
 };
-
+// delete hr account 
 exports.deleteHr = (id) => {
     return new Promise((resolve, reject) => {
         db.query("delete from hr where hr_id=?", [id], (err, result) => {
@@ -74,6 +76,7 @@ exports.deleteHr = (id) => {
     })
 }
 
+// update hr status 
 exports.updateStatusHr = (id, status) => {
     return new Promise((resolve, reject) => {
         db.query("update hr set status=? where hr_id=?", [status, id], (err, result) => {
@@ -85,4 +88,4 @@ exports.updateStatusHr = (id, status) => {
             }
         })
     })
-}
+};

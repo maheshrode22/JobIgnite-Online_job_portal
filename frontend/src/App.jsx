@@ -1,0 +1,76 @@
+// import React, { useState, useEffect } from "react";
+// import { BrowserRouter as Router,Routes,Route,useLocation} from "react-router-dom";
+// import Navbar from './component/Navbar';
+
+// import Home from "./component/pages/home";
+// import About from "./component/pages/About";
+// import Services from "./component/pages/Service";
+// import Contact from "./component/pages/Contact";
+// import Footer from "./component/footer";
+
+
+// function App() {
+
+
+  
+
+//   return (
+//     <Router>
+//       <Navbar />
+      
+//       <Routes>
+//           <Route path="/" element={<Home />} />
+//           <Route path="/About" element={<About/>}/>
+//           <Route path="/services" element={<Services/>}/>
+//           <Route path="/contact" element={<Contact/>}/>
+//         </Routes>
+//         <Footer/>
+//     </Router>
+
+//   );
+// }
+
+// export default App;
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import Navbar from './component/Navbar';
+import Home from "./component/pages/home";
+import About from "./component/pages/About";
+import Services from "./component/pages/Service";
+import Contact from "./component/pages/Contact";
+import Footer from "./component/footer";
+import LogoLoader from "./component/LogoLoader"; // new loader component
+
+// Separate component to handle loader on route change
+function AppContent() {
+  const location = useLocation();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const timeout = setTimeout(() => setLoading(false), 150); // loader time
+    return () => clearTimeout(timeout);
+  }, [location]);
+
+  return (
+    <>
+      {loading && <LogoLoader />}
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer />
+    </>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}

@@ -1,0 +1,21 @@
+.nav-link {
+    position: relative;
+    padding-bottom: 5px; /* gap between text & line */
+  }
+  
+  .nav-link:hover,
+  .nav-link.active {
+    border-bottom: 2px solid #007bff; /* blue line */
+    color: #007bff !important; /* blue text on hover */
+   font-weight: bold;
+  }
+  
+  .navbar {
+    position: fixed;       /* fixes navbar position */
+    top: 0;                /* sticks it to the top */
+    left: 0;               /* aligns to left */
+    width: 100%;           /* full width */
+    z-index: 1000;         /* keeps it above other elements */
+
+  }
+  

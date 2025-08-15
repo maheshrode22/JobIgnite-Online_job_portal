@@ -1,5 +1,5 @@
 let db=require("../config/db.js");
-
+// admin Login
 exports.adminLogin = (adusername,adpassword) => {
    
     return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ exports.adminLogin = (adusername,adpassword) => {
     });
 }
 
-
+// view all job Seeker
 exports.viewAllJobseeker=()=>{
     return new Promise((resolve,reject)=>{
         db.query("select * from job_seekers",(err,result)=>{
@@ -33,9 +33,10 @@ exports.viewAllJobseeker=()=>{
             }
         });
     });
-}
+};
 
 
+// view specific job seeker details 
 exports.jobseekerDetailed=(id)=>{
 
     return new Promise((resolve,reject)=>{
@@ -50,4 +51,4 @@ exports.jobseekerDetailed=(id)=>{
             }
         });
     });
-}
+};

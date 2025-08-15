@@ -1,0 +1,27 @@
+footer {
+    background-color: #0d1b2a; /* dark navy */
+  }
+  
+  footer h5 {
+    letter-spacing: 1px;
+  }
+  
+  footer a:hover {
+    color: #fff !important;
+  }
+  
+  .blur-edges {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .blur-edges::after {
+    content: "";
+    position: absolute;
+    top: 10px; left: 20px; right: 30px; bottom: 40px;
+    background: inherit; /* uses the image's background */
+    filter: blur(1px);
+    margin: -20px; /* pushes the blur outside */
+    z-index: -1; /* keeps it behind the image */
+  }
+  

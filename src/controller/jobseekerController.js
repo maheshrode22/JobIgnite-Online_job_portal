@@ -30,7 +30,8 @@ exports.jobSeekerRegister=(req,res)=>{
         res.send(err);
         
     })
-    }
+    };
+
 
 exports.jobSeekerProfile=(req,res)=>{
     let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
@@ -49,7 +50,8 @@ exports.jobSeekerProfile=(req,res)=>{
     promise.catch((err)=>{
         res.send(err);
     });
-}
+};
+
 
 exports.deletejobSeeker=(req,res)=>{
     let id=req.body.id;
@@ -67,3 +69,20 @@ exports.deletejobSeeker=(req,res)=>{
         res.send(err);
     });
 }
+
+exports.updateJobSeekerPrfile=(req,res)=>{
+    let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
+    
+   let Promise= jobseekerModel.updateJobSeekerPrfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)
+   .then((result)=>{
+        if(result.affectedRows>0)
+        {
+            res.send({msg:"Profile is update"});
+        }
+        else{
+            res.send({msg:"profile is not added something error"});
+        }
+    }).catch((err)=>{
+        res.send(err);
+    });
+};

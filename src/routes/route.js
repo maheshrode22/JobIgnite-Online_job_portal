@@ -15,10 +15,7 @@ router.post("/viewJobSeekerDetailed",admincon.jobseekerDetailed);
 
 // hr model
 router.post("/hrlogin",hrctr.hrLogin);
-
-
 router.post("/hrregister",hrctr.hrRegister);
-
 router.get("/viewAllHr",hrctr.AllHr);
 router.put("/updateHr",hrctr.updateHr);
 router.post("/deleteHr",hrctr.delHr);

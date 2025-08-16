@@ -30,16 +30,18 @@
 //   );
 // }
 
+
 // export default App;
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from './component/Navbar';
 import Home from "./component/pages/home";
-import About from "./component/pages/About";
+import About from "./component/pages/Reviews";
 import Services from "./component/pages/Service";
 import Contact from "./component/pages/Contact";
 import Footer from "./component/footer";
 import LogoLoader from "./component/LogoLoader"; // new loader component
+import ScrollToTop from "./component/scrollto";
 
 // Separate component to handle loader on route change
 function AppContent() {
@@ -71,6 +73,7 @@ export default function App() {
   return (
     <Router>
       <AppContent />
+      <ScrollToTop />
     </Router>
   );
 }

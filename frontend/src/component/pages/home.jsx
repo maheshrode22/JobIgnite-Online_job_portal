@@ -1,12 +1,27 @@
 import React from "react";
 import HeroSection from "../HeroSection";
 import Slide from "../slide";
+import Reviews from "./Reviews";
+import Contact from "./Contact";
+import Services from "./Service";
 
 function Home() {
   return (
     <div>
-     <Slide/>
-    <HeroSection/>
+      <Slide/>
+      <HeroSection/>
+      <div id="Reviews-section">
+            <Reviews />
+      </div>
+
+      <div id="services-section">
+            <Services />
+      </div>
+
+      <div id="contact-section">
+          <Contact />
+      </div>
+
     </div>
   );
 }

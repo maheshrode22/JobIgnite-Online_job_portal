@@ -52,6 +52,5 @@ router.post("/trackApplication",appCtr.trackApplication); // track job aplicatio
 router.post("/viewAllApplicationByHR",appCtr.viewAllApplicationByHR);  // view all applied 
 
 
-
 module.exports=router;
 

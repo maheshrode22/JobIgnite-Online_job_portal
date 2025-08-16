@@ -1,6 +1,6 @@
 let adminModel = require("../models/adminmodel.js");
 
-exports.adminLogin = ((req, res) => {
+exports.adminLogin = (req, res) => {
     let { adusername, adpassword } = req.body;
 
     let Promise = adminModel.adminLogin(adusername, adpassword);
@@ -15,4 +15,31 @@ exports.adminLogin = ((req, res) => {
     }).catch((err)=>{
        res.send(err);
         });
-});
+}
+
+
+exports.viewAllJobseeker=(req,res)=>{
+        
+    let promise =adminModel.viewAllJobseeker();
+    promise.then((result)=>{
+        res.send(result);
+    });
+    promise.catch((err)=>{
+        res.send(err);
+    });
+
+}
+
+
+exports.jobseekerDetailed=(req,res)=>{
+
+        let id=req.body.id;
+        let promise=adminModel.jobseekerDetailed(id);
+        
+        promise.then((result)=>{
+            res.send(result);
+        });
+        promise.catch((err)=>{
+            res.send(err);
+        });
+}

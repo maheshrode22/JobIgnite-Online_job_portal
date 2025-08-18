@@ -1,0 +1,42 @@
+/* Sidebar Styling */
+.sidebar {
+  width: 240px;
+  background: #1e293b; /* Dark blue/gray */
+  color: white;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #fbbf24; /* Yellow accent */
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.sidebar-menu li {
+  margin: 15px 0;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar-menu li:hover {
+  background: #334155;
+  color: #facc15; /* Yellow on hover */
+}

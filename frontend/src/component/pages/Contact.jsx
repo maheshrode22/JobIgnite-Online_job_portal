@@ -21,14 +21,20 @@ export default function Contact() {
     e.preventDefault();
     console.log("Form Submitted:", formData);
     setSubmitted(true);
-    setFormData({ name: "", email: "", message: "" }); // reset form
+    setFormData({ name: "", email: "", message: "" });
+    setTimeout(() => setSubmitted(false), 3000);
   };
 
   return (
     <div className="contact-container">
+      
+      <h2 className="contact-heading">Contact Us</h2>
+
       <div className="contact-card">
-        <h2>Contact Us</h2>
-        {submitted && <p style={{ color: "green", textAlign: "center" }}>✅ Thanks for contacting us!</p>}
+        {submitted && (
+          <p className="success-message">✅ Thanks for contacting us!</p>
+        )}
+
         <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"

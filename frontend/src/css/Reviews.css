@@ -1,13 +1,18 @@
 .Reviews-section {
+<<<<<<< HEAD
   background-color: #eef6f9;
+=======
+  background-color: rgb(33, 37, 41); /* different from services */
+>>>>>>> job_portal
   text-align: center;
+  color:#fff;
   padding: 60px 20px;
 }
 
 .Reviews-section h2 {
   font-size: 2rem;
   margin-bottom: 40px;
-  color: #222;
+  color: white;
 }
 
 .Reviews-container {
@@ -35,8 +40,12 @@
 
 .review-box h3 {
   font-size: 1.4rem;
+<<<<<<< HEAD
   color: rgb(59, 59, 199);
   text-shadow: 0 0 1px black;
+=======
+  color:#fc7a00;
+>>>>>>> job_portal
   margin-top: 10px;
 }
 

@@ -1,63 +1,70 @@
 import React from "react";
 import "../css/footer.css";
-import logo1 from "../assets/img/logo2.jpg"
+import logo1 from "../assets/img/logo2.jpg";
 import { Link } from "react-router-dom";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+
 function Footer() {
   return (
-    <footer className="bg-dark text-light py-5">
-      <div className="container">
-        <div className="row">
+    <footer className="footer">
+      <div className="footer-container">
 
-          {/* About Us */}
-          <div className="col-md-4 mb-4 mb-md-0">
-            <Link className="fw-bold d-flex align-item-center" to="/">
-            <img 
-            src={logo1}
-            className="me-2 img-fluid blur-edges"
-            style={{width:"120px", height:"50px"}}
-            >
-            </img>
-            </Link>
-            <p className="small text-white mt-3">
-            connect with us
-            </p>
-
+        {/* About Us / Logo */}
+        <div className="footer-column">
+          <Link className="footer-logo" to="/">
+            <img
+              src={logo1}
+              alt="JobIgnite Logo"
+              className="logo-img"
+            />
+          </Link>
+          <p className="footer-text">
+            JobIgnite is your trusted platform for job search, recruitment services, career guidance, and skill development.
+          </p>
+          <div className="social-links">
+            <a href="https://facebook.com" target="_blank" rel="noreferrer"><FaFacebookF /></a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer"><FaTwitter /></a>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer"><FaInstagram /></a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer"><FaLinkedinIn /></a>
           </div>
-
-          {/* Contact Info */}
-          <div className="col-md-4 mb-4 mb-md-0">
-            <h5 className="fw-bold">CONTACT INFO</h5>
-            <p className="small text-secondary mt-3 mb-1">
-              <strong>Address:</strong> Sr No 129/3, DANGAT PARK, Opposite CNG pump, Warje Malwadi,
-               Pune 411058, Opposite CNG pump, 
-              Pune,Maharashtra - 411058
-            </p>
-            <p className="small text-secondary mb-1">
-              <strong>Phone:</strong> +918459525501
-            </p>
-            <p className="small text-secondary">
-              <strong>Email:</strong> JobIgnite@gmail.com
-            </p>
-          </div>
-
-          {/* Important Links */}
-          <div className="col-md-4">
-            <h5 className="fw-bold">IMPORTANT LINKS</h5>
-            <ul className="list-unstyled mt-3">
-              <li><a href="/" className="text-secondary text-decoration-none">Home</a></li>
-              <li><a href="/jobs" className="text-secondary text-decoration-none">Find a Job</a></li>
-              <li><a href="/about" className="text-secondary text-decoration-none">About Us</a></li>
-              <li><a href="/contact" className="text-secondary text-decoration-none">Contact Us</a></li>
-              <li><a href="/login" className="text-secondary text-decoration-none">Login</a></li>
-            </ul>
-          </div>
-
         </div>
-   
+
+        {/* About Us */}
+        <div className="footer-column">
+          <h5 className="footer-title">About Us</h5>
+          <p className="footer-info">
+            JobIgnite helps job seekers find the right opportunities and provides employers with recruitment solutions. We also provide career guidance and skill development courses to enhance employability.
+          </p>
+        </div>
+
+        {/* Contact Info */}
+        <div className="footer-column">
+          <h5 className="footer-title">Contact Info</h5>
+          <p className="footer-info"><strong>Address:</strong> Sr No 129/3, Dangat Park, Opposite CNG Pump, Warje Malwadi, Pune 411058</p>
+          <p className="footer-info"><strong>Phone:</strong> +91 8459525501</p>
+          <p className="footer-info"><strong>Email:</strong> JobIgnite@gmail.com</p>
+        </div>
+
+        {/* Important Links */}
+        <div className="footer-column">
+          <h5 className="footer-title">Important Links</h5>
+          <ul className="footer-links">
+            <li><Link to="/" className="link">Home</Link></li>
+            <li><Link to="/jobs" className="link">Find a Job</Link></li>
+            <li><Link to="/about" className="link">About Us</Link></li>
+            <li><Link to="/contact" className="link">Contact Us</Link></li>
+            <li><Link to="/login" className="link">Login</Link></li>
+          </ul>
+        </div>
+
       </div>
-      <hr></hr>
-<p className="text-center">All trademarks are the property of their respective owners
-All rights reserved © 2025 JobIgnite (India) Ltd.</p>
+
+      <hr className="footer-hr" />
+
+      <p className="footer-bottom">
+        All trademarks are the property of their respective owners. <br />
+        All rights reserved © 2025 JobIgnite (India) Ltd.
+      </p>
     </footer>
   );
 }

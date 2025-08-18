@@ -1,27 +1,113 @@
-footer {
-    background-color: #0d1b2a; /* dark navy */
+.footer {
+  background-color: #222; /* dark theme */
+  color: #fff;
+  padding: 30px 20px 15px; /* slightly smaller */
+  font-family: Arial, sans-serif;
+  font-size: 14px; /* slightly smaller text */
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-logo .logo-img {
+  width: 100px;
+  height: 45px;
+  object-fit: contain;
+}
+
+.footer-text {
+  margin-top: 10px;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.footer-title {
+  font-weight: bold;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.footer-info {
+  font-size: 13px;
+  color: #ccc;
+  margin-bottom: 6px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 6px;
+}
+
+.footer-links .link {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links .link:hover {
+  color: #f8db37;
+}
+
+.social-links {
+  margin-top: 10px;
+}
+
+.social-links a {
+  color: #aaa;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #f8db37;
+}
+
+.footer-hr {
+  border-color: #444;
+  margin: 15px 0;
+}
+
+.footer-bottom {
+  text-align: center;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
-  
-  footer h5 {
-    letter-spacing: 1px;
+
+  .footer-column {
+    min-width: auto;
   }
-  
-  footer a:hover {
-    color: #fff !important;
+
+  .footer-links li {
+    margin-bottom: 4px;
   }
-  
-  .blur-edges {
-    position: relative;
-    display: inline-block;
+
+  .social-links a {
+    margin-right: 8px;
   }
-  
-  .blur-edges::after {
-    content: "";
-    position: absolute;
-    top: 10px; left: 20px; right: 30px; bottom: 40px;
-    background: inherit; /* uses the image's background */
-    filter: blur(1px);
-    margin: -20px; /* pushes the blur outside */
-    z-index: -1; /* keeps it behind the image */
-  }
-  
+}

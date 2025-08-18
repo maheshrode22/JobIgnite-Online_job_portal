@@ -1,7 +1,9 @@
-// import React, { useState, useEffect } from "react";
-// import { BrowserRouter as Router,Routes,Route,useLocation} from "react-router-dom";
-// import Navbar from './component/Navbar';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomeRoutes from "./routes/homeRoutes";
+import HrRoutes from "./routes/HrRoutes";
 
+<<<<<<< HEAD
 // import Home from "./component/pages/home";
 // import About from "./component/pages/About";
 // import Services from "./component/pages/Service";
@@ -72,10 +74,17 @@ function AppContent() {
 }
 
 export default function App() {
+=======
+function App() {
+>>>>>>> job_portal
   return (
     <Router>
-      <AppContent />
-      <ScrollToTop />
+      <Routes>
+        <Route path="/*" element={<HomeRoutes />} />
+         <Route path="/hr/*" element={<HrRoutes />} />
+      </Routes>
     </Router>
   );
 }
+
+export default App;

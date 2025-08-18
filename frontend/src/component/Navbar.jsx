@@ -94,15 +94,6 @@ export default function Navbar() {
             </ul>
           )}
 
-<<<<<<< HEAD
-          {/* Login */}
-          <button
-      className="btn btn-primary ms-lg-3"
-      onClick={() => navigate("/AdminLogin")}
-    >
-      Login
-    </button>
-=======
           {/* Login / Logout Button on Right */}
           <div className="ms-auto">
             <button
@@ -112,7 +103,6 @@ export default function Navbar() {
               {isLoggedIn ? "Logout" : "Login"}
             </button>
           </div>
->>>>>>> job_portal
         </div>
 
       </div>

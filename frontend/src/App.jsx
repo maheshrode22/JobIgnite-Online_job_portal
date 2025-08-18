@@ -2,8 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeRoutes from "./routes/homeRoutes";
 import HrRoutes from "./routes/HrRoutes";
-
-<<<<<<< HEAD
 // import Home from "./component/pages/home";
 // import About from "./component/pages/About";
 // import Services from "./component/pages/Service";
@@ -74,9 +72,6 @@ function AppContent() {
 }
 
 export default function App() {
-=======
-function App() {
->>>>>>> job_portal
   return (
     <Router>
       <Routes>

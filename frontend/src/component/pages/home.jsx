@@ -1,5 +1,4 @@
 import React from "react";
-
 import Slide from "../slide";
 import Reviews from "./Reviews";
 import Contact from "./Contact";
@@ -9,7 +8,6 @@ function Home() {
   return (
     <div>
       <Slide/>
-
       <div id="Reviews-section">
             <Reviews />
       </div>

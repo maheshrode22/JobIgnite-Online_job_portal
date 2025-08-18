@@ -1,38 +1,63 @@
-.Services-section{
+.Services-section {
     text-align: center;
-    padding:30px 20px;
+    padding: 30px 20px;
     background-color: #f0f8ff;
 }
-.Services-section h2{
-        margin:20px;
-        font-size:2rem;
+
+.Services-section h2 {
+    margin: 20px;
+    font-size: 2rem;
 }
-.Services-container{
+
+.Services-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 }
-.service-box{
+
+.service-box {
     background-color: white;
-    max-width: 250px;
-    box-shadow: 0 0 10px black;
-    padding:20px;
+    box-shadow: 0 0 10px rgb(159, 154, 154);
+    flex: 1 1 20%;   /* 5 cards per row max */
+    max-width: 20%;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    box-sizing: border-box;
 }
+
 .service-box h3 {
-    font-size: 1.2 rem;
+    font-size: 1.2rem;
     margin-bottom: 10px;
 }
-.service-box p{
-    font-size:1 rem;  
+
+.service-box p {
+    font-size: 1rem;
 }
 
 .service-box:hover {
     transform: translateY(-3px);
     box-shadow: 0 0 20px black;
-    background-color:rgb(208, 250, 252);
+    background-color: rgb(208, 250, 252);
     cursor: pointer;
+}
+
+/* Responsive Breakpoints */
+
+/* Tablets - 2 cards per row */
+@media (max-width: 1024px) {
+    .service-box {
+        flex: 1 1 45%;
+        max-width: 45%;
+    }
+}
+
+/* Mobile - 1 card per row */
+@media (max-width: 768px) {
+    .service-box {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
 }

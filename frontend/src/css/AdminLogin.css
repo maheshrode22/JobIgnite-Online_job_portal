@@ -1,0 +1,24 @@
+/* Full page background */
+.login-container {
+    height: 100vh;
+    /* background: linear-gradient(135deg, #bfc2c5, #cfde95); */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  /* Card Styling */
+  .login-card {
+    border-radius: 15px;
+    background: #fff;
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 576px) {
+    .login-card {
+      padding: 1.5rem;
+    }
+    h3 {
+      font-size: 1.3rem;
+    }
+  }
+  

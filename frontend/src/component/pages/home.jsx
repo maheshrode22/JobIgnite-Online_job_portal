@@ -1,5 +1,5 @@
 import React from "react";
-import HeroSection from "../HeroSection";
+
 import Slide from "../slide";
 import Reviews from "./Reviews";
 import Contact from "./Contact";
@@ -9,7 +9,7 @@ function Home() {
   return (
     <div>
       <Slide/>
-      <HeroSection/>
+
       <div id="Reviews-section">
             <Reviews />
       </div>

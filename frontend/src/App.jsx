@@ -42,6 +42,7 @@ import Contact from "./component/pages/Contact";
 import Footer from "./component/footer";
 import LogoLoader from "./component/LogoLoader"; // new loader component
 import ScrollToTop from "./component/scrollto";
+import AdminLogin from "./component/AdminLogin";
 
 // Separate component to handle loader on route change
 function AppContent() {
@@ -63,6 +64,7 @@ function AppContent() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/AdminLogin" element={<AdminLogin />} /> {/* 👈 route */}
       </Routes>
       <Footer />
     </>

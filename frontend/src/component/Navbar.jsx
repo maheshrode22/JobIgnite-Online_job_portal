@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import React from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation} from "react-router-dom";
 import "../css/navbar.css";
 import logo1 from "../assets/img/logo1.jpg";
 
@@ -91,11 +91,11 @@ export default function Navbar() {
 
           {/* Login */}
           <button
-            className="btn btn-primary ms-lg-3"
-            onClick={() => navigate("/LoginForm")}
-          >
-            Login
-          </button>
+      className="btn btn-primary ms-lg-3"
+      onClick={() => navigate("/AdminLogin")}
+    >
+      Login
+    </button>
         </div>
       </div>
     </nav>

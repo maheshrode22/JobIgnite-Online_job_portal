@@ -22,8 +22,9 @@
 .service-box {
     background-color: white;
     box-shadow: 0 0 10px black;
-    flex: 1 1 20%;   /* 5 cards per row max */
-    max-width: 250px;
+    flex: 1 1 22%;   
+    max-width: 22%;
+    min-width: 220px;
     padding: 20px;
     color: black;
     display: flex;
@@ -48,9 +49,6 @@
     cursor: pointer;
 }
 
-/* Responsive Breakpoints */
-
-/* Tablets - 2 cards per row */
 @media (max-width: 1024px) {
     .service-box {
         flex: 1 1 45%;
@@ -58,7 +56,6 @@
     }
 }
 
-/* Mobile - 1 card per row */
 @media (max-width: 768px) {
     .service-box {
         flex: 1 1 100%;

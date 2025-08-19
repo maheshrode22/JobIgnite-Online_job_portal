@@ -1,0 +1,147 @@
+/* ================================
+   Dashboard (scoped) – error-free & responsive
+   This file styles: welcome-banner, metrics-cards, card, recent-activity
+   used inside <div class="dashboard-content">...</div>
+==================================*/
+
+/* Base padding for the content area (already exists in your layout) */
+.dashboard-content {
+  padding: 24px;
+  --card-radius: 12px;
+  --gap: 20px;
+  --shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* -------- Welcome Banner -------- */
+.dashboard-content .welcome-banner {
+  background-color: #f8db37; /* HR yellow per your theme */
+  color: #111827;
+  padding: 24px;
+  border-radius: var(--card-radius);
+  margin: 0 0 20px 0;       /* avoid side overflow on small screens */
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.dashboard-content .welcome-banner h2 {
+  font-size: 1.8rem;
+  margin: 0 0 6px 0;
+}
+
+.dashboard-content .welcome-banner p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* -------- Metrics Cards Grid -------- */
+/* Use fixed breakpoints (4→3→2→1) for rock-solid responsiveness */
+.dashboard-content .metrics-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--gap);
+  margin: 20px 0 28px 0;
+}
+
+/* 3 columns: large tablets/smaller laptops */
+@media (max-width: 1200px) {
+  .dashboard-content .metrics-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* 2 columns: tablets */
+@media (max-width: 900px) {
+  .dashboard-content .metrics-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 1 column: phones */
+@media (max-width: 560px) {
+  .dashboard-content .metrics-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------- Card -------- */
+.dashboard-content .card {
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  padding: 18px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-content .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+}
+
+.dashboard-content .card .card-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.dashboard-content .card h3 {
+  font-size: 1.6rem;
+  margin: 0 0 6px 0;
+  color: #111827;
+}
+
+.dashboard-content .card p {
+  margin: 0;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+/* -------- Recent Activity -------- */
+.dashboard-content .recent-activity {
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+
+.dashboard-content .recent-activity h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+.dashboard-content .recent-activity ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-content .recent-activity li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 0.97rem;
+  color: #374151;
+}
+
+.dashboard-content .recent-activity li:last-child {
+  border-bottom: none;
+}
+
+/* -------- Safe spacing on very small screens -------- */
+@media (max-width: 560px) {
+  .dashboard-content {
+    padding: 16px;
+  }
+
+  .dashboard-content .welcome-banner {
+    padding: 18px;
+  }
+
+  .dashboard-content .card {
+    padding: 16px;
+  }
+
+  .dashboard-content .recent-activity {
+    padding: 16px;
+  }
+}

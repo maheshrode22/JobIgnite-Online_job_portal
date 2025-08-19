@@ -60,5 +60,62 @@
     .service-box {
         flex: 1 1 100%;
         max-width: 100%;
+    padding: 50px 20px;
+    background-color: rgb(33, 37, 41); 
+  }
+  
+  .Services-section h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: white;
+  }
+  
+  .Services-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 per row */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .service-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-box h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #222;
+  }
+  
+  .service-box p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  /* Hover effect */
+  .service-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .Services-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
     }
+  }
+  
+  @media (max-width: 600px) {
+    .Services-container {
+      grid-template-columns: 1fr; 
+    }
+  }
+
+
 }
+  

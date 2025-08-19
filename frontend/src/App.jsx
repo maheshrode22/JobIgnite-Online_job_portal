@@ -15,6 +15,7 @@ import AdminLogin from "./component/AdminLogin";
 // Route groups
 import HomeRoutes from "./routes/homeRoutes";
 import HrRoutes from "./routes/HrRoutes";
+import HRAuth from "./component/hr/HRAuth";
 
 // Loader wrapper for pages
 function AppContent() {
@@ -37,6 +38,7 @@ function AppContent() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/AdminLogin" element={<AdminLogin />} />
+        <Route path="/HRAuth" element={<HRAuth/>}/>
       </Routes>
       <Footer />
     </>

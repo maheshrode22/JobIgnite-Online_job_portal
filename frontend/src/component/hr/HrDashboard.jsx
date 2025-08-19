@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "../hr/sidebar"; // your existing sidebar
-import Navbar from "../Navbar";       // your existing navbar
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import Sidebar from "../hr/sidebar";
+import DashboardHome from "../hr/dashboard";
+import HrNavbar from "./hrNavbar";
 import "../../css/Hr/HrDashboard.css";
 
 export default function HrDashboard() {
+  const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
 
-  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
@@ -19,9 +20,29 @@ export default function HrDashboard() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
+  const toggleSidebar = () => setSidebarOpen((prev) => !prev);
 
-  return <>
-  <h1>hello</h1>
-    </>
+  const isDashboardRoute =
+    location.pathname === "/hr/dashboard" || location.pathname === "/hr";
+
+  return (
+    <div className="hr-dashboard">
+      <Sidebar
+        isOpen={sidebarOpen}
+        toggleSidebar={toggleSidebar}
+        isMobile={isMobile}
+      />
+
+      <div className="main-content">
+        <HrNavbar toggleSidebar={toggleSidebar} />
+        <div className="dashboard-content">
+          {isDashboardRoute ? <DashboardHome /> : <Outlet />}
+        </div>
+      </div>
+
+      {isMobile && sidebarOpen && (
+        <div className="sidebar-overlay" onClick={toggleSidebar} />
+      )}
+    </div>
+  );
 }

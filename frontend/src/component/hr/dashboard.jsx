@@ -1,6 +1,5 @@
-// src/component/hr/DashboardHome.jsx
 import React from "react";
-import "../../css/Hr/dashboard.css";   // styles for cards etc.
+import "../../css/Hr/dashboard.css";
 
 export default function DashboardHome() {
   const metrics = [
@@ -19,7 +18,7 @@ export default function DashboardHome() {
   ];
 
   return (
-    <>
+    <div className="dashboard-content">
       <div className="welcome-banner">
         <h2>Welcome, HR Name!</h2>
         <p>Manage your jobs, candidates, and interviews efficiently.</p>
@@ -43,6 +42,6 @@ export default function DashboardHome() {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 }

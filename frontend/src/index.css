@@ -1,0 +1,14 @@
+/* *{
+    background-color: rgb(33, 37, 41); 
+  } */
+/* index.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+  
+    /* Screenshot प्रमाणे background */
+    background-color: rgb(33, 37, 41); 
+    color: #fff;
+  }
+  

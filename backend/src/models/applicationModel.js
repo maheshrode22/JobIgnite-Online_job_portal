@@ -14,7 +14,6 @@ exports.jobSeekerApply = (seeker_id, job_id) => {
 };
 
 
-
 exports.trackApplication = (jobseeker_id) => {
     return new Promise((resolve, reject) => {
         db.query(

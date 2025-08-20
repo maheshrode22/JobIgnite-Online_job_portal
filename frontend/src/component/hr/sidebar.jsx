@@ -51,7 +51,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
                 className={location.pathname === "/hr/add-job" ? "active" : ""}
               >
                 <Link
-                  to="/hr/add-job"
+                  to="/hr/addJobs"
                   onClick={isMobile ? toggleSidebar : undefined}
                 >
                   ➕ Add Job
@@ -86,8 +86,8 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
           </Link>
         </li>
 
-        <li className={location.pathname === "/hr/profile" ? "active" : ""}>
-          <Link to="/hr/profile" onClick={isMobile ? toggleSidebar : undefined}>
+        <li className={location.pathname === "/hr/hrprofile" ? "active" : ""}>
+          <Link to="/hr/hrprofile" onClick={isMobile ? toggleSidebar : undefined}>
             👤 Profile
           </Link>
         </li>

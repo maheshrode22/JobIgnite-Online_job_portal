@@ -7,6 +7,7 @@
 .Services-section h2 {
     margin: 20px;
     font-size: 2rem;
+    font-weight: 600;
     padding: 30px 20px;
     background-color: rgb(33, 37, 41);
     color: #fff;
@@ -43,9 +44,8 @@
 }
 
 .service-box:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 20px black;
-    background-color: rgb(248, 232, 186);
+    transform: translateY(-5px);
+    background-color: rgb(255, 255, 255);
     cursor: pointer;
 }
 

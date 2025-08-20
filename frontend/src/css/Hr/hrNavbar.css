@@ -1,4 +1,4 @@
-.navbar {
+.hrnavbar {
   height: 60px;
   background: #222;
   border-bottom: 1px solid #eaeaea;
@@ -9,23 +9,23 @@
   position: sticky;
   top: 0;
   z-index: 8;
-  max-width:100%;
+  max-width: 100%;
 }
 
-.navbar-title {
+.hrnavbar-title {
   font-weight: 700;
   color: white;
   font-size: 18px;
 }
 
 /* Actions (right side) */
-.navbar-actions {
+.hrnavbar-actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.nav-btn {
+.hrnav-btn {
   background: transparent;
   border: none;
   font-size: 18px;
@@ -34,7 +34,7 @@
 }
 
 /* Hamburger hidden on desktop */
-.hamburger {
+.hrhamburger {
   font-size: 24px;
   background: transparent;
   border: none;
@@ -45,27 +45,26 @@
 
 /* --- Mobile View --- */
 @media (max-width: 768px) {
-  .hamburger {
+  .hrhamburger {
     display: block; /* show hamburger */
-    position:absolute;
-    left:16px;
+    position: absolute;
+    left: 16px;
   }
 
-  .navbar {
+  .hrnavbar {
     position: relative;
-    justify-content:center; /* left - center - right */
+    justify-content: center; /* left - center - right */
   }
 
-  .navbar-title {
+  .hrnavbar-title {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
   }
-  
-  .navbar-actions {
+
+  .hrnavbar-actions {
     position: absolute;
     right: 16px;
-}
-
+  }
 }

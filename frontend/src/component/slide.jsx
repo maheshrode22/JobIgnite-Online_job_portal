@@ -22,7 +22,7 @@ function Slide() {
             <p className="lead mt-3">
               Join the best startups and make an impact on the future.
             </p>
-            <a href="#jobs" className="btn btn-primary btn-lg mt-3">
+            <a href="#jobs" className="btn btn-primary text-dark btn-lg mt-3">
               Browse Jobs
             </a>
           </div>

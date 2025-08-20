@@ -1,29 +1,31 @@
 import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
+import { useNavigate } from "react-router-dom";
+import HRRegister from "./HRRegister";
 
-import { Navigate,useNavigate } from "react-router-dom";
 export default function HRAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload
-    // You can also do your login validation here
-    navigate("/hr"); // Navigate to home page
-  };
   const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // here you can add API call for login before navigation
+    navigate("/hr");
+  };
 
   return (
     <div className="hrauth-container">
       <div className="hrauth-box">
+        {/* Heading */}
         <h2>
           {activeForm === "login" && "HR Login"}
           {activeForm === "register" && "HR Registration"}
           {activeForm === "forgot" && "Reset Password"}
         </h2>
 
-        {/* ✅ Login Form */}
+        {/* Login Form */}
         {activeForm === "login" && (
-            //
-          <form onSubmit={handleSubmit} >
+          <form onSubmit={handleLogin}>
             <div className="input-group">
               <label>Email</label>
               <input type="email" placeholder="Enter email" required />
@@ -34,13 +36,13 @@ export default function HRAuth() {
               <input type="password" placeholder="Enter password" required />
             </div>
 
-            <button type="submit" className="auth-btn" >Login</button>
+            <button type="submit" className="auth-btn">Login</button>
 
             <div className="extra-links">
               <p>
                 New HR?{" "}
                 <span onClick={() => setActiveForm("register")}>
-                  Register here 
+                  Register here
                 </span>
               </p>
               <p>
@@ -52,43 +54,14 @@ export default function HRAuth() {
           </form>
         )}
 
-        {/* ✅ Register Form */}
+        {/*  Register Form */}
         {activeForm === "register" && (
-          <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <label>Full Name</label>
-              <input type="text" placeholder="Enter full name" required />
-            </div>
-
-            <div className="input-group">
-              <label>Email</label>
-              <input type="email" placeholder="Enter email" required />
-            </div>
-
-            <div className="input-group">
-              <label>Password</label>
-              <input type="password" placeholder="Enter password" required />
-            </div>
-
-            <div className="input-group">
-              <label>Confirm Password</label>
-              <input type="password" placeholder="Re-enter password" required />
-            </div>
-
-            <button type="submit" className="auth-btn">Register</button>
-
-            <div className="extra-links">
-              <p>
-                Already Registered?{" "}
-                <span onClick={() => setActiveForm("login")}>Login करा</span>
-              </p>
-            </div>
-          </form>
+          <HRRegister onBack={() => setActiveForm("login")} />
         )}
 
-        {/* ✅ Forgot Password Form */}
+        {/* Forgot Password */}
         {activeForm === "forgot" && (
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="input-group">
               <label>Email</label>
               <input type="email" placeholder="Enter registered email" required />

@@ -1,100 +1,118 @@
-.hrauth-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    font-family: Arial, sans-serif;
-  }
-  
-  .hrauth-box {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 380px;
-    color: white;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(6px);
-    text-align: center;
-  }
-  
-  .hrauth-box h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #ffce54;
-  }
-  
-  /* Inputs */
-  .input-group {
-    text-align: left;
-    margin-bottom: 15px;
-  }
-  
-  .input-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-    color: #ddd;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.9);
-  }
-  
-  .auth-btn {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    background: #ffce54;
-    color: black;
-    cursor: pointer;
-    transition: 0.3s ease;
-  }
-  
-  .auth-btn:hover {
-    background: #f6bb42;
-  }
-  
-  /* Links */
-  .extra-links {
-    margin-top: 15px;
-    font-size: 14px;
-  }
-  
-  .extra-links span {
-    color: #4fc3f7;
-    cursor: pointer;
-    font-weight: 500;
-  }
-  
-  .extra-links span:hover {
-    text-decoration: underline;
-  }
-  
-  /* Responsive */
-  @media (max-width: 480px) {
-    .hrauth-box {
-      width: 90%;
-      padding: 20px;
-    }
-  
-    .hrauth-box h2 {
-      font-size: 20px;
-    }
-  
-    .auth-btn {
-      font-size: 14px;
-      padding: 10px;
-    }
-  }
-  
+/* =====================
+   HRAuth & HRRegister Modern Dark Theme
+===================== */
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #0d0d0d;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+
+}
+
+/* Container */
+.hrauth-container, 
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Auth/Register Box */
+.hrauth-box, 
+.register-box {
+  /* background: #1a1a1a; */
+  padding: 35px 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  /* box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.2); */
+  text-align: left;
+}
+
+/* Heading */
+.hrauth-box h2, 
+.register-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: bold;
+  /* color: blue; */
+  color:white;
+
+}
+
+/* Form Groups */
+.input-group, 
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #111;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+input:focus {
+  border-color: blue;
+  box-shadow: 0px 0px 6px rgba(255, 204, 0, 0.5);
+}
+
+/* Buttons */
+.auth-btn, 
+.register-btn {
+  width: 100%;
+  background: rgb(239, 239, 240);;
+  color: #111;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-btn:hover, 
+.register-btn:hover {
+  background: #e6b800;
+}
+
+/* Links */
+.extra-links, 
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: #bbb;
+}
+
+.extra-links span, 
+.login-link a {
+  color: blue;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.extra-links span:hover, 
+.login-link a:hover {
+  text-decoration: underline;
+}

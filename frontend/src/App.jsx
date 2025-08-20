@@ -16,6 +16,7 @@ import AdminLogin from "./component/AdminLogin";
 import HomeRoutes from "./routes/homeRoutes";
 import HrRoutes from "./routes/HrRoutes";
 import HRAuth from "./component/hr/HRAuth";
+import JobSeekerRoutes from "./routes/JobSeekerRoutes";
 
 // Loader wrapper for pages
 function AppContent() {
@@ -55,6 +56,8 @@ function App() {
         <Route path="/*" element={<AppContent />} />
         {/* HR-related routes */}
         <Route path="/hr/*" element={<HrRoutes />} />
+
+        <Route path="/jobSeeker/*" element={<JobSeekerRoutes></JobSeekerRoutes>}></Route>
       </Routes>
     </Router>
   );

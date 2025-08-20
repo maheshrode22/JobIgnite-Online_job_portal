@@ -1,0 +1,70 @@
+.hrnavbar {
+  height: 60px;
+  background: #222;
+  border-bottom: 1px solid #eaeaea;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  max-width: 100%;
+}
+
+.hrnavbar-title {
+  font-weight: 700;
+  color: white;
+  font-size: 18px;
+}
+
+/* Actions (right side) */
+.hrnavbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hrnav-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Hamburger hidden on desktop */
+.hrhamburger {
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+  color: white;
+}
+
+/* --- Mobile View --- */
+@media (max-width: 768px) {
+  .hrhamburger {
+    display: block; /* show hamburger */
+    position: absolute;
+    left: 16px;
+  }
+
+  .hrnavbar {
+    position: relative;
+    justify-content: center; /* left - center - right */
+  }
+
+  .hrnavbar-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .hrnavbar-actions {
+    position: absolute;
+    right: 16px;
+  }
+}

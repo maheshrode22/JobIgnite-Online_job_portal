@@ -1,5 +1,5 @@
 .Reviews-section {
-  /* background-color: rgb(33, 37, 41); different from services */
+  background-color: rgb(33, 37, 41); /* different from services */
   text-align: center;
   color:#fff;
   padding: 60px 20px;
@@ -7,6 +7,7 @@
 
 .Reviews-section h2 {
   font-size: 2rem;
+  font-weight:600;
   margin-bottom: 40px;
   color: white;
 }
@@ -36,6 +37,8 @@
 
 .review-box h3 {
   font-size: 1.4rem;
+  color: rgb(59, 59, 199);
+  text-shadow: 0 0 1px black;
   color:#fc7a00;
   margin-top: 10px;
 }

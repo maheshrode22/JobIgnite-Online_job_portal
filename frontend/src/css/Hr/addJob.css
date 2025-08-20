@@ -1,0 +1,111 @@
+/* Container */
+.add-job-container {
+  margin:20px 50px 0 160px;
+  padding: 30px 25px;
+  background-color: #d9dbdf;
+  border-radius: 15px;
+  box-shadow:0 0 10px black;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.add-job-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+  color:black;
+  font-size:20px;
+  font-weight: 700;
+}
+
+/* Form groups */
+.add-job-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.add-job-form label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.add-job-form input,
+.add-job-form textarea {
+  padding: 12px 15px;
+  border: 1px solid #242121;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.add-job-form input:focus,
+.add-job-form textarea:focus {
+  outline: none;
+  border-color:blue;
+  box-shadow: 0 0 8px rgba(11, 102, 255, 0.2);
+}
+
+.add-job-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Two-column rows */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color:#f8db37;
+  color: black;
+  border: 1px solid;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color:#e4c414;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .add-job-container {
+    margin: 80px 15px 50px;
+    padding: 25px 20px;
+  }
+
+  .add-job-form input,
+  .add-job-form textarea {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  /* Stack columns in mobile */
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Optional: Add subtle hover effect on form rows */
+.form-row .form-group input:hover {
+  border-color:blue;
+}

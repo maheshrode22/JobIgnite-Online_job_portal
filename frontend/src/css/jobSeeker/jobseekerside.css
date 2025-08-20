@@ -1,0 +1,138 @@
+/* Sidebar container */
+.jssidebar {
+  width: 260px;
+  background: #1e293b; /* Slate blue-gray */
+  color: #fff;
+  height: 100vh;
+  transition: transform 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+/* Hide sidebar when closed */
+.jssidebar.closed {
+  transform: translateX(-100%);
+}
+
+/* Show sidebar when open */
+.jssidebar.open {
+  transform: translateX(0);
+}
+
+/* Sidebar header */
+.jssidebar-header {
+  padding: 1rem;
+  background: #0f172a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+}
+
+.jssidebar-header h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  color: #f1f5f9;
+}
+
+/* Menu styles */
+.jssidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.jssidebar-menu li {
+  padding: 0.9rem 1.2rem;
+  font-size: 0.95rem;
+  transition: background 0.2s ease, padding-left 0.2s ease;
+  cursor: pointer;
+}
+
+.jssidebar-menu li.active,
+.jssidebar-menu li:hover {
+  background: #334155;
+  padding-left: 1.5rem; /* little slide effect */
+}
+
+.jssidebar-menu a {
+  color: #e2e8f0;
+  text-decoration: none;
+  display: block;
+}
+
+/* Submenu styles */
+.has-submenu .submenu-title {
+  background: none;
+  border: none;
+  color: #fff;
+  width: 100%;
+  text-align: left;
+  padding: 0.9rem 1.2rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.submenu {
+  list-style: none;
+  padding-left: 1.5rem;
+}
+
+.submenu li {
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+}
+
+.submenu li:hover {
+  background: #475569;
+}
+
+/* Sidebar footer */
+.jssidebar-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.logout-btn {
+  background: #ef4444;
+  border: none;
+  padding: 0.7rem 1.4rem;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+/* Scrollbar styling */
+.jssidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.jssidebar::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+.jssidebar::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .jssidebar {
+    width: 220px;
+  }
+  .jssidebar-header h2 {
+    font-size: 1.1rem;
+  }
+}

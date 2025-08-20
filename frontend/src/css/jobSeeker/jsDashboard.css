@@ -1,0 +1,105 @@
+/* ===============================
+   Jobseeker Dashboard Layout
+================================= */
+.js-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+/* -------------------------------
+   Sidebar Section
+--------------------------------- */
+.js-dashboard .js-sidebar {
+  width: 250px;
+  background-color: #1e293b; /* dark slate */
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.js-dashboard .js-sidebar.closed {
+  transform: translateX(-100%);
+}
+
+/* -------------------------------
+   Overlay (mobile)
+--------------------------------- */
+.js-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 900;
+}
+
+/* -------------------------------
+   Main Content Section
+--------------------------------- */
+.js-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.js-dashboard-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+/* -------------------------------
+   Navbar for Jobseeker
+--------------------------------- */
+.js-navbar {
+  height: 60px;
+  background-color: #2563eb; /* blue */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 800;
+}
+
+.js-navbar button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* -------------------------------
+   Responsive Design
+--------------------------------- */
+@media (max-width: 768px) {
+  .js-dashboard {
+    flex-direction: column;
+  }
+
+  .js-dashboard .js-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+  }
+
+  .js-dashboard .js-sidebar.open {
+    transform: translateX(0);
+  }
+
+  .js-main-content {
+    margin-left: 0;
+  }
+}

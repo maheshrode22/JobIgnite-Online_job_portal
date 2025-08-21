@@ -24,8 +24,8 @@ export default function JsDashboard() {
 
   // ✅ default page for jobseeker dashboard → BrowseJobs
   const isDashboardRoute =
-    location.pathname === "/jobseeker" ||
-    location.pathname === "/jobseeker//browse-jobs";
+    location.pathname === "/jobSeeker" ||
+    location.pathname === "/jobSeeker/browse-jobs";
 
   return (
     <div className="js-dashboard">

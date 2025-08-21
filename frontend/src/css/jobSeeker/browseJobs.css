@@ -1,77 +1,82 @@
-/* BrowseJobs.css */
+/* Container */
 .browsejobs-container {
+  max-width: 1200px;
+  margin:10px auto 40px;
   padding: 20px;
-  flex: 1;  /* take remaining space beside sidebar */
-}
-
-.browsejobs-container h2 {
   text-align: center;
-  margin-bottom: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Title */
+.browsejobs-container h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+/* Job Cards Wrapper */
 .jobcards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
 }
 
+/* Single Job Card */
 .jobcard {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  transition: transform 0.2s ease-in-out;
+  text-align: left;
+  box-shadow: 0 1px 5px black;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .jobcard:hover {
   transform: translateY(-5px);
+  box-shadow: 0 1px 10px black;
 }
 
+/* Job Title */
 .jobcard h3 {
+  font-size: 20px;
   margin-bottom: 10px;
-  color: #1e293b;
+  color: black;
+  font-size: 24px;
+  font-weight:700;
+  text-shadow:0 0 1px orange;
 }
 
+/* Job Info */
 .jobcard p {
-  margin: 5px 0;
-  font-size: 0.9rem;
+  margin: 6px 0;
+  font-size: 15px;
   color: #555;
 }
 
+.jobcard p strong {
+  color: #222;
+}
+
+/* Actions */
 .job-actions {
   margin-top: 15px;
-  display: flex;
-  justify-content: flex-end;
+  text-align: right;
 }
 
-.apply-btn {
+.viewjob-btn {
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight:700;
   background: #f8db37;
   color: black;
-  font-weight: 600;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
 }
 
-.apply-btn:hover {
-  background: #ebad05;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .jobcards-container {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  .jobcards-container {
-    grid-template-columns: 1fr;
-  }
-
-  .job-actions {
-    justify-content: center;
-  }
+.viewjob-btn:hover {
+  background: #f8e36a;
+  border:1px solid black;
 }

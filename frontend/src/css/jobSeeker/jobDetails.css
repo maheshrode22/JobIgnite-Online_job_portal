@@ -1,76 +1,33 @@
-/* Button Group */
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 15px;               
-  flex-wrap: wrap;          
-}
-
-.custom-btn {
-  padding: 8px 25px;      
-  font-size: 0.9rem;        
-  border-radius: 6px;       
-  min-width: 100px;         
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #fff;
-  border: none;
-}
-
-.backjob{
-     padding: 8px 25px;        
-  font-size: 0.9rem;        
-  border-radius: 6px;      
-  min-width: 100px;         
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #fff;
-  border: none;
-}
-
-/* Back button */
 .backjob {
-  background-color: orange;
+  padding: 10px 25px;
+  width:200px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: #222;
+  color: white;
+}
+
+.applyjob{
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: #f8db37;
+
 }
 
 .backjob:hover {
-  background-color: darkorange;
-  transform: scale(1.05);
-  color:black;
-  font-weight:600;
+  background-color:gray;
+  color: black;
 }
 
-/* Edit button */
-.btn-info.custom-btn {
-  background-color: #17a2b8;
-}
-
-.btn-info.custom-btn:hover {
-  background-color: #138496;
-  transform: scale(1.05);
-  color:black;
-  font-weight:600;
-}
-
-/* Delete button */
-.btn-danger.custom-btn {
-  background-color: #dc3545;
-}
-
-.btn-danger.custom-btn:hover {
-  background-color: #c82333;
-  transform: scale(1.05);
-  color:black;
-  font-weight:600;
-}
-
-/* Responsive Buttons */
-@media (max-width: 576px) {
-  .custom-btn {
-    padding: 6px 15px;
-    font-size: 0.8rem;
-    min-width: 80px;
-  }
+.custom-btn {
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }

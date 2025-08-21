@@ -54,7 +54,7 @@ export default function JSSidebar({ isOpen, toggleSidebar, isMobile }) {
             to="/jobSeeker/shortlisted-jobs"
             onClick={isMobile ? toggleSidebar : undefined}
           >
-            ⭐ Shortlisted Jobs
+            ✔️ Shortlisted Jobs
           </Link>
         </li>
 

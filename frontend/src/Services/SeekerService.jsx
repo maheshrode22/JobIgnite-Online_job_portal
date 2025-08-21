@@ -11,3 +11,20 @@ export const registerSeeker = async (seekerData) => {
     },
   });
 };
+
+
+export const seekerProfile = async (profileData) => {
+  return await axios.post(`${API_URL}/jobSeekerProfile`, profileData, {
+    headers: { "Content-Type": "application/json" },
+  });
+};
+
+export const getProfile = async (seekerId) => {
+  return await axios.get(`${API_URL}/getProfile/${seekerId}`);
+};
+
+export const updateProfile = async (profileData) => {
+  return await axios.put(`${API_URL}/updateJobSeekerPrfile`, profileData, {
+    headers: { "Content-Type": "application/json" },
+  });
+};

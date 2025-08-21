@@ -63,6 +63,22 @@ exports.jobSeekerProfile=(req,res)=>{
     });
 };
 
+exports.getProfile=(req,res)=>{
+    let id=req.params.seekerId;
+     jobseekerModel.getProfile(id)
+    .then((profile) => {
+      if (profile) {
+        res.status(200).json({ profile });
+      } else {
+        res.status(404).json({ msg: "Profile not found" });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ msg: "Server error", error: err });
+    });
+}
+
 
 exports.deletejobSeeker=(req,res)=>{
     let id=req.body.id;
@@ -81,10 +97,10 @@ exports.deletejobSeeker=(req,res)=>{
     });
 }
 
-exports.updateJobSeekerPrfile=(req,res)=>{
+exports.updateJobSeekerProfile=(req,res)=>{
     let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
     
-   let promise= jobseekerModel.updateJobSeekerPrfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)
+   let promise= jobseekerModel.updateJobSeekerProfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)
    .then((result)=>{
         if(result.affectedRows>0)
         {

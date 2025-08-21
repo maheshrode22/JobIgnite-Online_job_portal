@@ -8,9 +8,11 @@ export default function JobSeekerRoutes() {
   return (
     <Routes>
       <Route path="/" element={<JsDashboard />}>
-        <Route path="/browse-jobs" element={<BrowseJobs />} />
-        <Route path="/jobDetail/:id" element={<JobDetails />} />
-      </Route>
+      <Route index element={<BrowseJobs />} />
+      <Route path="browse-jobs" element={<BrowseJobs />} />
+      <Route path="jobDetail/:id" element={<JobDetails />} />
+</Route>
+
     </Routes>
   );
 }

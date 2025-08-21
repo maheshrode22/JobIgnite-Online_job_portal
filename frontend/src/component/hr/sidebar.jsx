@@ -11,7 +11,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    navigate("/login");
+    navigate("/");
   };
 
   return (

@@ -1,4 +1,6 @@
 let jobseekerModel=require("../models/jobseekerModel.js");
+const { sendMail } = require("../Services/mailService.js");
+const { registrationTemplate } = require("../Services/mailTemplates.js");
 
 
 exports.jobSeekerLogin=(req,res)=>{
@@ -18,20 +20,29 @@ exports.jobSeekerLogin=(req,res)=>{
     });
 }
 
-exports.jobSeekerRegister=(req,res)=>{
-    let {name,email,password,phone,address}=req.body;
-    
-    
-    let Promise=jobseekerModel.jobSeekerRegister(name,email,password,phone,address);
-    Promise.then((result)=>{
-        res.send({msg:"your Registration is successfully"});
+exports.jobSeekerRegister = async (req, res) => {
+    try {
+        const { name, email, password, phone, address } = req.body;
 
-    }).catch((err)=>{
-        res.send(err);
-        
-    })
-    };
+        const result = await jobseekerModel.jobSeekerRegister(name, email, password, phone, address);
 
+        res.send({ msg: "Your registration is successful" });
+
+        const { subject, body } = registrationTemplate(name);
+
+        // Use await to catch errors properly
+        try {
+            await sendMail(email, subject, body);
+            console.log("Mail function executed for:", email);
+        } catch (err) {
+            console.error("Mail sending failed:", err);
+        }
+
+    } catch (err) {
+        console.error("Registration error:", err);
+        res.status(500).send({ message: "Registration failed", error: err });
+    }
+};
 
 exports.jobSeekerProfile=(req,res)=>{
     let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
@@ -73,7 +84,7 @@ exports.deletejobSeeker=(req,res)=>{
 exports.updateJobSeekerPrfile=(req,res)=>{
     let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
     
-   let Promise= jobseekerModel.updateJobSeekerPrfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)
+   let promise= jobseekerModel.updateJobSeekerPrfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)
    .then((result)=>{
         if(result.affectedRows>0)
         {

@@ -5,23 +5,27 @@
   color: #e9e9f1;
   display: flex;
   flex-direction: column;
-  height: 100vh;   /* Full height */
-  position: fixed; /* Stays fixed */
+  height: 100vh;
+  position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
+  z-index: 1000;
   transition: transform 0.3s ease;
-  z-index: 100;
 }
 
-/* off-canvas hidden state (mobile) */
-.jssidebar.closed {
-  transform: translateX(-100%);
+/* Mobile: hidden by default */
+@media (max-width: 768px) {
+  .jssidebar {
+    transform: translateX(-100%);
+  }
+  .jssidebar.open {
+    transform: translateX(0);
+  }
 }
 
-/* keep visible on desktop */
+/* Desktop: always visible */
 @media (min-width: 769px) {
-  .jssidebar.closed {
+  .jssidebar {
     transform: translateX(0);
   }
 }
@@ -37,11 +41,11 @@
 }
 
 .jssidebar-header h2 {
-  font-size:20px;
-  margin:0 20px;
-  /* same as sidebar (inherits text color) */
+  font-size: 20px;
+  margin: 0;
 }
 
+/* Toggle button */
 .toggle-btn {
   background: transparent;
   border: none;
@@ -53,53 +57,55 @@
 /* Menu */
 .jssidebar-menu {
   list-style: none;
-  padding: 10px 8px;
-  margin: 0;
-  flex: 1; /* take available space */
-  overflow-y: auto; /* scroll if content long */
+  padding: 0;       /* Remove default padding */
+  margin:0;        /* Remove default margin */
+  flex: 1;
+  overflow-y: auto;
 }
 
 .jssidebar-menu li {
-  margin:30px 10px; /* match sidebar */
+  margin:20px 0 20px 0;        /* Remove margin, use padding for spacing */
 }
 
 .jssidebar-menu a,
 .submenu-title {
-  width: 100%;
   display: block;
-  padding: 10px 14px;
-  border-radius: 8px;
+  width: 97%;
+  padding: 12px 20px;  /* Use padding for spacing */
+  border-radius:10px;
   text-decoration: none;
   color: #cdd0e1;
-  font-size:17px;
-  font-weight:500;
-  background: transparent;
+  font-size: 17px;
+  font-weight: 500;
   cursor: pointer;
-  text-align: left;
-  /* removed transition for consistency */
+  transition: all 0.2s ease;
 }
 
-.jssidebar-menu li.active > a,
+/* Hover and Active state */
 .jssidebar-menu a:hover,
 .submenu-title:hover {
   color:black;
-  background: #f8db37;
+  background-color:#f8db37;
 }
 
 /* Submenu */
 .has-submenu .submenu {
-  padding-left: 10px;
+  display: none;   /* Hide by default */
+  padding-left: 20px;
+}
+
+.has-submenu.open .submenu {
+  display: block;
 }
 
 .submenu li a {
   padding-left: 28px;
 }
 
-/* Footer (Logout at bottom) */
+/* Footer */
 .jssidebar-footer {
-  padding: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  margin-top: auto; /* pushes it to bottom */
+  padding: 12px 20px;
+  margin-top: auto;
 }
 
 .logout-btn {
@@ -107,22 +113,29 @@
   padding: 10px 14px;
   border: none;
   border-radius: 8px;
-  background:#f8db37;
-  color:black;
-  font-weight:600;
+  background: #f8db37;
+  color: black;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .logout-btn:hover {
   background: #e2c832;
 }
 
-/* Mobile behavior */
-@media (max-width: 768px) {
-  .jssidebar {
-    transform: translateX(-100%);
-  }
-  .jssidebar.open {
-    transform: translateX(0);
-  }
+/* Optional: Overlay for mobile */
+.jssidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 900;
+}
+
+.jssidebar-overlay.active {
+  display: block;
 }

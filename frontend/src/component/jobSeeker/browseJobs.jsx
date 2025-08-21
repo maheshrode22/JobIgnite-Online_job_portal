@@ -46,7 +46,7 @@ export default function BrowseJobs() {
   const navigate = useNavigate();
 
   const handleViewJob = (job) => {
-          navigate(`/jobDetail/${job.id}`, { state: { job } });
+          navigate(`/jobSeeker/jobDetail/${job.id}`, { state: { job } });
   };
 
   return (

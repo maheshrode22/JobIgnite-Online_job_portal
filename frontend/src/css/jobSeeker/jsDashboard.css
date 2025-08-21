@@ -5,6 +5,7 @@
   display: flex;
   min-height: 100vh;
   background-color: #f9f9f9;
+  overflow: hidden;
 }
 
 /* -------------------------------
@@ -23,8 +24,12 @@
   transform: translateX(-100%);
 }
 
+.js-dashboard .js-sidebar.open {
+  transform: translateX(0);
+}
+
 /* -------------------------------
-   Overlay (mobile)
+   Overlay (mobile only)
 --------------------------------- */
 .js-sidebar-overlay {
   position: fixed;
@@ -45,13 +50,15 @@
   flex-direction: column;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: margin-left 0.3s ease-in-out;
+  background-color: #ffffff;
 }
 
 .js-dashboard-content {
   flex: 1;
   padding: 20px;
-  background-color: #ffffff;
   overflow-y: auto;
+  background-color: #ffffff;
 }
 
 /* -------------------------------
@@ -68,7 +75,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 800;
+  z-index: 1100;
 }
 
 .js-navbar button {
@@ -80,7 +87,30 @@
 }
 
 /* -------------------------------
-   Responsive Design
+   Desktop Behavior
+--------------------------------- */
+@media (min-width: 769px) {
+  /* Sidebar always visible by default */
+  .js-dashboard .js-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+  /* Main content pushed to right */
+  .js-main-content {
+    margin-left: 250px; /* same as sidebar width */
+  }
+
+  /* When sidebar is closed */
+  .js-dashboard .js-sidebar.closed ~ .js-main-content {
+    margin-left: 0;
+  }
+}
+
+/* -------------------------------
+   Mobile Behavior
 --------------------------------- */
 @media (max-width: 768px) {
   .js-dashboard {
@@ -100,6 +130,6 @@
   }
 
   .js-main-content {
-    margin-left: 0;
+    margin-left: 0; /* content always full width */
   }
 }

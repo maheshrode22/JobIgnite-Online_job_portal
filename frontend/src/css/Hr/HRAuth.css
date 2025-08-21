@@ -4,7 +4,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background: #0d0d0d;
+  background:rgb(33, 37, 41);
   color: #fff;
   margin: 0;
   padding: 0;
@@ -17,7 +17,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height:100vh;
+  margin-top:7vh;
   padding: 20px;
 }
 
@@ -28,6 +29,8 @@ body {
   padding: 35px 40px;
   border-radius: 12px;
   width: 100%;
+  background-color: white;
+  color: black;
   max-width: 600px;
   /* box-shadow: 0px 0px 20px rgba(255, 204, 0, 0.2); */
   text-align: left;
@@ -38,10 +41,10 @@ body {
 .register-box h2 {
   text-align: center;
   margin-bottom: 25px;
-  font-size: 26px;
-  font-weight: bold;
+  font-size:30px;
+  font-weight:700;
   /* color: blue; */
-  color:white;
+  color:black;
 
 }
 
@@ -53,9 +56,10 @@ body {
 
 label {
   display: block;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight:600;
   margin-bottom: 6px;
-  color: #ccc;
+  color: black;
 }
 
 input {
@@ -63,23 +67,24 @@ input {
   padding: 12px 14px;
   border-radius: 8px;
   border: 1px solid #333;
-  background: #111;
-  color: #fff;
-  font-size: 15px;
+  background:white;
+  color:black;
+  font-size: 16px;
+  font-weight:600;
   outline: none;
   transition: 0.3s ease;
 }
 
 input:focus {
-  border-color: blue;
-  box-shadow: 0px 0px 6px rgba(255, 204, 0, 0.5);
+  border-color:black;
+  box-shadow: 0px 1px 10px black;
 }
 
 /* Buttons */
 .auth-btn, 
 .register-btn {
   width: 100%;
-  background: rgb(239, 239, 240);;
+  background:#e6b800;
   color: #111;
   padding: 12px;
   font-size: 16px;
@@ -92,7 +97,7 @@ input:focus {
 
 .auth-btn:hover, 
 .register-btn:hover {
-  background: #e6b800;
+  background:#facb10;
 }
 
 /* Links */
@@ -100,14 +105,15 @@ input:focus {
 .login-link {
   text-align: center;
   margin-top: 15px;
-  font-size: 14px;
-  color: #bbb;
+  font-size: 16px;
+  font-weight:600;
+  color:black;
 }
 
 .extra-links span, 
 .login-link a {
   color: blue;
-  font-weight: 500;
+  font-weight:600;
   cursor: pointer;
   transition: 0.3s;
 }

@@ -127,7 +127,7 @@
                         </Link>
                       </li>
                       <li>
-                        <Link to="/" className="dropdown-item" onClick={() => setOpen(false)}>
+                        <Link to="/jobSeekerAuth" className="dropdown-item" onClick={() => setOpen(false)}>
                           Job Seeker Login
                         </Link>
                       </li>

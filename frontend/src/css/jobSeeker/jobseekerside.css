@@ -1,138 +1,128 @@
 /* Sidebar container */
 .jssidebar {
   width: 260px;
-  background: #1e293b; /* Slate blue-gray */
-  color: #fff;
-  height: 100vh;
-  transition: transform 0.3s ease;
-  position: fixed;
+  background: rgb(33, 37, 41);
+  color: #e9e9f1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;   /* Full height */
+  position: fixed; /* Stays fixed */
   top: 0;
   left: 0;
-  overflow-y: auto;
-  z-index: 1000;
+  bottom: 0;
+  transition: transform 0.3s ease;
+  z-index: 100;
 }
 
-/* Hide sidebar when closed */
+/* off-canvas hidden state (mobile) */
 .jssidebar.closed {
   transform: translateX(-100%);
 }
 
-/* Show sidebar when open */
-.jssidebar.open {
-  transform: translateX(0);
+/* keep visible on desktop */
+@media (min-width: 769px) {
+  .jssidebar.closed {
+    transform: translateX(0);
+  }
 }
 
 /* Sidebar header */
 .jssidebar-header {
-  padding: 1rem;
-  background: #0f172a;
   display: flex;
-  justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #334155;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: #16182a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .jssidebar-header h2 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0;
-  color: #f1f5f9;
+  font-size:20px;
+  margin:0 20px;
+  /* same as sidebar (inherits text color) */
 }
 
-/* Menu styles */
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Menu */
 .jssidebar-menu {
   list-style: none;
-  padding: 0;
-  margin: 1rem 0;
+  padding: 10px 8px;
+  margin: 0;
+  flex: 1; /* take available space */
+  overflow-y: auto; /* scroll if content long */
 }
 
 .jssidebar-menu li {
-  padding: 0.9rem 1.2rem;
-  font-size: 0.95rem;
-  transition: background 0.2s ease, padding-left 0.2s ease;
-  cursor: pointer;
+  margin:30px 10px; /* match sidebar */
 }
 
-.jssidebar-menu li.active,
-.jssidebar-menu li:hover {
-  background: #334155;
-  padding-left: 1.5rem; /* little slide effect */
-}
-
-.jssidebar-menu a {
-  color: #e2e8f0;
-  text-decoration: none;
+.jssidebar-menu a,
+.submenu-title {
+  width: 100%;
   display: block;
-}
-
-/* Submenu styles */
-.has-submenu .submenu-title {
-  background: none;
-  border: none;
-  color: #fff;
-  width: 100%;
-  text-align: left;
-  padding: 0.9rem 1.2rem;
-  font-size: 0.95rem;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #cdd0e1;
+  font-size:17px;
+  font-weight:500;
+  background: transparent;
   cursor: pointer;
+  text-align: left;
+  /* removed transition for consistency */
 }
 
-.submenu {
-  list-style: none;
-  padding-left: 1.5rem;
+.jssidebar-menu li.active > a,
+.jssidebar-menu a:hover,
+.submenu-title:hover {
+  color:black;
+  background: #f8db37;
 }
 
-.submenu li {
-  padding: 0.6rem 1rem;
-  font-size: 0.9rem;
+/* Submenu */
+.has-submenu .submenu {
+  padding-left: 10px;
 }
 
-.submenu li:hover {
-  background: #475569;
+.submenu li a {
+  padding-left: 28px;
 }
 
-/* Sidebar footer */
+/* Footer (Logout at bottom) */
 .jssidebar-footer {
-  position: absolute;
-  bottom: 1.5rem;
-  width: 100%;
-  text-align: center;
+  padding: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: auto; /* pushes it to bottom */
 }
 
 .logout-btn {
-  background: #ef4444;
+  width: 100%;
+  padding: 10px 14px;
   border: none;
-  padding: 0.7rem 1.4rem;
-  color: #fff;
+  border-radius: 8px;
+  background:#f8db37;
+  color:black;
+  font-weight:600;
   cursor: pointer;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: background 0.2s ease;
 }
 
 .logout-btn:hover {
-  background: #dc2626;
+  background: #e2c832;
 }
 
-/* Scrollbar styling */
-.jssidebar::-webkit-scrollbar {
-  width: 6px;
-}
-.jssidebar::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 3px;
-}
-.jssidebar::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-
-/* Responsive */
+/* Mobile behavior */
 @media (max-width: 768px) {
   .jssidebar {
-    width: 220px;
+    transform: translateX(-100%);
   }
-  .jssidebar-header h2 {
-    font-size: 1.1rem;
+  .jssidebar.open {
+    transform: translateX(0);
   }
 }

@@ -34,6 +34,7 @@ export default function JobSeekerAuth() {
       alert("Something went wrong. Please try again.");
     }
 
+
   };
 
   return (

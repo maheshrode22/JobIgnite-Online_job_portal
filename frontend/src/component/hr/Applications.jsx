@@ -20,7 +20,9 @@ export default function Applications() {
 
     fetchData();
   }, []);
-
+const handleShow=(id)=>{
+alert("seeker id"+id);
+}
  
 
   return (
@@ -55,9 +57,10 @@ export default function Applications() {
                   <td>{app.status}</td>
                   <td>{new Date(app.applied_at).toLocaleString()}</td>
                   <td>
-                    <Button>
+                    <Button onClick={()=>handleShow(app.seeker_id)}  >
                         Show Details
                     </Button>
+                    
                   </td>
 
                 </tr>
@@ -75,3 +78,8 @@ export default function Applications() {
     </div>
   );
 }
+
+
+
+
+

@@ -36,3 +36,9 @@ export const updateProfile = async (profileData) => {
     headers: { "Content-Type": "application/json" },
   });
 };
+
+
+export const getAllJobs = async () => {
+  return await axios.get(`${API_URL}/viewAllJobPost`);
+};
+

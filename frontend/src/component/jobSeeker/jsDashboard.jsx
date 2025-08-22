@@ -38,7 +38,7 @@ export default function JsDashboard() {
       <div className="js-main-content">
         <JsNavbar toggleSidebar={toggleSidebar} />
         <div className="js-dashboard-content">
-          {isDashboardRoute ? <BrowseJobs /> : <Outlet />}
+          {<Outlet />}
         </div>
       </div>
 

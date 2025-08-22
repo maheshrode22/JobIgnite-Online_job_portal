@@ -31,7 +31,7 @@ exports.jobSeekerRegister = (...data) => {
 exports.jobSeekerProfile=(...data)=>{
 
     return new Promise((resolve,reject)=>{
-        db.query("insert into job_seeker_profile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks) values(?,?,?,?,?,?,?,?,?,?,?);",[...data],(err,result)=>{
+        db.query("insert into job_seeker_profile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks) values(?,?,?,?,?,?,?,?,?,?,?)",[...data],(err,result)=>{
             if(err)
             {
                 reject(err);
@@ -43,6 +43,22 @@ exports.jobSeekerProfile=(...data)=>{
         });
     });
 }
+
+exports.getProfile=(id)=>{
+    return new Promise((resolve,reject)=>{
+         db.query("SELECT * FROM job_seeker_profile WHERE seeker_id = ?",[id],(err,result)=>{
+            if(err)
+            {
+                reject(err);
+            }
+            else
+            {
+                resolve(result);
+            }
+        });
+    });
+}
+
 // delete job seeker profile
 exports.deletejobSeeker=(id)=>{
     return new Promise((resolve,reject)=>{
@@ -60,7 +76,7 @@ exports.deletejobSeeker=(id)=>{
 };
 
 // update job seeker profile
-exports.updateJobSeekerPrfile=(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)=>{
+exports.updateJobSeekerProfile=(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)=>{
     return new Promise((resolve,reject)=>{
         db.query("update job_seeker_profile set gender=?,dob=?,skills=?,degree=?,university=?,cgpa=?,hsc_year=?,hsc_marks=?,ssc_year=?,ssc_marks=? where seeker_id=?",[gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks,seeker_id],(err,result)=>{
             if(err){

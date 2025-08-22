@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
-// import JobSeekerRegister from "./JobSeekerRegister"; // Make sure this exists
+import SeekerRegister from "./SeekerRegister";
 
 export default function JobSeekerAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
@@ -56,7 +56,7 @@ export default function JobSeekerAuth() {
 
         {/* Register Form */}
         {activeForm === "register" && (
-          <JobSeekerRegister onBack={() => setActiveForm("login")} />
+          <SeekerRegister onBack={() => setActiveForm("login")} />
         )}
 
         {/* Forgot Password */}

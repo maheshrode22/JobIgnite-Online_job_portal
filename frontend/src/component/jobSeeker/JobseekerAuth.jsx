@@ -14,6 +14,7 @@ export default function JobSeekerAuth() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+
     try {
       const response = await loginJobSeeker({
         jobUser: email,
@@ -32,6 +33,7 @@ export default function JobSeekerAuth() {
       console.error("Login error:", error);
       alert("Something went wrong. Please try again.");
     }
+
   };
 
   return (

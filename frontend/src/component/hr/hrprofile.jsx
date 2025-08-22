@@ -4,22 +4,23 @@ import "../../css/Hr/hrprofile.css";
 const HRProfile = () => {
   const [hr, setHr] = useState(null);
 
-  // Mock HR data
   useEffect(() => {
-    const mockData = {
-      hr_name: "John Doe",
-      company_name: "Tech Solutions",
-      email: "john.doe@example.com",
-      phone: "9876543210",
-      status: "approved"
-    };
-    setTimeout(() => setHr(mockData), 500);
+    // localStorage HrData
+    const hrData = JSON.parse(localStorage.getItem("hrData"));
+
+    if (hrData) {
+      setHr(hrData); // direct HR data save
+    }
   }, []);
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete your profile?")) {
+      // localStorage clear करा
+      localStorage.removeItem("hrData");
+      localStorage.removeItem("hr_id");
+
       alert("Profile deleted successfully!");
-      window.location.href = "/";
+      window.location.href = "/"; // redirect to home / login
     }
   };
 
@@ -52,13 +53,16 @@ const HRProfile = () => {
 
         <div className="profile-item">
           <span className="label">Status:</span>
-          <span className={`value status ${hr.status.toLowerCase()}`}>
+          <span className={`value status ${hr.status?.toLowerCase()}`}>
             {hr.status}
           </span>
         </div>
 
         <div className="profile-actions">
-          <button className="btn edit" onClick={() => alert("Redirect to Update Page")}>
+          <button
+            className="btn edit"
+            onClick={() => alert("Redirect to Update Page")}
+          >
             Edit Profile
           </button>
           <button className="btn delete" onClick={handleDelete}>

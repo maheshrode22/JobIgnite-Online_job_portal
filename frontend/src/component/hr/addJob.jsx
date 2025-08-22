@@ -34,7 +34,7 @@ export default function AddJob() {
       package: pkg,
       skills_required: skills,
       description,
-      deadline,  // ✅ added
+      deadline,
       hr_id,
     };
 
@@ -42,7 +42,7 @@ export default function AddJob() {
 
     try {
       const result = await addJobPost(jobData);
-      setMsg(result.data.msg || "Job added successfully!"); // backend "msg" पाठवतंय
+      setMsg(result.data.msg || "Job added successfully!"); 
 
       // Reset form
       setTitle("");

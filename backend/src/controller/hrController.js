@@ -3,22 +3,24 @@ const hrModel = require("../models/hrModel.js");
 const { sendMail } = require("../Services/mailService");
 const { registrationTemplate } = require("../Services/mailTemplates");
 
+
 exports.hrLogin = (req, res) => {
   let { hrUser, hrPass } = req.body;
-  let promise = hrModel.hrLoginMod(hrUser, hrPass);
 
-  promise.then((result) => {
-    if (result > 0) {
-      res.send({ msg: "HR login successfully" });
-    } else {
-      res.send({ msg: "HR login failed" });
-    }
-  });
-
-  promise.catch((err) => {
-    res.send({ msg: "login fail" });
-  });
+  hrModel.hrLoginMod(hrUser, hrPass)
+    .then((result) => {
+      if (result.length > 0) {
+        res.status(200).send({success: true,msg: "HR login successfully",data: result,});
+      } else {
+        res.status(401).send({success: false,msg: "Invalid email or password ",});
+      }
+    })
+    .catch((err) => {
+      console.error("Login Error:", err);
+      res.status(500).send({success: false,msg: "Server error ",});
+    });
 };
+
 
 
 

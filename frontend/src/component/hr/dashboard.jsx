@@ -10,17 +10,20 @@ export default function DashboardHome() {
     { title: "Offers Made", count: 2, icon: "🏆" },
   ];
 
+  const hrData = JSON.parse(localStorage.getItem("hrData"));
   const recentActivities = [
     "John Doe applied for Software Engineer",
     "Jane Smith shortlisted for QA Engineer",
     "Interview scheduled with Rahul for Product Manager",
     "New job posted: Frontend Developer",
   ];
+  
+ 
 
   return (
     <div className="dashboard-content">
       <div className="welcome-banner">
-        <h2>Welcome, HR Name!</h2>
+        <h2>Welcome <span className="text-danger">{hrData.hr_name} Sir</span> </h2>
         <p>Manage your jobs, candidates, and interviews efficiently.</p>
       </div>
 

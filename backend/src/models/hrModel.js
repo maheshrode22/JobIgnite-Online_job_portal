@@ -1,25 +1,22 @@
 let db = require("../config/db.js");
 // hr Login
 exports.hrLoginMod = (hrUser, hrPass) => {
-
     return new Promise((resolve, reject) => {
-        db.query("select * from hr where email=? AND password=?", [hrUser, hrPass], (err, result) => {
-            if (err) {
-                reject(err);
-            }
-            else {
-                if (result.length > 0) {
-                    resolve(result);
-
-                } else {
-                    reject("invalid login");
-
-                }
-
-            }
-        });
+      db.query(
+        "SELECT * FROM hr WHERE email = ? AND password = ?",
+        [hrUser, hrPass],
+        (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);  
+          }
+        }
+      );
     });
-}
+  };
+  
+  
 // register Hr 
 exports.hrRegisterMod = (...data) => {
 

@@ -2,23 +2,35 @@ import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import HRRegister from "./HRRegister";
+import { hrLogin } from "../../services/HRService";
 
 export default function HRAuth() {
-  const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
+  const [activeForm, setActiveForm] = useState("login");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    //temp hr id store 
-    localStorage.setItem("hr_id", 3);
-    // here you can add API call for login before navigation
-    navigate("/hr");
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    try {
+      const hrData = await hrLogin(email, password); //  service  API call
+
+      // HR data localStorage save
+      localStorage.setItem("hrData", JSON.stringify(hrData));
+      localStorage.setItem("hr_id", hrData.hr_id);
+
+      alert("Login successful ✅");
+      navigate("/hr");
+    } catch (err) {
+      // backend कडून आलेला message show होईल
+      alert(err.message || "Something went wrong ");
+    }
   };
 
   return (
     <div className="hrauth-container">
       <div className="hrauth-box">
-        {/* Heading */}
         <h2>
           {activeForm === "login" && "HR Login"}
           {activeForm === "register" && "HR Registration"}
@@ -30,15 +42,27 @@ export default function HRAuth() {
           <form onSubmit={handleLogin}>
             <div className="input-group">
               <label>Email</label>
-              <input type="email" placeholder="Enter email" required />
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                required
+              />
             </div>
 
             <div className="input-group">
               <label>Password</label>
-              <input type="password" placeholder="Enter password" required />
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+              />
             </div>
 
-            <button type="submit" className="auth-btn">Login</button>
+            <button type="submit" className="auth-btn">
+              Login
+            </button>
 
             <div className="extra-links">
               <p>
@@ -56,7 +80,7 @@ export default function HRAuth() {
           </form>
         )}
 
-        {/*  Register Form */}
+        {/* Register Form */}
         {activeForm === "register" && (
           <HRRegister onBack={() => setActiveForm("login")} />
         )}
@@ -66,10 +90,16 @@ export default function HRAuth() {
           <form>
             <div className="input-group">
               <label>Email</label>
-              <input type="email" placeholder="Enter registered email" required />
+              <input
+                type="email"
+                placeholder="Enter registered email"
+                required
+              />
             </div>
 
-            <button type="submit" className="auth-btn">Send Reset Link</button>
+            <button type="submit" className="auth-btn">
+              Send Reset Link
+            </button>
 
             <div className="extra-links">
               <p>

@@ -14,6 +14,7 @@ export default function JobSeekerAuth() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+
     try {
       const response = await loginJobSeeker({
         jobUser: email,
@@ -32,6 +33,10 @@ export default function JobSeekerAuth() {
       console.error("Login error:", error);
       alert("Something went wrong. Please try again.");
     }
+
+    // l call API here for login
+    navigate("/jobSeeker"); // Redirect to Job Seeker dashboard
+
   };
 
   return (

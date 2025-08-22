@@ -30,15 +30,16 @@ export default function ViewJob() {
     setShow(true);
   };
 
+  //open when click update button
   const handleUpdate = (id) => {
     alert("Update job with ID: " + id);
-    // TODO: navigate to update form or open inline edit
+    
   };
-
+// opwn when click delete button
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this job?")) {
       alert("Delete job with ID: " + id);
-      // TODO: call delete API and update UI
+      
     }
   };
 
@@ -58,7 +59,7 @@ export default function ViewJob() {
           <table className="table table-hover align-middle shadow-sm custom-table">
             <thead className="table-primary">
               <tr>
-                <th>#</th>
+                <th>Sr No</th>
                 <th>Job Title</th>
                 <th>Company</th>
                 <th>Location</th>

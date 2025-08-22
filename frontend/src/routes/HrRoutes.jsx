@@ -4,6 +4,7 @@ import HrDashboard from "../component/hr/HrDashboard";
 import AddJob from "../component/hr/addJob";
 import Dashboard from "../component/hr/dashboard";
 import HRProfile from "../component/hr/hrprofile";
+import ViewJob from "../component/hr/viewJob";
 export default function HrRoutes() {
   return (
     <Routes>
@@ -12,6 +13,8 @@ export default function HrRoutes() {
        <Route path="/dashboard" element={<Dashboard  />}></Route>
        <Route path="/addJobs" element={<AddJob />}></Route> 
        <Route path="/hrprofile" element={<HRProfile />}></Route> 
+       <Route path="/viewJob" element={<ViewJob/>}></Route>
+
       </Route>
     </Routes>
   );

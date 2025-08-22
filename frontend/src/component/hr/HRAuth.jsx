@@ -9,6 +9,8 @@ export default function HRAuth() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    //temp hr id store 
+    localStorage.setItem("hr_id", 3);
     // here you can add API call for login before navigation
     navigate("/hr");
   };

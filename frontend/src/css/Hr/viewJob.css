@@ -1,0 +1,28 @@
+/* Job Table Styling */
+.custom-table {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .custom-table thead th {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  
+  .custom-table tbody tr:hover {
+    background-color: #f1f9ff;
+    transform: scale(1.01);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  /* Job Details Modal */
+  .job-details p {
+    margin-bottom: 8px;
+    font-size: 15px;
+  }
+  
+  .job-details strong {
+    color: #333;
+  }
+  

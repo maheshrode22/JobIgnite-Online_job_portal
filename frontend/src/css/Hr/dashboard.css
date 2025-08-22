@@ -1,6 +1,6 @@
 /* Shift content so it does not overlap with fixed sidebar */
 .dashboard-content {
-  margin-left:120px; /* same as sidebar width */
+ 
   padding: 20px;
   transition: margin-left 0.3s ease;
 }
@@ -74,4 +74,12 @@
   .dashboard-content {
     margin-left: 0; /* Sidebar hidden on small screens */
   }
+}
+
+
+/* Remove custom left shift; layout already handles spacing */
+.dashboard-content {
+  /* no margin-left here */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
 }

@@ -7,7 +7,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
   const navigate = useNavigate();
   const [jobsOpen, setJobsOpen] = useState(false);
 
-  const handleToggleJobs = () => setJobsOpen((v) => !v);
+  const handleToggleJobs = () => setJobsOpen(v => !v);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -15,99 +15,128 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
   };
 
   return (
-    <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-      {/* Header */}
-      <div className="sidebar-header">
-        <h2>HR Dashboard</h2>
-        {isMobile && (
-          <button
-            className="toggle-btn"
-            onClick={toggleSidebar}
-            aria-label="Close sidebar"
-          >
-            ×
-          </button>
-        )}
-      </div>
+    <>
+      {/* Overlay -mobile*/}
+      {isMobile && isOpen && (
+        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+      )}
 
-      {/* Menu */}
-      <ul className="sidebar-menu">
-        <li className={location.pathname === "/hr/dashboard" ? "active" : ""}>
-          <Link
-            to="/hr/dashboard"
-            onClick={isMobile ? toggleSidebar : undefined}
-          >
-            📊 Dashboard
-          </Link>
-        </li>
-
-        <li className={`has-submenu ${jobsOpen ? "open" : ""}`}>
-          <button className="submenu-title" onClick={handleToggleJobs}>
-            💼 Manage Jobs {jobsOpen ? "▲" : "▼"}
-          </button>
-          {jobsOpen && (
-            <ul className="submenu">
-              <li
-                className={location.pathname === "/hr/add-job" ? "active" : ""}
-              >
-                <Link
-                  to="/hr/addJobs"
-                  onClick={isMobile ? toggleSidebar : undefined}
-                >
-                  ➕ Add Job
-                </Link>
-              </li>
-              <li
-                className={
-                  location.pathname === "/hr/view-jobs" ? "active" : ""
-                }
-              >
-                <Link
-                  to="/hr/view-jobs"
-                  onClick={isMobile ? toggleSidebar : undefined}
-                >
-                  👁️ View Jobs
-                </Link>
-              </li>
-            </ul>
+      <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
+        {/* Header */}
+        <div className="sidebar-header">
+          <h2>HR Dashboard</h2>
+          {isMobile && (
+            <button
+              className="toggle-btn"
+              onClick={toggleSidebar}
+              aria-label="Close sidebar"
+            >
+              ×
+            </button>
           )}
-        </li>
+        </div>
 
-        <li
-          className={
-            location.pathname === "/hr/view-applications" ? "active" : ""
-          }
-        >
-          <Link
-            to="/hr/view-applications"
-            onClick={isMobile ? toggleSidebar : undefined}
+        {/* Menu */}
+        <ul className="sidebar-menu">
+          <li
+            className={
+              location.pathname.startsWith("/hr/dashboard") ||
+              location.pathname === "/hr"
+                ? "active"
+                : ""
+            }
           >
-            📑 Applications
-          </Link>
-        </li>
+            <Link
+              to="/hr/dashboard"
+              onClick={isMobile ? toggleSidebar : undefined}
+            >
+              📊 Dashboard
+            </Link>
+          </li>
 
-        <li className={location.pathname === "/hr/hrprofile" ? "active" : ""}>
-          <Link to="/hr/hrprofile" onClick={isMobile ? toggleSidebar : undefined}>
-            👤 Profile
-          </Link>
-        </li>
+          <li className={`has-submenu ${jobsOpen ? "open" : ""}`}>
+            <button className="submenu-title" onClick={handleToggleJobs}>
+              💼 Manage Jobs {jobsOpen ? "▲" : "▼"}
+            </button>
+            {jobsOpen && (
+              <ul className="submenu">
+                <li
+                  className={
+                    location.pathname.startsWith("/hr/addJobs") ? "active" : ""
+                  }
+                >
+                  <Link
+                    to="/hr/addJobs"
+                    onClick={isMobile ? toggleSidebar : undefined}
+                  >
+                    ➕ Add Job
+                  </Link>
+                </li>
+                <li
+                  className={
+                    location.pathname.startsWith("/hr/viewJob") ? "active" : ""
+                  }
+                >
+                  <Link
+                    to="/hr/viewJob"
+                    onClick={isMobile ? toggleSidebar : undefined}
+                  >
+                    👁️ View Jobs
+                  </Link>
+                </li>
+              </ul>
+            )}
+          </li>
 
-        <li className={location.pathname === "/hr/settings" ? "active" : ""}>
-          <Link
-            to="/hr/settings"
-            onClick={isMobile ? toggleSidebar : undefined}
+          <li
+            className={
+              location.pathname.startsWith("/hr/view-applications")
+                ? "active"
+                : ""
+            }
           >
-            ⚙️ Settings
-          </Link>
-        </li>
-      </ul>
+            <Link
+              to="/hr/view-applications"
+              onClick={isMobile ? toggleSidebar : undefined}
+            >
+              📑 Applications
+            </Link>
+          </li>
 
-      {/* Footer */}
-      <div className="sidebar-footer">
-        <button className="logout-btn" onClick={handleLogout}>
-          🚪 Logout
-        </button>
-      </div>
-    </aside>
+          <li
+            className={
+              location.pathname.startsWith("/hr/hrprofile") ? "active" : ""
+            }
+          >
+            <Link
+              to="/hr/hrprofile"
+              onClick={isMobile ? toggleSidebar : undefined}
+            >
+              👤 Profile
+            </Link>
+          </li>
+
+          <li
+            className={
+              location.pathname.startsWith("/hr/settings") ? "active" : ""
+            }
+          >
+            <Link
+              to="/hr/settings"
+              onClick={isMobile ? toggleSidebar : undefined}
+            >
+              ⚙️ Settings
+            </Link>
+          </li>
+        </ul>
+
+        {/* Footer */}
+        <div className="sidebar-footer">
+          <button className="logout-btn" onClick={handleLogout}>
+            🚪 Logout
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

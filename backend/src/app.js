@@ -6,7 +6,7 @@ require("dotenv").config();
 let app = express();
 let router = require("../src/routes/route.js");
 
-//  Middlewares
+// Middlewares
 app.use(cors());   // React frontend  backend access 
 app.use(express.json()); // JSON body parse
 app.use(bodyParser.urlencoded({ extended: true })); // URL encoded parse
@@ -19,3 +19,5 @@ app.use(express.static("public"));
 app.use("/", router);
 
 module.exports = app;
+
+

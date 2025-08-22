@@ -36,7 +36,7 @@ router.post("/jobSeekerProfile",jobseekCtr.jobSeekerProfile);   //   // make or 
 router.get("/getProfile/:seekerId",jobseekCtr.getProfile);
 
 router.post("/deletejoSeeker",jobseekCtr.deletejobSeeker);    // // delete job seeker profile
-router.post("/updateJobSeekerPrfile",jobseekCtr.updateJobSeekerProfile); // update job seeker profile 
+router.post("/updateJobSeekerProfile",jobseekCtr.updateJobSeekerProfile); // update job seeker profile 
 
 // job post routers 
 router.post("/createJobs",jobsPost.createJobs);  // post jobs 

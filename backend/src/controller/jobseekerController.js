@@ -9,10 +9,12 @@ exports.jobSeekerLogin=(req,res)=>{
     let promise=jobseekerModel.jobSeekerLogin(jobUser,jobPass);
     promise.then((result)=>{
         if(result.length>0){
-            res.send({msg:"jobseeker Login"});
+            res.send({user:result[0],
+                success:true
+            });
         }
         else{
-            res.send({msg:"job seeker are not register"});
+            res.send({msg:"invalid email or password"});
         }
     });
     promise.catch((err)=>{
@@ -68,7 +70,7 @@ exports.getProfile=(req,res)=>{
      jobseekerModel.getProfile(id)
     .then((profile) => {
       if (profile) {
-        res.status(200).json({ profile });
+        res.status(200).json(profile[0]);
       } else {
         res.status(404).json({ msg: "Profile not found" });
       }

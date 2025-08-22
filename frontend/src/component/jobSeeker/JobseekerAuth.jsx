@@ -2,15 +2,36 @@ import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import SeekerRegister from "./SeekerRegister";
+import { loginJobSeeker } from "../../services/SeekerService"; // ✅ Import service
 
 export default function JobSeekerAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  // ✅ Handle Login
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // You can call API here for login
-    navigate("/jobSeeker"); // Redirect to Job Seeker dashboard
+
+    try {
+      const response = await loginJobSeeker({
+        jobUser: email,
+        jobPass: password,
+      });
+
+      if (response.data.success) {
+        // ✅ Store user details in localStorage
+        localStorage.setItem("jobSeeker", JSON.stringify(response.data.user));
+
+        navigate("/jobSeeker"); // Redirect to Job Seeker Dashboard
+      } else {
+        alert(response.data.message || "Invalid credentials. Try again.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -23,17 +44,29 @@ export default function JobSeekerAuth() {
           {activeForm === "forgot" && "Reset Password"}
         </h2>
 
-        {/* Login Form */}
+        {/* ✅ Login Form */}
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
             <div className="input-group">
               <label>Email</label>
-              <input type="email" placeholder="Enter email" required />
+              <input
+                type="email"
+                placeholder="Enter email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
 
             <div className="input-group">
               <label>Password</label>
-              <input type="password" placeholder="Enter password" required />
+              <input
+                type="password"
+                placeholder="Enter password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
 
             <button type="submit" className="auth-btn">Login</button>
@@ -54,12 +87,12 @@ export default function JobSeekerAuth() {
           </form>
         )}
 
-        {/* Register Form */}
+        {/* ✅ Register Form */}
         {activeForm === "register" && (
           <SeekerRegister onBack={() => setActiveForm("login")} />
         )}
 
-        {/* Forgot Password */}
+        {/* ✅ Forgot Password */}
         {activeForm === "forgot" && (
           <form>
             <div className="input-group">

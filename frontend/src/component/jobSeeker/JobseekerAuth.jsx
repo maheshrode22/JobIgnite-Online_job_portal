@@ -9,7 +9,7 @@ export default function JobSeekerAuth() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // You can call API here for login
+    // l call API here for login
     navigate("/jobSeeker"); // Redirect to Job Seeker dashboard
   };
 

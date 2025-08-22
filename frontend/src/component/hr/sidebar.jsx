@@ -90,13 +90,13 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
 
           <li
             className={
-              location.pathname.startsWith("/hr/view-applications")
+              location.pathname.startsWith("/hr/Applications")
                 ? "active"
                 : ""
             }
           >
             <Link
-              to="/hr/view-applications"
+              to="/hr/Applications"
               onClick={isMobile ? toggleSidebar : undefined}
             >
               📑 Applications

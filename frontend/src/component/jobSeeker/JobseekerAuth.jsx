@@ -34,8 +34,6 @@ export default function JobSeekerAuth() {
       alert("Something went wrong. Please try again.");
     }
 
-    // // l call API here for login
-    // navigate("/jobSeeker"); // Redirect to Job Seeker dashboard
 
   };
 

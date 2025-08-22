@@ -37,6 +37,8 @@ export const updateProfile = async (profileData) => {
   });
 };
 
+
 export const getAllJobs = async () => {
   return await axios.get(`${API_URL}/viewAllJobPost`);
 };
+

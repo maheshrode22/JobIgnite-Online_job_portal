@@ -28,7 +28,7 @@ router.post("/viewAllPostHrById",hrctr.viewAllPostHrById);
 
 
 
-//job seeker routers
+//job seeker routers        ////j
 
 router.post("/jobseekerLogin",jobseekCtr.jobSeekerLogin); // job seeker Login
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister); // job seeker registation 

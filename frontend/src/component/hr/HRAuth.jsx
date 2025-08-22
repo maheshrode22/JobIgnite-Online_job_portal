@@ -3,23 +3,23 @@ import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import HRRegister from "./HRRegister";
 import { hrLogin } from "../../services/HRService";
-
+ 
 export default function HRAuth() {
   const [activeForm, setActiveForm] = useState("login");
   const navigate = useNavigate();
-
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+ 
     try {
       const hrData = await hrLogin(email, password); //  service  API call
-
+ 
       // HR data localStorage save
       localStorage.setItem("hrData", JSON.stringify(hrData));
       localStorage.setItem("hr_id", hrData.hr_id);
-
+ 
       alert("Login successful ✅");
       navigate("/hr");
     } catch (err) {
@@ -27,7 +27,7 @@ export default function HRAuth() {
       alert(err.message || "Something went wrong ");
     }
   };
-
+ 
   return (
     <div className="hrauth-container">
       <div className="hrauth-box">
@@ -36,7 +36,7 @@ export default function HRAuth() {
           {activeForm === "register" && "HR Registration"}
           {activeForm === "forgot" && "Reset Password"}
         </h2>
-
+ 
         {/* Login Form */}
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
@@ -49,7 +49,7 @@ export default function HRAuth() {
                 required
               />
             </div>
-
+ 
             <div className="input-group">
               <label>Password</label>
               <input
@@ -59,11 +59,11 @@ export default function HRAuth() {
                 required
               />
             </div>
-
+ 
             <button type="submit" className="auth-btn">
               Login
             </button>
-
+ 
             <div className="extra-links">
               <p>
                 New HR?{" "}
@@ -79,12 +79,12 @@ export default function HRAuth() {
             </div>
           </form>
         )}
-
+ 
         {/* Register Form */}
         {activeForm === "register" && (
           <HRRegister onBack={() => setActiveForm("login")} />
         )}
-
+ 
         {/* Forgot Password */}
         {activeForm === "forgot" && (
           <form>
@@ -96,11 +96,11 @@ export default function HRAuth() {
                 required
               />
             </div>
-
+ 
             <button type="submit" className="auth-btn">
               Send Reset Link
             </button>
-
+ 
             <div className="extra-links">
               <p>
                 Back to{" "}
@@ -113,3 +113,5 @@ export default function HRAuth() {
     </div>
   );
 }
+ 
+ 

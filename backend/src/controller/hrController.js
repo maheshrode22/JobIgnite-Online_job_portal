@@ -2,6 +2,7 @@ const hrModel = require("../models/hrModel.js");
 // const { sendRegistrationMail } = require("../Services/mailService");
 const { sendMail } = require("../Services/mailService");
 const { registrationTemplate } = require("../Services/mailTemplates");
+
 exports.hrLogin = (req, res) => {
   let { hrUser, hrPass } = req.body;
   let promise = hrModel.hrLoginMod(hrUser, hrPass);
@@ -42,8 +43,18 @@ exports.hrRegister = (req, res) => {
       });
   };
 
+// view all post
+exports.viewAllPostHrById=(req,res)=>{
+  const{hr_id}=req.body;
 
+  hrModel.viewAllPostHrById(hr_id)
+  .then((result)=>{
+    res.send(result);
+  }).catch((err) => {
+    res.send(err);
+});
 
+}
 exports.AllHr = (req, res) => {
     let promise = hrModel.viewHr();
 
@@ -97,3 +108,4 @@ exports.updateStatusHr = ((req, res) => {
     })
 
 })
+

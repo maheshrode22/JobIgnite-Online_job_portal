@@ -22,7 +22,9 @@ router.post("/hrregister",hrctr.hrRegister);
 router.get("/viewAllHr",hrctr.AllHr);
 router.put("/updateHr",hrctr.updateHr);
 router.post("/deleteHr",hrctr.delHr);
-router.post("/updateStatusHr",hrctr.updateStatusHr)
+router.post("/updateStatusHr",hrctr.updateStatusHr);
+router.post("/viewAllPostHrById",hrctr.viewAllPostHrById);
+
 
 
 

@@ -7,12 +7,12 @@ exports.createJobs = (req, res) => {
     let promise = jobPostModel.createJobs(hr_id, title, company,
          opening, experience_required, location, package, skills_required, description, deadline);
     
-
-    promise.then((result) => {
-        res.send({ msg: "Job posted successfully" });
-    }).catch((err) => {
-        res.send(err);
-    });
+         promise.then((result) => {
+            res.json({ msg: "Job posted successfully" });
+        }).catch((err) => {
+            res.status(500).json({ msg: "Error posting job", error: err });
+        });
+        
 };
 
 

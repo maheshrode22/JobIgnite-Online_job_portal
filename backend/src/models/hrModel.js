@@ -89,3 +89,17 @@ exports.updateStatusHr = (id, status) => {
         })
     })
 };
+
+
+exports.viewAllPostHrById=(hr_id)=>{
+    return new Promise((resolve, reject) => {
+        db.query("select *from jobs where hr_id=?",[hr_id],(err,result)=>{
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+
+            }
+        })
+    })
+}

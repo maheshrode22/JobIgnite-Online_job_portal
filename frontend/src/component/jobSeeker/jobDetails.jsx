@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { applyForJob } from "../../services/SeekerService"; //  use your function
 import "../../css/jobSeeker/jobDetails.css";
 
 export default function JobDetails() {
@@ -8,11 +9,35 @@ export default function JobDetails() {
   const navigate = useNavigate();
   const job = location.state?.job;
 
-  const [applied, setApplied] = useState(false); // track apply success
+  const [applied, setApplied] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleApply = () => {
-    setApplied(true);
-    // You can add API call here to submit application
+  //  Apply handler
+  const handleApply = async () => {
+    const seeker = JSON.parse(localStorage.getItem("jobSeeker")); // full object
+    const seeker_id = seeker?.seeker_id;
+
+    if (!seeker_id) {
+      alert("⚠️ Please login to apply!");
+      navigate("/jobSeeker/auth");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await applyForJob(seeker_id, job.job_id);
+
+      if (res.data.msg === "apply successfully") {
+        setApplied(true);
+      } else {
+        alert(res.data.msg || "Failed to apply. Try again.");
+      }
+    } catch (err) {
+      console.error("Apply error:", err);
+      alert("Something went wrong while applying.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!job) {
@@ -36,7 +61,7 @@ export default function JobDetails() {
       <div className="card shadow-sm p-4 bg-white">
         <h2 className="card-title mb-3">{job.title}</h2>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item"><strong>Company:</strong> {job.company}</li>
+          <li className="list-group-item"><strong>Company:</strong> {job.company_name}</li>
           <li className="list-group-item"><strong>Location:</strong> {job.location}</li>
           <li className="list-group-item"><strong>Type:</strong> {job.type}</li>
           <li className="list-group-item"><strong>Openings:</strong> {job.opening}</li>
@@ -58,9 +83,9 @@ export default function JobDetails() {
           <button
             className="applyjob"
             onClick={handleApply}
-            disabled={applied} // disable after applying
+            disabled={applied || loading}
           >
-            {applied ? "Applied" : "Apply"}
+            {applied ? " Applied" : loading ? "Applying..." : "Apply"}
           </button>
         </div>
 
@@ -68,7 +93,7 @@ export default function JobDetails() {
         {applied && (
           <div className="text-center mt-3">
             <div className="alert alert-success" role="alert">
-              Job Applied Successfully!
+              🎉 Job Applied Successfully!
             </div>
           </div>
         )}

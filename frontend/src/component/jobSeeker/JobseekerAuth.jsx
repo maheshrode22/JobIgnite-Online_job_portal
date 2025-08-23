@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import SeekerRegister from "./SeekerRegister";
-import { loginJobSeeker } from "../../services/SeekerService"; // ✅ Import service
+import { loginJobSeeker } from "../../services/SeekerService"; //  Import service
 
 export default function JobSeekerAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
@@ -10,7 +10,7 @@ export default function JobSeekerAuth() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // ✅ Handle Login
+  // Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -22,7 +22,7 @@ export default function JobSeekerAuth() {
       });
 
       if (response.data.success) {
-        // ✅ Store user details in localStorage
+        //  Store user details in localStorage
         localStorage.setItem("jobSeeker", JSON.stringify(response.data.user));
 
         navigate("/jobSeeker"); // Redirect to Job Seeker Dashboard
@@ -47,7 +47,7 @@ export default function JobSeekerAuth() {
           {activeForm === "forgot" && "Reset Password"}
         </h2>
 
-        {/* ✅ Login Form */}
+        {/*  Login Form */}
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
             <div className="input-group">
@@ -90,12 +90,12 @@ export default function JobSeekerAuth() {
           </form>
         )}
 
-        {/* ✅ Register Form */}
+        {/*  Register Form */}
         {activeForm === "register" && (
           <SeekerRegister onBack={() => setActiveForm("login")} />
         )}
 
-        {/* ✅ Forgot Password */}
+        {/* Forgot Password */}
         {activeForm === "forgot" && (
           <form>
             <div className="input-group">

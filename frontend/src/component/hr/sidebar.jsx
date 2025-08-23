@@ -16,7 +16,6 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
 
   return (
     <>
-      {/* Overlay -mobile*/}
       {isMobile && isOpen && (
         <div className="sidebar-overlay" onClick={toggleSidebar}></div>
       )}

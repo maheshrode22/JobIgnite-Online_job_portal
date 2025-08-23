@@ -23,7 +23,6 @@ export default function HRAuth() {
       alert("Login successful ✅");
       navigate("/hr");
     } catch (err) {
-      // backend कडून आलेला message show होईल
       alert(err.message || "Something went wrong ");
     }
   };
@@ -37,7 +36,7 @@ export default function HRAuth() {
           {activeForm === "forgot" && "Reset Password"}
         </h2>
  
-        {/* Login Form */}
+       
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
             <div className="input-group">

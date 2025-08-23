@@ -1,6 +1,6 @@
 import axios from "axios";
  
-const API_URL = "http://localhost:3000"; // backend running port
+const API_URL = "http://localhost:3000"; 
  
 // HR Register function
 export const registerHR = async (hrData) => {

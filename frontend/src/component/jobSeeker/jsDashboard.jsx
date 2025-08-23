@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import JsSidebar from "../jobSeeker/jobseekerside";   // ✅ Jobseeker sidebar
-import JsNavbar from "../jobSeeker/jsNavbar";         // ✅ Jobseeker navbar
-import BrowseJobs from "../jobSeeker/browseJobs";     // ✅ Default dashboard page
-import "../../css/jobSeeker/jsDashboard.css";         // ✅ Jobseeker CSS
+import JsSidebar from "../jobSeeker/jobseekerside";  
+import JsNavbar from "../jobSeeker/jsNavbar";         
+import BrowseJobs from "../jobSeeker/browseJobs";    
+import "../../css/jobSeeker/jsDashboard.css";         
 
 export default function JsDashboard() {
   const location = useLocation();

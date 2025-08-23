@@ -26,8 +26,8 @@ export const jobSeekerProfile = async (profileData) => {
   });
 };
 
-export const getProfile = async (seekerId) => {
-  return await axios.get(`${API_URL}/getProfile/${seekerId}`);
+export const getProfileById = async (seeker_id) => {
+  return await axios.get(`${API_URL}/getProfile/${seeker_id}`);
 };
 
 

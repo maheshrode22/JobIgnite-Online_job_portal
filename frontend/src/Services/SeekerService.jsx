@@ -13,14 +13,14 @@ export const registerSeeker = async (seekerData) => {
 };
 
 
-export const loginJobSeeker= async (credentials) => {
-  return await axios.post(`${API_URL}/jobseekerLogin`, credentials, {
+export const loginJobSeeker= async (user) => {
+  return await axios.post(`${API_URL}/jobseekerLogin`, user, {
     headers: { "Content-Type": "application/json" },
   });
 };
 
 
-export const seekerProfile = async (profileData) => {
+export const jobSeekerProfile = async (profileData) => {
   return await axios.post(`${API_URL}/jobSeekerProfile`, profileData, {
     headers: { "Content-Type": "application/json" },
   });

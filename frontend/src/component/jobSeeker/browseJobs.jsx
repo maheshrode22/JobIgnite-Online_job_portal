@@ -11,7 +11,11 @@ export default function BrowseJobs() {
     const fetchJobs = async () => {
       try {
         const res = await getAllJobs();
+
+        setJobs(res.data); // recive and set backend data
+
         setJobs(res.data); 
+
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }

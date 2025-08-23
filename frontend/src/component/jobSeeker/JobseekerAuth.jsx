@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import SeekerRegister from "./SeekerRegister";
-import { loginJobSeeker } from "../../Services/SeekerService";
+
+import {loginJobSeeker} from"../../Services/SeekerService";
+
 
 export default function JobSeekerAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
@@ -22,6 +24,10 @@ export default function JobSeekerAuth() {
       });
 
       if (response.data.success) {
+
+        //  Store user details in localStorage
+        localStorage.setItem("jobSeeker", JSON.stringify(response.data.user));
+
         // ✅ Store user details in localStorage
         const user = response.data.user;
         localStorage.setItem("seekerData", JSON.stringify(user));
@@ -49,7 +55,7 @@ export default function JobSeekerAuth() {
           {activeForm === "forgot" && "Reset Password"}
         </h2>
 
-        {/*  Login Form */}
+
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
             <div className="input-group">

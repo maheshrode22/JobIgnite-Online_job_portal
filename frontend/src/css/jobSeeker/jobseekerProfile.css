@@ -38,6 +38,18 @@
   gap: 10px;
 }
 
+.seekerprofile-item select{
+    flex: 2;
+    width:265px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+
 .seekerprofile-item label {
   flex: 1;
   font-weight: bold;
@@ -68,8 +80,14 @@
 }
 
 .btn.save {
-  background: #28a745;
-  color: #fff;
+  background: #f8db37;
+  color:black;
+  font-weight:600;
+}
+.btn.save:hover{
+  background: #ffd500;
+  color:black;
+  font-weight:600;
 }
 
 .btn.edit {
@@ -99,5 +117,31 @@
 
   .seekerprofile-item input {
     width: 100%;
+  }
+}
+
+/* Small devices (up to 480px) */
+@media (max-width: 480px) {
+  .form-grid {
+    grid-template-columns: 1fr; /* Only one item per row */
+    gap: 10px;
+  }
+
+  .seekerprofile-item {
+    display: flex;
+    flex-direction: column; /* Label above input */
+    align-items: flex-start;
+    justify-content: flex-start; /* Override space-between */
+  }
+
+  .seekerprofile-item label {
+    text-align: left;
+    margin-bottom: 5px;
+  }
+
+  .seekerprofile-item input,
+  .seekerprofile-item select {
+    flex: unset;      /* Remove flex:2 */
+    width: 100%;      /* Full width of the row */
   }
 }

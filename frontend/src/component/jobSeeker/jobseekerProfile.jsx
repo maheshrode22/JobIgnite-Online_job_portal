@@ -6,6 +6,7 @@ const SeekerProfile = () => {
   const seeker_id = localStorage.getItem("seeker_id");
 
   const [formData, setFormData] = useState({
+    profile_id: "", // hidden
     gender: "",
     dob: "",
     skills: "",
@@ -48,16 +49,16 @@ const SeekerProfile = () => {
       return;
     }
 
-    const profileData = { seeker_id, ...formData };
-
+    const profileData = { seeker_id, ...formData }; // include hidden fields
     jobSeekerProfile(profileData)
       .then(() => {
-        alert("Profile added successfully!");
+        alert("Profile saved successfully!");
         setProfileExists(true);
+        setIsEditing(false);
       })
       .catch((err) => {
-        console.error("Error adding profile:", err);
-        alert("Failed to add profile. Please try again.");
+        console.error("Error saving profile:", err);
+        alert("Failed to save profile. Please try again.");
       });
   };
 
@@ -72,21 +73,50 @@ const SeekerProfile = () => {
           {profileExists ? "Job Seeker Profile" : "Add Job Seeker Profile"}
         </h2>
 
-        {/* Two Inputs in One Row */}
+        {/* Form Fields */}
         <div className="form-grid">
-          {Object.keys(formData).map((key, index) => (
-            <div className="seekerprofile-item" key={key}>
-              <label>{key.replace("_", " ").toUpperCase()}:</label>
-              <input
-                type={key === "dob" ? "date" : "text"}
-                name={key}
-                value={formData[key]}
-                onChange={handleChange}
-                disabled={profileExists && !isEditing} // Disable if profile exists & not in edit mode
-              />
-            </div>
-          ))}
-        </div>
+  {Object.keys(formData)
+    .filter((key) => key !== "seeker_id" && key !== "profile_id") // hide hidden fields
+    .map((key) => (
+      <div className="seekerprofile-item" key={key}>
+        <label>
+          {key.replace("_", " ").toUpperCase()}
+          {(key.includes("marks")) ? " (%)" : ""} :
+        </label>
+
+        {key === "gender" ? (
+          !profileExists ? ( // Only show select when adding profile
+            <select
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          ) : (
+            <input
+              type="text"
+              name="gender"
+              value={formData.gender}
+              disabled // read-only for existing profile
+            />
+          )
+        ) : (
+          <input
+            type={key === "dob" ? "date" : "text"}
+            name={key}
+            value={formData[key]}
+            onChange={handleChange}
+            disabled={profileExists && !isEditing}
+          />
+        )}
+      </div>
+    ))}
+</div>
+
 
         {/* Buttons */}
         <div className="seekerprofile-actions">

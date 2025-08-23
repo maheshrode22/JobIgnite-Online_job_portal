@@ -15,12 +15,12 @@ const HRProfile = () => {
 
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete your profile?")) {
-      // localStorage clear करा
+      
       localStorage.removeItem("hrData");
       localStorage.removeItem("hr_id");
 
       alert("Profile deleted successfully!");
-      window.location.href = "/"; // redirect to home / login
+      window.location.href = "/"; 
     }
   };
 

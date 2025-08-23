@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { jobSeekerProfile } from "../../Services/SeekerService";
-import "../../css/jobSeeker/seekerDetail.css";
+import React, { useState, useEffect } from "react";
+import { jobSeekerProfile, getProfileById } from "../../Services/SeekerService";
+import "../../css/jobSeeker/jobseekerProfile.css";
 
 const SeekerProfile = () => {
   const seeker_id = localStorage.getItem("seeker_id");
@@ -18,6 +18,25 @@ const SeekerProfile = () => {
     ssc_marks: "",
   });
 
+  const [profileExists, setProfileExists] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  // ✅ Fetch Profile if Exists
+  useEffect(() => {
+    if (seeker_id) {
+      getProfileById(seeker_id)
+        .then((res) => {
+          if (res && res.data) {
+            setProfileExists(true);
+            setFormData(res.data);
+          }
+        })
+        .catch(() => {
+          setProfileExists(false);
+        });
+    }
+  }, [seeker_id]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -29,87 +48,65 @@ const SeekerProfile = () => {
       return;
     }
 
-    const data = [
-      seeker_id,
-      formData.gender,
-      formData.dob,
-      formData.skills,
-      formData.degree,
-      formData.university,
-      formData.cgpa,
-      formData.hsc_year,
-      formData.hsc_marks,
-      formData.ssc_year,
-      formData.ssc_marks,
-    ];
+    const profileData = { seeker_id, ...formData };
 
-    jobSeekerProfile(...data)
+    jobSeekerProfile(profileData)
       .then(() => {
         alert("Profile added successfully!");
-        setFormData({
-          gender: "",
-          dob: "",
-          skills: "",
-          degree: "",
-          university: "",
-          cgpa: "",
-          hsc_year: "",
-          hsc_marks: "",
-          ssc_year: "",
-          ssc_marks: "",
-        });
+        setProfileExists(true);
       })
-      .catch((err) => console.error("Error adding profile:", err));
+      .catch((err) => {
+        console.error("Error adding profile:", err);
+        alert("Failed to add profile. Please try again.");
+      });
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
   };
 
   return (
     <div className="seekerprofile-container">
       <div className="seekerprofile-card">
-        <h2 className="seeker-profile-title">Add Job Seeker Profile</h2>
+        <h2 className="seeker-profile-title">
+          {profileExists ? "Job Seeker Profile" : "Add Job Seeker Profile"}
+        </h2>
 
-        <div className="seekerprofile-item">
-          <label>Gender:</label>
-          <input type="text" name="gender" value={formData.gender} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>Date of Birth:</label>
-          <input type="date" name="dob" value={formData.dob} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>Skills:</label>
-          <input type="text" name="skills" value={formData.skills} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>Degree:</label>
-          <input type="text" name="degree" value={formData.degree} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>University:</label>
-          <input type="text" name="university" value={formData.university} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>CGPA:</label>
-          <input type="number" name="cgpa" value={formData.cgpa} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>HSC Year:</label>
-          <input type="number" name="hsc_year" value={formData.hsc_year} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>HSC Marks:</label>
-          <input type="number" name="hsc_marks" value={formData.hsc_marks} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>SSC Year:</label>
-          <input type="number" name="ssc_year" value={formData.ssc_year} onChange={handleChange} />
-        </div>
-        <div className="seekerprofile-item">
-          <label>SSC Marks:</label>
-          <input type="number" name="ssc_marks" value={formData.ssc_marks} onChange={handleChange} />
+        {/* Two Inputs in One Row */}
+        <div className="form-grid">
+          {Object.keys(formData).map((key, index) => (
+            <div className="seekerprofile-item" key={key}>
+              <label>{key.replace("_", " ").toUpperCase()}:</label>
+              <input
+                type={key === "dob" ? "date" : "text"}
+                name={key}
+                value={formData[key]}
+                onChange={handleChange}
+                disabled={profileExists && !isEditing} // Disable if profile exists & not in edit mode
+              />
+            </div>
+          ))}
         </div>
 
+        {/* Buttons */}
         <div className="seekerprofile-actions">
-          <button className="btn save" onClick={handleSave}>Add Profile</button>
+          {!profileExists && (
+            <button className="btn save" onClick={handleSave}>
+              Add Profile
+            </button>
+          )}
+
+          {profileExists && !isEditing && (
+            <button className="btn edit" onClick={handleEdit}>
+              Edit Profile
+            </button>
+          )}
+
+          {isEditing && (
+            <button className="btn save" onClick={handleSave}>
+              Save Changes
+            </button>
+          )}
         </div>
       </div>
     </div>

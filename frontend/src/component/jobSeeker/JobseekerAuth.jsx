@@ -49,7 +49,6 @@ export default function JobSeekerAuth() {
           {activeForm === "forgot" && "Reset Password"}
         </h2>
 
-        {/* ✅ Login Form */}
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
             <div className="input-group">

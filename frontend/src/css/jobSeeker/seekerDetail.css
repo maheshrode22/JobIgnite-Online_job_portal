@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+/* Container for the profile card to center it */
+.seekerprofile-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The main profile card with shadow and rounded corners */
+.seekerprofile-card {
+  background-color: #ffffff;
+  box-shadow: 0 1px 10px black;
+  padding: 30px 40px;
+  width: 100%;
+  max-width: 600px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Style for the main title */
+.seeker-profile-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+/* Underline effect for the title */
+.seeker-profile-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 4px;
+  background-color: #3498db;
+  border-radius: 2px;
+}
+
+/* Styles for each profile data row (e.g., Name, Email) */
+.seekerprofile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap; /* Allows items to wrap on small screens */
+}
+
+/* Remove border from the last item */
+.seekerprofile-item:last-of-type {
+  border-bottom: none;
+}
+
+/* Style for the labels (e.g., "Name:") */
+.seekerprofile-item .label {
+  font-weight: 500;
+  color: #555;
+  margin-right: 15px;
+}
+
+/* Style for the values (e.g., "John Doe") */
+.seekerprofile-item .value {
+  color: #2c3e50;
+  text-align: right;
+  word-break: break-all; /* Prevents long emails/addresses from overflowing */
+}
+
+/* Container for the action buttons */
+.seekerprofile-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/* General button styles */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Specific styles for the "Edit Profile" button */
+.btn.edit {
+  background-color: #3498db;
+}
+
+.btn.edit:hover {
+  background-color: #2980b9;
+}
+
+/* Specific styles for the "Delete Profile" button */
+.btn.delete {
+  background-color: #e74c3c;
+}
+
+.btn.delete:hover {
+  background-color: #c0392b;
+}
+
+/* Loading text style */
+.loading-text {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+/* --- Responsive Design --- */
+/* Adjustments for screens smaller than 600px (e.g., mobile phones) */
+@media (max-width: 600px) {
+  .seekerprofile-card {
+    padding: 20px;
+  }
+
+  .seeker-profile-title {
+    font-size: 1.5rem;
+  }
+
+  .seekerprofile-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .seekerprofile-item .value {
+    text-align: left;
+  }
+
+  .seekerprofile-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerSeeker } from "../../services/SeekerService"; // Create a service similar to HRService
+import { registerSeeker } from "../../Services/SeekerService"; // Create a service similar to HRService
 
 export default function SeekerRegister({ onBack }) {
   const [name, setName] = useState("");

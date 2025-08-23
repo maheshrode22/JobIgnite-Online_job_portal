@@ -4,7 +4,7 @@ import "../../css/Hr/hrNavbar.css";
 export default function HrNavbar({ toggleSidebar }) {
   return (
     <nav className="hrnavbar">
-      {/* Hamburger (only visible on mobile) */}
+      
       <button
         className="hrhamburger"
         onClick={toggleSidebar}

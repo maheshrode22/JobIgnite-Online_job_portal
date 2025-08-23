@@ -59,14 +59,14 @@ export default function JSSidebar({ isOpen, toggleSidebar, isMobile }) {
         </li>
 
         <li className={location.pathname === "/jobSeeker/profile" ? "active" : ""}>
-          <Link to="/jobSeeker/profile" onClick={isMobile ? toggleSidebar : undefined}>
+          <Link to="/jobSeeker/jobSeekerPro" onClick={isMobile ? toggleSidebar : undefined}>
             👤 Profile
           </Link>
         </li>
 
         <li className={location.pathname === "/jobSeeker/settings" ? "active" : ""}>
           <Link
-            to="/jobSeeker/settings"
+            to="/jobSeeker/seekerDetail"
             onClick={isMobile ? toggleSidebar : undefined}
           >
             ⚙️ Settings

@@ -5,7 +5,7 @@ import "../../css/jobSeeker/jobseekerside.css";
 export default function JSSidebar({ isOpen, toggleSidebar, isMobile }) {
   const location = useLocation();
   const navigate = useNavigate();
-
+// remove local storage data 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     navigate("/");

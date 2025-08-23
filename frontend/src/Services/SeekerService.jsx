@@ -38,7 +38,13 @@ export const updateProfile = async (profileData) => {
 };
 
 
+
 export const getAllJobs = async () => {
   return await axios.get(`${API_URL}/viewAllJobPost`);
 };
 
+
+
+export const applyForJob = async (seeker_id, job_id) => {
+  return await axios.post(`${API_URL}/jobSeekerApply`, { seeker_id, job_id });
+};

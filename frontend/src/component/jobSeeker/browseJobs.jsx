@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllJobs } from "../../Services/SeekerService"; // service import
+import { getAllJobs } from "../../Services/SeekerService"; 
 import "../../css/jobSeeker/browseJobs.css";
 
 export default function BrowseJobs() {
@@ -11,7 +11,11 @@ export default function BrowseJobs() {
     const fetchJobs = async () => {
       try {
         const res = await getAllJobs();
+
+        setJobs(res.data); // recive and set backend data
+
         setJobs(res.data); 
+
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }

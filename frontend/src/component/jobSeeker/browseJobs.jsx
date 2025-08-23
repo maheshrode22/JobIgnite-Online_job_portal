@@ -11,7 +11,7 @@ export default function BrowseJobs() {
     const fetchJobs = async () => {
       try {
         const res = await getAllJobs();
-        setJobs(res.data); // backend ने जे data परत पाठवलं ते सेट कर
+        setJobs(res.data); 
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }

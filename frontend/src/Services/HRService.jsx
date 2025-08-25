@@ -38,6 +38,11 @@ export const getApplicationsByHR = async (hr_id) => {
   });
 };
  
+
+export const deleteJob = (id) => {
+  return axios.post(`${API_URL}/deletePost`, { id });
+};
+
  
 export const hrLogin = async (email, password) => {
   try {

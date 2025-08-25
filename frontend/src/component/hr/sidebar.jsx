@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import "bootstrap-icons/font/bootstrap-icons.css"; // ✅
 import "../../css/Hr/sidebar.css";
 
 export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
@@ -7,7 +8,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
   const navigate = useNavigate();
   const [jobsOpen, setJobsOpen] = useState(false);
 
-  const handleToggleJobs = () => setJobsOpen(v => !v);
+  const handleToggleJobs = () => setJobsOpen((v) => !v);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
@@ -23,7 +24,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
       <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
         {/* Header */}
         <div className="sidebar-header">
-          <h2>HR Dashboard</h2>
+          <h2><i className="bi bi-briefcase-fill"></i> HR Panel</h2>
           {isMobile && (
             <button
               className="toggle-btn"
@@ -49,13 +50,14 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
               to="/hr/dashboard"
               onClick={isMobile ? toggleSidebar : undefined}
             >
-              📊 Dashboard
+              <i className="bi bi-speedometer2 me-2"></i> Dashboard
             </Link>
           </li>
 
           <li className={`has-submenu ${jobsOpen ? "open" : ""}`}>
             <button className="submenu-title" onClick={handleToggleJobs}>
-              💼 Manage Jobs {jobsOpen ? "▲" : "▼"}
+              <i className="bi bi-briefcase me-2"></i> Manage Jobs{" "}
+              <i className={`bi ${jobsOpen ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
             </button>
             {jobsOpen && (
               <ul className="submenu">
@@ -68,7 +70,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
                     to="/hr/addJobs"
                     onClick={isMobile ? toggleSidebar : undefined}
                   >
-                    ➕ Add Job
+                    <i className="bi bi-plus-circle me-2"></i> Add Job
                   </Link>
                 </li>
                 <li
@@ -80,7 +82,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
                     to="/hr/viewJob"
                     onClick={isMobile ? toggleSidebar : undefined}
                   >
-                    👁️ View Jobs
+                    <i className="bi bi-eye me-2"></i> View Jobs
                   </Link>
                 </li>
               </ul>
@@ -98,7 +100,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
               to="/hr/Applications"
               onClick={isMobile ? toggleSidebar : undefined}
             >
-              📑 Applications
+              <i className="bi bi-files me-2"></i> Applications
             </Link>
           </li>
 
@@ -111,7 +113,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
               to="/hr/hrprofile"
               onClick={isMobile ? toggleSidebar : undefined}
             >
-              👤 Profile
+              <i className="bi bi-person-circle me-2"></i> Profile
             </Link>
           </li>
 
@@ -124,7 +126,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
               to="/hr/settings"
               onClick={isMobile ? toggleSidebar : undefined}
             >
-              ⚙️ Settings
+              <i className="bi bi-gear-fill me-2"></i> Settings
             </Link>
           </li>
         </ul>
@@ -132,7 +134,7 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
         {/* Footer */}
         <div className="sidebar-footer">
           <button className="logout-btn" onClick={handleLogout}>
-            🚪 Logout
+            <i className="bi bi-box-arrow-right me-2"></i> Logout
           </button>
         </div>
       </aside>

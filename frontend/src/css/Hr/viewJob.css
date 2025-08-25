@@ -1,28 +1,34 @@
-/* Job Table Styling */
+/* Job Table */
 .custom-table {
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .custom-table thead th {
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-  }
-  
-  .custom-table tbody tr:hover {
-    background-color: #f1f9ff;
-    transform: scale(1.01);
-    transition: all 0.2s ease-in-out;
-  }
-  
-  /* Job Details Modal */
-  .job-details p {
-    margin-bottom: 8px;
-    font-size: 15px;
-  }
-  
-  .job-details strong {
-    color: #333;
-  }
-  
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.custom-table thead th {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.custom-table tbody tr {
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f9ff;
+  transform: scale(1.01);
+}
+
+/* Modal Job Details */
+.job-details p {
+  margin-bottom: 10px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.job-details strong {
+  margin-right: 5px;
+  color: #333;
+}

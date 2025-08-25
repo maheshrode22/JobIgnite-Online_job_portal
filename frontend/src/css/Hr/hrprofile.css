@@ -1,160 +1,25 @@
-/* Container */
-.hr-profile-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px 20px;
-  min-height: 80vh;
-  background: linear-gradient(to bottom, #f0f4f8, #d9e2ec);
-  font-family: 'Poppins', sans-serif;
-  margin-left: auto;
+.hr-profile-card {
+  max-width: 650px;
+  margin: auto;
+  background: #fff;
+  border-radius: 12px;
 }
 
-/* Card */
-.profile-card {
-  background: #ffffff;
-  border-radius: 15px;
-  padding: 30px 25px;
-  width: 100%;
-  max-width: 450px;
-  box-shadow: 0 1px 10px black;
-}
-/* Title */
-.profile-title {
-  text-align: center;
-  margin-bottom: 25px;
-  color: black;
-  font-weight:700;
-  font-size: 1.8rem;
-  letter-spacing: 1px;
-}
-
-/* Profile Items */
-.profile-item {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; /* allow items to wrap on small screens */
-  margin: 12px 0;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: #f7f9fc;
-}
-
-.label {
-  font-weight: 600;
-  color: #102a43;
-  flex: 1 1 45%; /* allow label to shrink on mobile */
-}
-
-.value {
-  font-weight: 500;
-  color: #334e68;
-  flex: 1 1 50%; /* allow value to wrap */
-  text-align: right;
-  word-break: break-word;
-}
-
-/* Status */
-.status {
-  padding: 3px 12px;
-  border-radius: 20px;
-  font-weight: 600;
-  text-transform: capitalize;
-  text-align: center;
-}
-
-.status.approved {
-  background-color:rgb(231, 204, 154);
-  color: #155724;
-}
-
-.status.pending {
-  background-color: green;
-  color: #856404;
-}
-
-.status.rejected {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-/* Actions */
-.profile-actions {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap; /* allow buttons to stack on mobile */
-  margin-top: 25px;
-  gap: 10px;
-}
-
-.btn {
-  flex: 1 1 45%; /* buttons take full width on mobile */
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease;
+.avatar {
+  width: 70px;
+  height: 70px;
+  background: #0d6efd;
   color: #fff;
-  min-width: 120px;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.btn.edit {
-  background-color: #0d6efd;
+.status.active {
+  color: green;
+  font-weight: bold;
 }
 
-.btn.edit:hover {
-  background-color: #629aee;
-  border: 1px solid black;
-}
-
-.btn.delete {
-  background-color: #ff6702;
-}
-
-.btn.delete:hover {
-  background-color: #ec9f6c;
-  border: 1px solid black;
-}
-
-/* Loading Text */
-.loading-text {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #334e68;
-}
-
-/* Responsive */
-@media (max-width: 500px) {
-  .profile-card {
-    padding: 20px 15px;
-  }
-
-  .profile-title {
-    font-size: 1.5rem;
-  }
-
-  .profile-item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px 10px;
-  }
-
-  .label {
-    margin-bottom: 5px;
-  }
-
-  .value {
-    text-align: left;
-  }
-
-  .profile-actions {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn {
-    flex: 1 1 100%;
-    margin: 0;
-  }
+.status.inactive {
+  color: red;
+  font-weight: bold;
 }

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:wght@400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+
 /* Navbar Base */
 .navbar {
   background: linear-gradient(90deg, #222, #444);
@@ -16,10 +19,14 @@
   transform: scale(1.1);
 }
 .brand-text {
+  font-family: "Montagu Slab", serif;
   font-size: 20px;
-  color: #f8db37;
+  color: #fff;
   font-weight: bold;
   letter-spacing: 1px;
+}
+.ignite{
+  color: #e6c500;
 }
 
 /* Nav Links */

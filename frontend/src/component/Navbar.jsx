@@ -114,7 +114,7 @@
               ) : (
                 <>
                   <button
-                    className="btn btn-primary"
+                    className="btnav"
                     onClick={() => setOpen(!open)}
                   >
                     Login ▼

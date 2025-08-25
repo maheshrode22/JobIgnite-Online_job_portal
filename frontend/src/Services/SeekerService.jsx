@@ -7,8 +7,7 @@ const API_URL = "http://localhost:3000"; // backend running port
 export const registerSeeker = async (seekerData) => {
   return await axios.post(`${API_URL}/jobSeekerRegister`, seekerData, {
     headers: {
-      "Content-Type": "application/json",
-    },
+      "Content-Type": "application/json"},
   });
 };
 
@@ -57,3 +56,10 @@ export const getSeekerApplications = async (seeker_id) => {
 export const deleteSeeker = async (seeker_id) => {
   return await axios.delete(`${API_URL}/deleteSeeker/${seeker_id}`);
 };
+
+export const updateSeeker = async (data) => {
+  return await axios.put(`${API_URL}/updateSeeker`, data, {
+    headers: { "Content-Type": "application/json" },
+  });
+};
+

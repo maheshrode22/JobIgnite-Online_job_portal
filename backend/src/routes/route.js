@@ -34,7 +34,9 @@ router.post("/jobseekerLogin",jobseekCtr.jobSeekerLogin); // job seeker Login
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister); // job seeker registation 
 router.post("/jobSeekerProfile",jobseekCtr.jobSeekerProfile);   //   // make or  create job seeker profile
 router.get("/getProfile/:seekerId",jobseekCtr.getProfile);
-router.delete("/deleteSeeker/:seeker_id",jobseekCtr.deletejobSeeker);    // // delete job seeker profile
+router.delete("/deleteSeeker/:seeker_id",jobseekCtr.deletejobSeeker);// // delete job seeker profile
+router.put("/updateSeeker",jobseekCtr.updateSeeker);
+
 router.put("/updateJobSeekerProfile",jobseekCtr.updateJobSeekerProfile); // update job seeker profile 
 // job post routers 
 

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Montagu+Slab:opsz,wght@16..144,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,7 +19,8 @@
 
 /* Heading outside card */
 .contact-heading {
-  font-size: 32px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 30px;
   text-align: center;
@@ -46,6 +49,7 @@
 .contact-form input,
 .contact-form textarea {
   padding: 12px;
+  outline: none;
   border: 1px solid black;
   border-radius: 6px;
   font-size: 16px;
@@ -64,9 +68,9 @@
   background:#f8db37;
   color: black;
   border: none;
-  border-radius: 6px;
-  font-size: 17px;
-  font-weight: 500;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  font-weight: 700;
   cursor: pointer;
 }
 

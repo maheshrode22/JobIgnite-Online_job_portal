@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Montagu+Slab:opsz,wght@16..144,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
+
 .Reviews-section {
   background-color: rgb(33, 37, 41); /* different from services */
   text-align: center;
@@ -7,9 +9,11 @@
 
 .Reviews-section h2 {
   font-size: 2rem;
+  font-family: "Open Sans","Montagu Slab", sans-serif;
   font-weight:600;
   margin-bottom: 40px;
   color: white;
+  animation: reviewshead 1.3s ease-in-out;
 }
 
 .Reviews-container {
@@ -36,16 +40,16 @@
 }
 
 .review-box h3 {
-  font-size: 1.4rem;
-  color: rgb(59, 59, 199);
+  font-size: 1.9rem;
+  font-weight: bolder;
   text-shadow: 0 0 1px black;
-  color:#fc7a00;
+  color:#101010;
   margin-top: 10px;
 }
 
 .review-box h4 {
   font-size: 1rem;
-  color: #555;
+  color: #302f2f;
   margin: 5px 0 15px 0;
 }
 
@@ -53,6 +57,17 @@
   font-size: 1rem;
   color: #333;
   line-height: 1.6;
+}
+
+@keyframes reviewshead{
+  from{
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to{
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
 
 /* Tablet view: 2 per row */

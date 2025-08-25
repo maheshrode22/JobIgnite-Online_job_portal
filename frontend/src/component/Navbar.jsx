@@ -9,7 +9,7 @@ export default function Navbar() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
-  // ✅ Detect HR Dashboard
+  //  Detect HR Dashboard
   const isLoggedIn = location.pathname.startsWith("/hr");
 
   const handleScrollToSection = (e, sectionId) => {

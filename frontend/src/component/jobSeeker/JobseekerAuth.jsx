@@ -3,9 +3,7 @@ import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import SeekerRegister from "./SeekerRegister";
 
-import { loginJobSeeker } from "../../services/SeekerService"; //  Import service
-
-import { loginJobSeeker } from "../../Services/SeekerService";
+import {loginJobSeeker} from"../../Services/SeekerService";
 
 
 export default function JobSeekerAuth() {
@@ -34,7 +32,6 @@ export default function JobSeekerAuth() {
         const user = response.data.user;
         localStorage.setItem("seekerData", JSON.stringify(user));
         localStorage.setItem("seeker_id", user.seeker_id);
-
 
         navigate("/jobSeeker"); // Redirect to Job Seeker Dashboard
       } else {

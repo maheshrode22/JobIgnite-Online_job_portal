@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../hr/sidebar";
 import DashboardHome from "../hr/dashboard";
+import "bootstrap-icons/font/bootstrap-icons.css"; // ✅ Import Bootstrap Icons
 import "../../css/Hr/HrDashboard.css";
 
 export default function HrDashboard() {
@@ -55,13 +56,13 @@ function HrNavbar({ toggleSidebar }) {
     <div className="hr-navbar">
       {/* Hamburger menu (mobile only) */}
       <button className="menu-btn" onClick={toggleSidebar}>
-        ☰
+        <i className="bi bi-list"></i>
       </button>
 
       <h3 className="title">HR Dashboard</h3>
 
       <div className="right-icons">
-        <span className="bell">🔔</span>
+        <i className="bi bi-bell-fill"></i>
       </div>
     </div>
   );

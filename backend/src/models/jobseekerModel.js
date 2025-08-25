@@ -75,6 +75,18 @@ exports.deletejobSeeker=(id)=>{
     });
 };
 
+exports.updateSeeker = (seeker_id, name, email, phone, address) => {
+  return new Promise((resolve, reject) => {
+    const sql = "UPDATE job_seekers SET name=?, email=?, phone=?, address=? WHERE seeker_id=?";
+    db.query(sql, [name, email, phone, address, seeker_id], (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
+
+
 // update job seeker profile
 exports.updateJobSeekerProfile=(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)=>{
     return new Promise((resolve,reject)=>{
@@ -84,9 +96,7 @@ exports.updateJobSeekerProfile=(seeker_id,gender,dob,skills,degree,university,cg
 
             }else{
                 resolve(result);
-
             }
         })
     });
-
 };

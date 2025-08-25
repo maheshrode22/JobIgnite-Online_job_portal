@@ -5,6 +5,8 @@ import BrowseJobs from "../component/jobSeeker/browseJobs";
 import JobDetails from "../component/jobSeeker/jobDetails";
 import SeekerDetail from "../component/jobSeeker/seekerDetails";
 import SeekerProfile from "../component/jobSeeker/jobseekerProfile";
+import ApplicationHistory from "../component/jobSeeker/appliedHistory";
+
 
 export default function JobSeekerRoutes() {
   return (
@@ -15,6 +17,7 @@ export default function JobSeekerRoutes() {
       <Route path="jobDetail/:id" element={<JobDetails />} />
       <Route path="seekerDetail" element={<SeekerDetail/>}/>
       <Route path="jobSeekerPro" element={<SeekerProfile />}/>
+      <Route path="appHistory" element={<ApplicationHistory />}/>
 </Route>
 
     </Routes>

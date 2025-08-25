@@ -83,7 +83,7 @@ exports.getProfile=(req,res)=>{
 
 
 exports.deletejobSeeker=(req,res)=>{
-    let id=req.body.id;
+    let id=req.params.seeker_id;
     let promise=jobseekerModel.deletejobSeeker(id);
     promise.then((result)=>{
         if (result.affectedRows > 0)
@@ -98,20 +98,38 @@ exports.deletejobSeeker=(req,res)=>{
         res.send(err);
     });
 }
+exports.updateSeeker = (req, res) => {
+  let { seeker_id, name, email, phone, address } = req.body;
 
-exports.updateJobSeekerProfile=(req,res)=>{
-    let {seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks}=req.body;
-    
-   let promise= jobseekerModel.updateJobSeekerProfile(seeker_id,gender,dob,skills,degree,university,cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)
-   .then((result)=>{
-        if(result.affectedRows>0)
-        {
-            res.send({msg:"Profile is update"});
-        }
-        else{
-            res.send({msg:"profile is not added something error"});
-        }
-    }).catch((err)=>{
-        res.send(err);
+  jobseekerModel.updateSeeker(seeker_id, name, email, phone, address)
+    .then((result) => {
+      if (result.affectedRows > 0) {
+        res.send({ msg: "Profile updated successfully" });
+      } else {
+        res.status(400).send({ msg: "Profile update failed" });
+      }
+    })
+    .catch((err) => {
+      console.error(err); // Optional: log error
+      res.status(500).send({ error: err.message });
     });
 };
+
+
+
+exports.updateJobSeekerProfile = (req, res) => {
+    let { seeker_id, gender, dob, skills, degree, university, cgpa, hsc_year, hsc_marks, ssc_year, ssc_marks } = req.body;
+
+    jobseekerModel.updateJobSeekerProfile(seeker_id, gender, dob, skills, degree, university, cgpa, hsc_year, hsc_marks, ssc_year, ssc_marks )
+    .then((result) => {
+        if (result.affectedRows > 0) {
+            res.send({ msg: "Profile updated successfully" });
+        } else {
+            res.status(400).send({ msg: "Profile update failed" });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({ error: err.message });
+    });
+};
+

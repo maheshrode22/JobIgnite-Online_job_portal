@@ -8,33 +8,58 @@ export default function JobSeekerAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // Handle Login
+  // ✅ Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    setErrorMessage("");
+    setLoading(true);
+
+
     try {
       const response = await loginJobSeeker({
         jobUser: email,
         jobPass: password,
       });
 
+
+      if (response.data && response.data.success) {
+        const user = response.data.user;
+
+        // ✅ Store user details in localStorage
+
       if (response.data.success) {
         // Store user details in localStorage
         localStorage.setItem("jobSeeker", JSON.stringify(response.data.user));
 
         const user = response.data.user;
+
         localStorage.setItem("seekerData", JSON.stringify(user));
         localStorage.setItem("seeker_id", user.seeker_id);
 
-        navigate("/jobSeeker"); // Redirect to Job Seeker Dashboard
+        navigate("/jobSeeker"); // Redirect to dashboard
       } else {
-        alert(response.data.message || "Invalid credentials. Try again.");
+        setErrorMessage(response.data?.message || "Invalid credentials. Try again.");
       }
     } catch (error) {
       console.error("Login error:", error);
-      alert("Something went wrong. Please try again.");
+      setErrorMessage(error.response?.data?.message || "Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
+
+  };
+
+  // ✅ Handle Forgot Password
+  const handleForgotPassword = (e) => {
+    e.preventDefault();
+    // Implement backend API call for reset
+    alert("Reset password feature coming soon!");
+
   };
 
   return (
@@ -45,9 +70,18 @@ export default function JobSeekerAuth() {
           {activeForm === "login" && "Seeker Login"}
           {activeForm === "register" && "Seeker Registration"}
           {activeForm === "forgot" && "Reset Password"}
+
+        </h2>
+
+        {/* ✅ Show Error */}
+        {errorMessage && <p className="error-text">{errorMessage}</p>}
+
+        {/* ✅ Login Form */}
+
         </h3>
 
         {/* Login Form */}
+
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
             <div className="mb-3">
@@ -74,33 +108,39 @@ export default function JobSeekerAuth() {
               />
             </div>
 
+
+            <button type="submit" className="auth-btn" disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
+
             <button type="submit" className="btn btn-primary w-100 mt-2">
               Login
+
             </button>
 
             <div className="extra-links text-center">
               <p>
                 New Seeker?{" "}
-                <span onClick={() => setActiveForm("register")}>
-                  Register here
-                </span>
+                <span onClick={() => setActiveForm("register")}>Register here</span>
               </p>
               <p>
-                <span onClick={() => setActiveForm("forgot")}>
-                  Forgot Password?
-                </span>
+                <span onClick={() => setActiveForm("forgot")}>Forgot Password?</span>
               </p>
             </div>
           </form>
         )}
 
-        {/* Register Form */}
         {activeForm === "register" && (
           <SeekerRegister onBack={() => setActiveForm("login")} />
         )}
 
-        {/* Forgot Password */}
+        {/* ✅ Forgot Password */}
         {activeForm === "forgot" && (
+
+          <form onSubmit={handleForgotPassword}>
+            <div className="input-group">
+              <label>Email</label>
+              <input type="email" placeholder="Enter registered email" required />
+
           <form>
             <div className="mb-3">
               <label className="form-label">Email</label>
@@ -110,6 +150,7 @@ export default function JobSeekerAuth() {
                 placeholder="Enter registered email"
                 required
               />
+
             </div>
 
             <button type="submit" className="btn btn-primary w-100 mt-2">

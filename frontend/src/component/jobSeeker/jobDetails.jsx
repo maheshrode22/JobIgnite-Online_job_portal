@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { applyForJob } from "../../services/SeekerService"; //  use your function
+import { applyForJob } from "../../Services/SeekerService"; //  use your function
 import "../../css/jobSeeker/jobDetails.css";
 
 export default function JobDetails() {

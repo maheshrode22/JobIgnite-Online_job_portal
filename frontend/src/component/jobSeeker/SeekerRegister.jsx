@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerSeeker } from "../../Services/SeekerService"; // Create a service similar to HRService
+import { registerSeeker } from "../../Services/SeekerService";
 
 export default function SeekerRegister({ onBack }) {
   const [name, setName] = useState("");
@@ -19,7 +19,7 @@ export default function SeekerRegister({ onBack }) {
       const result = await registerSeeker(seekerData);
       setMsg(result.data.message || "Registration Successful!");
       alert("Registration successful!");
-      onBack(); // Redirect to login page
+      onBack(); // Go back to login
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
       setMsg(err.response?.data?.message || "Registration Failed!");
@@ -28,60 +28,71 @@ export default function SeekerRegister({ onBack }) {
 
   return (
     <form onSubmit={handleRegister}>
-      <div className="input-group">
-        <label>Name</label>
+      <div className="mb-3">
+        <label className="form-label">Name</label>
         <input
           type="text"
+          className="form-control"
+          placeholder="Enter your full name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
       </div>
 
-      <div className="input-group">
-        <label>Email</label>
+      <div className="mb-3">
+        <label className="form-label">Email</label>
         <input
           type="email"
+          className="form-control"
+          placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
 
-      <div className="input-group">
-        <label>Password</label>
+      <div className="mb-3">
+        <label className="form-label">Password</label>
         <input
           type="password"
+          className="form-control"
+          placeholder="Enter password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
       </div>
 
-      <div className="input-group">
-        <label>Phone</label>
+      <div className="mb-3">
+        <label className="form-label">Phone</label>
         <input
           type="text"
+          className="form-control"
+          placeholder="Enter phone number"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
         />
       </div>
 
-      <div className="input-group">
-        <label>Address</label>
-        <input
+      <div className="mb-3">
+        <label className="form-label">Address</label>
+        <textarea
+          className="form-control"
+          placeholder="Enter your address"
+          rows="2"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
-        ></input>
+        />
       </div>
 
-      <button type="submit" className="auth-btn">
+      <button type="submit" className="btn btn-primary w-100 mt-2">
         Register
       </button>
 
-      {msg && <p>{msg}</p>}
+      {msg && <p className="text-center mt-2">{msg}</p>}
 
-      <div className="extra-links">
+      <div className="extra-links text-center">
         <p>
           Already have an account?{" "}
           <span onClick={onBack} style={{ color: "blue", cursor: "pointer" }}>

@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/footer.css";
-import logo1 from "../assets/img/logo2.jpg";
+import logo1 from "../assets/img/JobIgnite.png";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 

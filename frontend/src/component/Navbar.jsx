@@ -2,14 +2,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../css/navbar.css";
-import logo1 from "../assets/img/logo1.jpg";
+import logo1 from "../assets/img/JobIgnite.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
 
-  // ✅ Detect HR Dashboard
+  //  Detect HR Dashboard
   const isLoggedIn = location.pathname.startsWith("/hr");
 
   const handleScrollToSection = (e, sectionId) => {
@@ -45,7 +45,7 @@ export default function Navbar() {
             alt="Logo"
             className="me-2"
           />
-          <span className="brand-text">JobIgnite</span>
+          <span className="brand-text">Job<span className="ignite">Ignite</span></span>
         </Link>
 
         {/* ✅ Mobile Toggle */}

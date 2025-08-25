@@ -15,8 +15,10 @@ export default function JobSeekerAuth() {
   // ✅ Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
+
     setErrorMessage("");
     setLoading(true);
+
 
     try {
       const response = await loginJobSeeker({
@@ -24,10 +26,18 @@ export default function JobSeekerAuth() {
         jobPass: password,
       });
 
+
       if (response.data && response.data.success) {
         const user = response.data.user;
 
         // ✅ Store user details in localStorage
+
+      if (response.data.success) {
+        // Store user details in localStorage
+        localStorage.setItem("jobSeeker", JSON.stringify(response.data.user));
+
+        const user = response.data.user;
+
         localStorage.setItem("seekerData", JSON.stringify(user));
         localStorage.setItem("seeker_id", user.seeker_id);
 
@@ -41,6 +51,7 @@ export default function JobSeekerAuth() {
     } finally {
       setLoading(false);
     }
+
   };
 
   // ✅ Handle Forgot Password
@@ -48,28 +59,36 @@ export default function JobSeekerAuth() {
     e.preventDefault();
     // Implement backend API call for reset
     alert("Reset password feature coming soon!");
+
   };
 
   return (
     <div className="hrauth-container">
-      <div className="hrauth-box">
+      <div className="hrauth-box mt">
         {/* Heading */}
-        <h2>
+        <h3>
           {activeForm === "login" && "Seeker Login"}
           {activeForm === "register" && "Seeker Registration"}
           {activeForm === "forgot" && "Reset Password"}
+
         </h2>
 
         {/* ✅ Show Error */}
         {errorMessage && <p className="error-text">{errorMessage}</p>}
 
         {/* ✅ Login Form */}
+
+        </h3>
+
+        {/* Login Form */}
+
         {activeForm === "login" && (
           <form onSubmit={handleLogin}>
-            <div className="input-group">
-              <label>Email</label>
+            <div className="mb-3">
+              <label className="form-label">Email</label>
               <input
                 type="email"
+                className="form-control"
                 placeholder="Enter email"
                 required
                 value={email}
@@ -77,10 +96,11 @@ export default function JobSeekerAuth() {
               />
             </div>
 
-            <div className="input-group">
-              <label>Password</label>
+            <div className="mb-3">
+              <label className="form-label">Password</label>
               <input
                 type="password"
+                className="form-control"
                 placeholder="Enter password"
                 required
                 value={password}
@@ -88,11 +108,16 @@ export default function JobSeekerAuth() {
               />
             </div>
 
+
             <button type="submit" className="auth-btn" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
+
+            <button type="submit" className="btn btn-primary w-100 mt-2">
+              Login
+
             </button>
 
-            <div className="extra-links">
+            <div className="extra-links text-center">
               <p>
                 New Seeker?{" "}
                 <span onClick={() => setActiveForm("register")}>Register here</span>
@@ -104,22 +129,35 @@ export default function JobSeekerAuth() {
           </form>
         )}
 
-        {/* ✅ Register Form */}
         {activeForm === "register" && (
           <SeekerRegister onBack={() => setActiveForm("login")} />
         )}
 
         {/* ✅ Forgot Password */}
         {activeForm === "forgot" && (
+
           <form onSubmit={handleForgotPassword}>
             <div className="input-group">
               <label>Email</label>
               <input type="email" placeholder="Enter registered email" required />
+
+          <form>
+            <div className="mb-3">
+              <label className="form-label">Email</label>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Enter registered email"
+                required
+              />
+
             </div>
 
-            <button type="submit" className="auth-btn">Send Reset Link</button>
+            <button type="submit" className="btn btn-primary w-100 mt-2">
+              Send Reset Link
+            </button>
 
-            <div className="extra-links">
+            <div className="extra-links text-center">
               <p>
                 Back to{" "}
                 <span onClick={() => setActiveForm("login")}>Login</span>

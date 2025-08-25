@@ -129,6 +129,13 @@ export default function Navbar() {
                       >
                         <i className="bi bi-person-workspace me-2"></i> Job Seeker Login
                       </Link>
+
+                      <Link to="/AdminLogin"
+                            className="dropdown-item"
+                            onClick={()=>setOpen(false)}
+                      >
+                        <i className="bi bi-person-workspace me-2"></i> Admin Login
+                      </Link>
                     </li>
                   </ul>
                 )}

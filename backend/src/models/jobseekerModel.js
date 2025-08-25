@@ -84,9 +84,7 @@ exports.updateJobSeekerProfile=(seeker_id,gender,dob,skills,degree,university,cg
 
             }else{
                 resolve(result);
-
             }
         })
     });
-
 };

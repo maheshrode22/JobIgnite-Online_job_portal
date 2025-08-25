@@ -40,7 +40,7 @@ export default function JSSidebar({ isOpen, toggleSidebar, isMobile }) {
 
         <li className={location.pathname === "/jobSeeker/applied-jobs" ? "active" : ""}>
           <Link
-            to="/js/applied-jobs"
+            to="/jobSeeker/appHistory"
             onClick={isMobile ? toggleSidebar : undefined}
           >
             📑 Applied Jobs

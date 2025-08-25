@@ -1,7 +1,7 @@
-let appModdel=require("../models/applicationModel.js");
+let appModel=require("../models/applicationModel.js");
 exports.jobSeekerApply=((req,res)=>{
     let{seeker_id,job_id}=req.body;
-    let Promise=appModdel.jobSeekerApply(seeker_id,job_id);
+    let Promise=appModel.jobSeekerApply(seeker_id,job_id);
     Promise.then((result)=>{
         res.send({msg:"apply successfully"})
 
@@ -13,19 +13,20 @@ exports.jobSeekerApply=((req,res)=>{
 });
 
 
-exports.trackApplication = (req, res) => {
-    let { jobseeker_id } = req.body;
+exports.trackApplicationsBySeeker = (req, res) => {
+    const { seeker_id } = req.params;
 
-    appModdel.trackApplication(jobseeker_id)
+    appModel.getApplicationsBySeeker(seeker_id)
         .then((result) => {
             if (result.length > 0) {
-                res.send(result);
+                res.json(result);
             } else {
-                res.send({ msg: "No application data found." });
+                res.json({ msg: "No application data found." });
             }
         })
         .catch((err) => {
-            res.status(500).send({ error: err.message || "Something went wrong." });
+            console.error("SQL Error:", err);
+            res.status(500).json({ error: err.message || "Something went wrong." });
         });
 };
 
@@ -34,7 +35,7 @@ exports.trackApplication = (req, res) => {
 exports.viewAllApplicationByHR=((req,res)=>{
     let { hr_id } = req.body;
 
-    appModdel.viewAllApplicationByHR(hr_id)
+    appModel.viewAllApplicationByHR(hr_id)
         .then((result) => {
             if (result.length > 0) {
                 res.send(result);

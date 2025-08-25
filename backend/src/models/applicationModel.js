@@ -13,26 +13,36 @@ exports.jobSeekerApply = (seeker_id, job_id) => {
     });
 };
 
-
-exports.trackApplication = (jobseeker_id) => {
+// Track all applications for a specific seeker
+exports.getApplicationsBySeeker = (seekerId) => {
     return new Promise((resolve, reject) => {
         db.query(
-            `select a.application_id, j.title, j.description, j.created_at, a.status, a.applied_at 
-             FROM applications a 
-             JOIN jobs j ON a.job_id = j.job_id 
-             WHERE a.seeker_id = ? 
+            `SELECT 
+                a.application_id, 
+                j.title, 
+                j.description, 
+                j.company, 
+                j.created_at AS job_posted_date,
+                a.status, 
+                a.applied_at
+             FROM applications a
+             JOIN jobs j ON a.job_id = j.job_id
+             WHERE a.seeker_id = ?
              ORDER BY a.applied_at DESC`,
-            [jobseeker_id],
+            [seekerId],
             (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
+                if (err){
+                        reject(err);
+                } 
+                else
+                {
                     resolve(result);
                 }
             }
         );
     });
 };
+
 
 
 exports.viewAllApplicationByHR = (hr_id) => {

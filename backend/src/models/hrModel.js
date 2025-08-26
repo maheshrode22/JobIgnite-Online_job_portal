@@ -1,21 +1,50 @@
 let db = require("../config/db.js");
-// hr Login
-exports.hrLoginMod = (hrUser, hrPass) => {
-    return new Promise((resolve, reject) => {
-      db.query(
-        "SELECT * FROM hr WHERE email = ? AND password = ?",
-        [hrUser, hrPass],
-        (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(result);  
-          }
-        }
-      );
-    });
-  };
-  
+
+// Email ने HR fetch
+exports.hrFindByEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT hr_id, hr_name, company_name, email, password, phone, status FROM hr WHERE email = ? LIMIT 1",
+      [email],
+      (err, result) => (err ? reject(err) : resolve(result))
+    );
+  });
+};
+
+// ID ने HR fetch
+exports.hrFindById = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT hr_id, hr_name, company_name, email, phone, status FROM hr WHERE hr_id = ? LIMIT 1",
+      [id],
+      (err, result) => (err ? reject(err) : resolve(result))
+    );
+  });
+};
+
+// Password update (plaintext -> hash migration)
+exports.hrUpdatePassword = (hr_id, newHash) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "UPDATE hr SET password = ? WHERE hr_id = ?",
+      [newHash, hr_id],
+      (err, result) => (err ? reject(err) : resolve(result))
+    );
+  });
+};
+
+// Register (unchanged signature)
+exports.hrRegisterMod = (...data) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "INSERT INTO hr(hr_name,company_name,email,password,phone) VALUES(?,?,?,?,?)",
+      [...data],
+      (err, result) => (err ? reject(err) : resolve(result))
+    );
+  });
+};
+
+  //*********************************************************************************************************** */
   
 // register Hr 
 exports.hrRegisterMod = (...data) => {

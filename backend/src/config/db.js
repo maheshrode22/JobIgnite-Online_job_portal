@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, "../.env") });
 let mysql=require("mysql2");
 
 let conn=mysql.createConnection({

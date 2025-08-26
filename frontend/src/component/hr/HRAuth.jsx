@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HRRegister from "./HRRegister";
-import { hrLogin } from "../../services/HRService";
+import { hrLogin } from "../../Services/HRService";
 import "../../css/Hr/HRAuth.css";
 
 export default function HRAuth() {
@@ -14,9 +14,10 @@ export default function HRAuth() {
     const password = e.target.password.value;
 
     try {
-      const hrData = await hrLogin(email, password);
-      localStorage.setItem("hrData", JSON.stringify(hrData));
-      localStorage.setItem("hr_id", hrData.hr_id);
+      const res = await hrLogin(email, password); // { success, msg, token, user }
+      if (!res?.success) throw new Error(res?.msg || "Login failed");
+      localStorage.setItem("hr_token", res.token);
+     // localStorage.setItem("hr_user", JSON.stringify(res.user));
 
       alert("Login successful ");
       navigate("/hr");

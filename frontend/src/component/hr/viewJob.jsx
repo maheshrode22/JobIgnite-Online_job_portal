@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getJobsByHR, deleteJob } from "../../services/HRService";
+import { getJobsByHR, deleteJob } from "../../Services/HRService";
 import { Button, Modal, Badge } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/viewJob.css";
+import { jwtDecode } from "jwt-decode";
 
 export default function ViewJob() {
   const [jobs, setJobs] = useState([]);
@@ -16,12 +17,23 @@ export default function ViewJob() {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    const hr_id = localStorage.getItem("hr_id");
-    if (!hr_id) return;
+    // derive hr_id from token
+    const token = localStorage.getItem("hr_token");
+    let hr_id = null;
+    try {
+      if (token) {
+        const decoded = jwtDecode(token);
+        hr_id = decoded?.hr_id || decoded?.id || null;
+      }
+    } catch {}
+    if (!hr_id) {
+      setLoading(false);
+      return;
+    }
 
     getJobsByHR(hr_id)
       .then((result) => {
-        setJobs(result.data);
+        setJobs(Array.isArray(result.data) ? result.data : (result.data?.jobs || []));
         setLoading(false);
       })
       .catch((err) => {
@@ -62,7 +74,7 @@ export default function ViewJob() {
 
   // 🔹 Filter by job title
   const filteredJobs = jobs.filter((job) =>
-    job.title.toLowerCase().includes(searchJob.toLowerCase())
+    (job.title || job.job_title || "").toLowerCase().includes(searchJob.toLowerCase())
   );
 
   // 🔹 Pagination
@@ -124,7 +136,7 @@ export default function ViewJob() {
               {currentJobs.map((job, index) => (
                 <tr key={job.job_id}>
                   <td>{indexOfFirst + index + 1}</td>
-                  <td className="fw-bold">{job.title}</td>
+                  <td className="fw-bold">{job.title || job.job_title}</td>
                   <td>{job.company}</td>
                   <td>{job.location}</td>
                   <td>
@@ -202,7 +214,7 @@ export default function ViewJob() {
             <div className="job-details">
               <h4 className="fw-bold text-primary mb-3">
                 <i className="bi bi-briefcase-fill me-2"></i>
-                {selectedJob.title}
+                {selectedJob.title || selectedJob.job_title}
               </h4>
               <p>
                 <i className="bi bi-building text-primary me-2"></i>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getApplicationsByHR } from "../../Services/HRService";
 import { Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css"; // ✅ Bootstrap Icons
+import { jwtDecode } from "jwt-decode";
 
 export default function Applications() {
   const [applications, setApplications] = useState([]);
@@ -9,15 +10,42 @@ export default function Applications() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const hr_id = localStorage.getItem("hr_id");
+  // Derive hr_id from token (same approach as dashboard)
+  const token = localStorage.getItem("hr_token");
+  let hr_id = null;
+  try {
+    if (token) {
+      const decoded = jwtDecode(token);
+      hr_id = decoded?.hr_id || decoded?.id || null;
+    }
+  } catch {
+    hr_id = null;
+  }
+
+ 
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!hr_id) {
+        setApplications([]);
+        return;
+      }
       try {
         const res = await getApplicationsByHR(hr_id);
-        setApplications(res.data);
+
+        console.log("API Response:", res.data);
+
+        // ✅ Normalize response to always be an array
+        if (Array.isArray(res.data)) {
+          setApplications(res.data);
+        } else if (res.data?.applications) {
+          setApplications(res.data.applications);
+        } else {
+          setApplications([]);
+        }
       } catch (error) {
         console.error("Error fetching applications:", error);
+        setApplications([]); // fallback
       }
     };
     fetchData();
@@ -27,8 +55,10 @@ export default function Applications() {
     alert("Seeker ID: " + id);
   };
 
-  const filteredApplications = applications.filter((app) =>
-    app.job_title.toLowerCase().includes(searchJob.toLowerCase())
+  // ✅ Safe filter
+  const filteredApplications = applications.filter(
+    (app) =>
+      app?.job_title?.toLowerCase().includes(searchJob.toLowerCase())
   );
 
   const indexOfLast = currentPage * itemsPerPage;

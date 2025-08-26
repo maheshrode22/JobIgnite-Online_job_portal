@@ -1,6 +1,6 @@
-import axios from "axios";
- 
-const API_URL = "http://localhost:3000"; 
+const API_URL = "http://localhost:3000";
+
+export default API_URL; 
 
 export const adminLogin = async (user) => {
   return await axios.post(`${API_URL}/adminLogin`, user, {

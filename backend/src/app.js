@@ -2,7 +2,7 @@ let express = require("express");
 let bodyParser = require("body-parser");
 let cors = require("cors");   // 🔹 CORS import
 
-require("dotenv").config();
+require("dotenv").config({ path: require("path").join(__dirname, "../.env") });
 let app = express();
 let router = require("../src/routes/route.js");
 

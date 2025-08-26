@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../../css/Hr/addJob.css";
-import { addJobPost } from "../../services/HRService";
+import { addJobPost } from "../../Services/HRService";
 import "bootstrap-icons/font/bootstrap-icons.css"; // ✅ Bootstrap Icons
+import { jwtDecode } from "jwt-decode";
 
 export default function AddJob() {
   const [title, setTitle] = useState("");
@@ -18,7 +19,14 @@ export default function AddJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const hr_id = localStorage.getItem("hr_id");
+    const token = localStorage.getItem("hr_token");
+    let hr_id = null;
+    try {
+      if (token) {
+        const decoded = jwtDecode(token);
+        hr_id = decoded?.hr_id || decoded?.id || null;
+      }
+    } catch {}
     if (!hr_id) {
       alert("HR not logged in!");
       return;

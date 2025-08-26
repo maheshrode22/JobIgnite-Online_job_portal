@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../css/Hr/HRAuth.css";
 import { adminLogin } from "../../Services/adminService";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState(""); // ✅ Changed from email to username
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (e) => {
@@ -14,6 +12,14 @@ export default function AdminLogin() {
     setErrorMessage("");
 
     try {
+
+      // Placeholder: integrate real admin login service here
+      throw new Error("Admin login service not implemented");
+    } catch (err) {
+      console.error("Login error:", err);
+      setErrorMessage(err.message || "Invalid credentials");
+    }
+
   const admindata = await adminLogin({ username, password });
 
   if (admindata.data.token) {
@@ -27,6 +33,7 @@ export default function AdminLogin() {
   console.error("Login error:", err);
   setErrorMessage(err.response?.data?.message || "Invalid credentials");
 }
+
 
   };
 

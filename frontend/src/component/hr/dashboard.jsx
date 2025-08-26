@@ -1,6 +1,7 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css"; // Bootstrap Icons
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/dashboard.css";
+import { jwtDecode } from "jwt-decode";
 
 export default function DashboardHome() {
   const metrics = [
@@ -11,11 +12,29 @@ export default function DashboardHome() {
     { title: "Offers Made", count: 2, icon: "bi-trophy-fill", color: "danger" },
   ];
 
-  const hrData = JSON.parse(localStorage.getItem("hrData")) || { hr_name: "HR" };
-  const rawName = hrData.hr_name;  
-  const name = rawName.charAt(0).toUpperCase() + rawName.slice(1).toLowerCase();
-  
-  
+  // Get token from localStorage
+  const token = localStorage.getItem("hr_token");
+
+  // Decode token and create userData object
+  let userData = {
+    id: null,
+    name: "HR",
+    email: "",
+    role: "",
+  };
+
+  if (token) {
+    const decoded = jwtDecode(token);
+    userData = {
+      id: decoded.id || decoded.hr_id || null,
+      name: decoded.name
+        ? decoded.name.charAt(0).toUpperCase() + decoded.name.slice(1).toLowerCase()
+        : "HR",
+      email: decoded.email || "",
+      role: decoded.role || "",
+    };
+  }
+
   const recentActivities = [
     "John Doe applied for Software Engineer",
     "Jane Smith shortlisted for QA Engineer",
@@ -28,9 +47,11 @@ export default function DashboardHome() {
       {/* Welcome Banner */}
       <div className="welcome-banner shadow-lg">
         <h2>
-          Welcome <span className="text-danger">{name} Sir</span>
+          Welcome <span className="text-danger">{userData.name} Sir</span>
         </h2>
         <p className="mb-0">Manage your jobs, candidates, and interviews efficiently.</p>
+        <p>Email: {userData.email}</p>
+        <p>Role: {userData.role}</p>
       </div>
 
       {/* Metrics Section */}

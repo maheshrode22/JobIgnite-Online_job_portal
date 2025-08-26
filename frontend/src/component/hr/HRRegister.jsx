@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerHR } from "../../services/HRService"; 
+import { registerHR } from "../../Services/HRService"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/HRRegister.css";

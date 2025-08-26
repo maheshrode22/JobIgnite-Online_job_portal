@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css"; // ✅ Bootstrap Icons
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/hrprofile.css";
+import { jwtDecode } from "jwt-decode"; // named import (for v4)
 
 const HRProfile = () => {
   const [hr, setHr] = useState(null);
 
   useEffect(() => {
-    const hrData = JSON.parse(localStorage.getItem("hrData"));
-    if (hrData) {
-      setHr(hrData);
+    const token = localStorage.getItem("hr_token"); // token save kelay login la
+    if (token) {
+      const decoded = jwtDecode(token); // decode HR data from token
+      console.log("Decoded HR Data:", decoded); // 👀 check all fields
+      setHr(decoded);
     }
   }, []);
-
- 
 
   if (!hr) return <p className="text-center mt-5">Loading HR Profile...</p>;
 
@@ -23,12 +24,12 @@ const HRProfile = () => {
         {/* Header with avatar and name */}
         <div className="d-flex align-items-center border-bottom pb-3 mb-3">
           <div className="avatar rounded-circle d-flex align-items-center justify-content-center me-3">
-            {hr.hr_name?.charAt(0).toUpperCase()}
+            {hr.name?.charAt(0).toUpperCase()}
           </div>
           <div>
             <h3 className="mb-1">
               <i className="bi bi-person-fill me-2 text-primary"></i>
-              {hr.hr_name}
+              {hr.name}
             </h3>
             <p className="mb-0 text-muted">
               <i className="bi bi-envelope-fill me-2 text-danger"></i>
@@ -70,7 +71,6 @@ const HRProfile = () => {
           >
             <i className="bi bi-pencil-square me-2"></i> Edit Profile
           </button>
-          
         </div>
       </div>
     </div>

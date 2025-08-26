@@ -11,7 +11,8 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
   const handleToggleJobs = () => setJobsOpen((v) => !v);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("hr_token");
+    localStorage.removeItem("hr_user");
     navigate("/");
   };
 

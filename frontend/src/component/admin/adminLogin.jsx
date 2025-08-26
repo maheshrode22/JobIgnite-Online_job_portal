@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../../css/Hr/HRAuth.css";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleLogin = async (e) => {
@@ -13,17 +11,11 @@ export default function AdminLogin() {
     setErrorMessage("");
 
     try {
-      const hrData = await adminLoginService({ email, password });
-
-      // Save HR data in localStorage
-      localStorage.setItem("hrData", JSON.stringify(hrData.data));
-      localStorage.setItem("hr_id", hrData.data.hr_id);
-
-      alert("Login successful!");
-      navigate("/hr"); // Redirect to HR dashboard
+      // Placeholder: integrate real admin login service here
+      throw new Error("Admin login service not implemented");
     } catch (err) {
       console.error("Login error:", err);
-      setErrorMessage(err.response?.data?.message || "Invalid credentials");
+      setErrorMessage(err.message || "Invalid credentials");
     }
   };
 

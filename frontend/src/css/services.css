@@ -14,6 +14,9 @@
     padding: 30px 20px;
     background-color: rgb(33, 37, 41);
     color: #fff;
+    animation: service linear;
+    animation-timeline: view();
+    animation-range:entry 0% cover 40%;
 }
 
 .Services-container {
@@ -21,6 +24,9 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
+    animation: service linear;
+    animation-timeline: view();
+    animation-range:entry 0% cover 40%;
 }
 
 .service-box {
@@ -51,6 +57,17 @@
     transform: translateY(-5px);
     background-color: rgb(255, 255, 255);
     cursor: pointer;
+}
+
+@keyframes service {
+  from{
+    opacity:0;
+    transform: translateX(-300px);
+  }
+  to{
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
 
 @media (max-width: 1024px) {

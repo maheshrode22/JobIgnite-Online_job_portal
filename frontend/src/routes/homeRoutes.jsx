@@ -10,7 +10,7 @@ import Footer from "../component/footer";
 import LogoLoader from "../component/LogoLoader";
 import ScrollToTop from "../component/scrollto";
 import HRAuth from "../component/hr/HRAuth";
-import AdminLogin from "../component/AdminLogin";
+import AdminLogin from "../component/admin/adminLogin";
 import JobSeekerAuth from "../component/jobSeeker/JobseekerAuth";
 
 function HomeRoutes() {

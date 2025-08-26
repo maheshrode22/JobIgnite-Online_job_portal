@@ -8,6 +8,7 @@ import ScrollToTop from "./component/scrollto";
 import HomeRoutes from "./routes/homeRoutes";
 import HrRoutes from "./routes/HrRoutes";
 import JobSeekerRoutes from "./routes/JobSeekerRoutes";
+import AdminRoutes from "./routes/adminRoutes";
 
 // Loader wrapper for pages
 function AppContent() {
@@ -32,8 +33,11 @@ function App() {
         {/* HR-related routes */}
         <Route path="/hr/*" element={<HrRoutes />} />
 
-        <Route path="/jobSeeker/*" element={<JobSeekerRoutes></JobSeekerRoutes>}></Route>
+        <Route path="/jobSeeker/*" element={<JobSeekerRoutes />} />
+
+        <Route path="/Admin/*" element={<AdminRoutes />} />
       </Routes>
+
     </Router>
   );
 }

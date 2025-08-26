@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../css/Hr/HRAuth.css";
 import { adminLogin } from "../../Services/adminService";
 
@@ -6,35 +7,25 @@ export default function AdminLogin() {
   const [username, setUsername] = useState(""); // ✅ Changed from email to username
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage("");
 
     try {
-
-      // Placeholder: integrate real admin login service here
-      throw new Error("Admin login service not implemented");
+      const admindata = await adminLogin({ username, password });
+      if (admindata?.data?.token) {
+        localStorage.setItem("admin_token", admindata.data.token);
+        alert("Login successful!");
+        navigate("/Admin");
+      } else {
+        setErrorMessage("Invalid credentials");
+      }
     } catch (err) {
       console.error("Login error:", err);
-      setErrorMessage(err.message || "Invalid credentials");
+      setErrorMessage(err.response?.data?.message || "Invalid credentials");
     }
-
-  const admindata = await adminLogin({ username, password });
-
-  if (admindata.data.token) {
-    localStorage.setItem("admindToken", admindata.data.token);
-    alert("Login successful!");
-    navigate("/admin");
-  } else {
-    setErrorMessage("Invalid credentials");
-  }
-} catch (err) {
-  console.error("Login error:", err);
-  setErrorMessage(err.response?.data?.message || "Invalid credentials");
-}
-
-
   };
 
   return (

@@ -131,7 +131,7 @@ exports.hrMe = async (req, res) => {
   }
 };
 
-}
+
 
 
 exports.updateHr = (req, res) => {

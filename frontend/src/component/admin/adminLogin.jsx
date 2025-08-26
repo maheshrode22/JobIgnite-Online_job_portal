@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../../css/Hr/HRAuth.css";
+import { adminLogin } from "../../Services/adminService";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(""); // ✅ Changed from email to username
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -11,12 +12,29 @@ export default function AdminLogin() {
     setErrorMessage("");
 
     try {
+
       // Placeholder: integrate real admin login service here
       throw new Error("Admin login service not implemented");
     } catch (err) {
       console.error("Login error:", err);
       setErrorMessage(err.message || "Invalid credentials");
     }
+
+  const admindata = await adminLogin({ username, password });
+
+  if (admindata.data.token) {
+    localStorage.setItem("admindToken", admindata.data.token);
+    alert("Login successful!");
+    navigate("/admin");
+  } else {
+    setErrorMessage("Invalid credentials");
+  }
+} catch (err) {
+  console.error("Login error:", err);
+  setErrorMessage(err.response?.data?.message || "Invalid credentials");
+}
+
+
   };
 
   return (
@@ -27,21 +45,23 @@ export default function AdminLogin() {
         </h3>
 
         <form onSubmit={handleLogin}>
+          {/* ✅ Username Field */}
           <div className="mb-3 text-start">
             <label className="form-label">
-              <i className="bi bi-envelope-fill me-1"></i>Email
+              <i className="bi bi-person-fill me-1"></i>Username
             </label>
             <input
-              type="email"
-              name="email"
+              type="text"
+              name="username"
               className="form-control"
-              placeholder="Enter email"
+              placeholder="Enter username"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
+          {/* ✅ Password Field */}
           <div className="mb-3 text-start">
             <label className="form-label">
               <i className="bi bi-lock-fill me-1"></i>Password

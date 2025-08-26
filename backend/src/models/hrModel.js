@@ -60,21 +60,6 @@ exports.hrRegisterMod = (...data) => {
         });
     });
 }
-// view alll hr list
-exports.viewHr = () => {
-
-    return new Promise((resolve, reject) => {
-        db.query("select * from hr", (err, result) => {
-            if (err) {
-                reject(err);
-            }
-            else {
-                resolve(result);
-            }
-        });
-    });
-}
-
 // update hr details
 exports.updateHr = (hr_name, company_name, password, phone, hr_id) => {
     return new Promise((resolve, reject) => {

@@ -1,9 +1,9 @@
 let db=require("../config/db.js");
 // admin Login
-exports.adminLogin = (adusername,adpassword) => {
+exports.adminLogin = (username,password) => {
    
     return new Promise((resolve, reject) => {
-        db.query("select * from admin where username=? AND password=?", [adusername, adpassword], (err, result) => {
+        db.query("select * from admin where username=? AND password=?", [username, password], (err, result) => {
             if (err) {
                 reject(err);
             }
@@ -34,6 +34,21 @@ exports.viewAllJobseeker=()=>{
         });
     });
 };
+
+
+
+exports.AllHr = () => {
+    return new Promise((resolve, reject) => {
+        db.query("select * from hr", (err, result) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(result);
+            }
+        });
+    });
+}
 
 
 // view specific job seeker details 

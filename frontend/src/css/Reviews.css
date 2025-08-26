@@ -13,7 +13,9 @@
   font-weight:600;
   margin-bottom: 40px;
   color: white;
-  animation: reviewshead 1.3s ease-in-out;
+  animation: reviewshead linear;
+  animation-timeline: view();
+  animation-range:entry 0% cover 40%;
 }
 
 .Reviews-container {
@@ -21,6 +23,9 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
+  animation: reviewshead linear;
+  animation-timeline: view();
+  animation-range:entry 0% cover 40%;
 }
 
 .review-box {
@@ -62,11 +67,11 @@
 @keyframes reviewshead{
   from{
     opacity: 0;
-    transform: translateX(-40px);
+    scale: 0.5;
   }
   to{
     opacity: 1;
-    transform: translateX(0px);
+    scale:1;
   }
 }
 

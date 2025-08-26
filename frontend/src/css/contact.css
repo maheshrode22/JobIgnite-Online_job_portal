@@ -8,12 +8,14 @@
 
 .contact-container {
   display: flex;
-  flex-direction: column; /* stack heading and card */
+  flex-direction: column;
+  /* stack heading and card */
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background: rgb(33, 37, 41); /* dark background */
+  background: rgb(33, 37, 41);
+  /* dark background */
   color: white;
 }
 
@@ -25,18 +27,24 @@
   margin-bottom: 30px;
   text-align: center;
   color: #fff;
+  animation: contact ease-in-out;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
 
 .contact-card {
   background: #fff;
   padding: 30px 20px;
   border-radius: 10px;
-  border:2px solid orange;
+  border: 2px solid orange;
   width: 100%;
   max-width: 450px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  animation: contact ease-in-out;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
 
 .contact-form {
@@ -65,7 +73,7 @@
 
 .contact-form button {
   padding: 12px;
-  background:#f8db37;
+  background: #f8db37;
   color: black;
   border: none;
   border-radius: 10px;
@@ -81,15 +89,29 @@
   font-weight: 500;
 }
 
+@keyframes contact {
+  from {
+    opacity: 0;
+    scale: 0.2;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   .contact-heading {
     font-size: 24px;
     margin-bottom: 20px;
   }
+
   .contact-card {
     padding: 20px;
   }
+
   .contact-form input,
   .contact-form textarea,
   .contact-form button {

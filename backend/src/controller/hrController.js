@@ -104,6 +104,7 @@ exports.hrRegister = async (req, res) => {
       },
     });
 
+
     // send mail in background
     try {
       const { subject, body } = registrationTemplate(name);
@@ -129,6 +130,9 @@ exports.hrMe = async (req, res) => {
     res.status(500).send({ success: false, message: "Server error" });
   }
 };
+
+}
+
 
 exports.updateHr = (req, res) => {
     const { hr_id, hr_name, company_name, password, phone } = req.body;

@@ -5,21 +5,19 @@ let hrctr=require("../controller/hrController.js");
 let jobseekCtr=require("../controller/jobseekerController.js");
 let appCtr=require("../controller/applicationController.js");
 let jobsPost=require("../controller/jobsPostControler.js");
-const { route } = require("../app.js");
-
-
+let verifyAdminToken = require("../middleware/adminmiddle.js");
 
 //admin model
 router.post("/adminLogin",admincon.adminLogin);
-router.get("/viewAlljobSeeker",admincon.viewAllJobseeker);
+router.get("/viewAlljobSeeker",verifyAdminToken, admincon.viewAllJobseeker);
 router.post("/viewJobSeekerDetailed",admincon.jobseekerDetailed);
-
+router.get("/viewAllHr", verifyAdminToken, admincon.AllHr);
 
 
 // hr model
 router.post("/hrlogin",hrctr.hrLogin);
 router.post("/hrregister",hrctr.hrRegister);
-router.get("/viewAllHr",hrctr.AllHr);
+
 router.put("/updateHr",hrctr.updateHr);
 router.post("/deleteHr",hrctr.delHr);
 router.post("/updateStatusHr",hrctr.updateStatusHr);

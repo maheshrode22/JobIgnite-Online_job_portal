@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../css/Hr/HRAuth.css";
+import { adminLogin } from "../../Services/adminService";
 
 export default function AdminLogin() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState(""); // ✅ Changed from email to username
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,18 +14,20 @@ export default function AdminLogin() {
     setErrorMessage("");
 
     try {
-      const hrData = await adminLoginService({ email, password });
+  const admindata = await adminLogin({ username, password });
 
-      // Save HR data in localStorage
-      localStorage.setItem("hrData", JSON.stringify(hrData.data));
-      localStorage.setItem("hr_id", hrData.data.hr_id);
+  if (admindata.data.token) {
+    localStorage.setItem("admindToken", admindata.data.token);
+    alert("Login successful!");
+    navigate("/admin");
+  } else {
+    setErrorMessage("Invalid credentials");
+  }
+} catch (err) {
+  console.error("Login error:", err);
+  setErrorMessage(err.response?.data?.message || "Invalid credentials");
+}
 
-      alert("Login successful!");
-      navigate("/hr"); // Redirect to HR dashboard
-    } catch (err) {
-      console.error("Login error:", err);
-      setErrorMessage(err.response?.data?.message || "Invalid credentials");
-    }
   };
 
   return (
@@ -35,21 +38,23 @@ export default function AdminLogin() {
         </h3>
 
         <form onSubmit={handleLogin}>
+          {/* ✅ Username Field */}
           <div className="mb-3 text-start">
             <label className="form-label">
-              <i className="bi bi-envelope-fill me-1"></i>Email
+              <i className="bi bi-person-fill me-1"></i>Username
             </label>
             <input
-              type="email"
-              name="email"
+              type="text"
+              name="username"
               className="form-control"
-              placeholder="Enter email"
+              placeholder="Enter username"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
+          {/* ✅ Password Field */}
           <div className="mb-3 text-start">
             <label className="form-label">
               <i className="bi bi-lock-fill me-1"></i>Password

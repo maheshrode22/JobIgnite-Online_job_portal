@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaTrashAlt } from "react-icons/fa";
-import { viewHr } from "../../Services/adminService"; // import your service
+import axios from "axios";
+import { viewHr, API_URL } from "../../Services/adminService"; // import your service
 
 export default function ViewHR() {
   const [hrList, setHrList] = useState([]);
@@ -10,7 +11,7 @@ export default function ViewHR() {
   useEffect(() => {
     const fetchHR = async () => {
       try {
-        const token = localStorage.getItem("admindToken");
+        const token = localStorage.getItem("admin_token");
         if (!token) {
           setError("Admin not authenticated");
           setLoading(false);
@@ -34,9 +35,9 @@ export default function ViewHR() {
     if (!window.confirm("Are you sure you want to delete this HR?")) return;
 
     try {
-      const token = localStorage.getItem("admindToken");
+      const token = localStorage.getItem("admin_token");
       await axios.post(
-        "http://localhost:3000/deleteHr",
+        `${API_URL}/deleteHr`,
         { id: hr_id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { applyForJob } from "../../Services/SeekerService"; // apply function
+import { API_URL } from "../../Services/adminService";
 import "../../css/jobSeeker/jobDetails.css";
 
 export default function ViewJobDetails() {
@@ -45,8 +46,8 @@ export default function ViewJobDetails() {
     if (!window.confirm("Are you sure you want to delete this job?")) return;
 
     try {
-      const token = localStorage.getItem("admindToken"); // only admin can delete
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/deleteJob`, {
+      const token = localStorage.getItem("admin_token"); // only admin can delete
+      const res = await fetch(`${API_URL}/deleteJob`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -25,7 +25,9 @@ export default function ViewJob() {
         const decoded = jwtDecode(token);
         hr_id = decoded?.hr_id || decoded?.id || null;
       }
-    } catch {}
+    } catch (err) {
+      console.error("Invalid HR token", err);
+    }
     if (!hr_id) {
       setLoading(false);
       return;

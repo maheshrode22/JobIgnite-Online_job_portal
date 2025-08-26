@@ -57,16 +57,6 @@ exports.viewAllPostHrById=(req,res)=>{
 });
 
 }
-exports.AllHr = (req, res) => {
-    let promise = hrModel.viewHr();
-
-    promise.then((result) => {
-        res.send(result);
-    });
-    promise.catch((err) => {
-        res.send(err);
-    });
-}
 
 exports.updateHr = (req, res) => {
     const { hr_id, hr_name, company_name, password, phone } = req.body;

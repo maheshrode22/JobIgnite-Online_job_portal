@@ -10,12 +10,12 @@ function Slide() {
     >
       <div className="hero-content">
         <h1 className="slide-heading">
-          Find the most exciting startup jobs
+          Find The Most Exciting Startup Jobs
         </h1>
         <p className="slide-para">
           Join the best startups and make an impact on the future.
         </p>
-        <a href="#jobs" className="btn-slide">
+        <a href="/jobSeekerAuth" className="btn-slide">
           Browse Jobs
         </a>
       </div>

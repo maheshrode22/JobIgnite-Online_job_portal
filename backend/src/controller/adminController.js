@@ -1,34 +1,44 @@
 let adminModel = require("../models/adminmodel.js");
+const jwt = require("jsonwebtoken");
+const Secret_key= "its_mySecrate_Key";
 
 exports.adminLogin = (req, res) => {
-    let { adusername, adpassword } = req.body;
+    let { username, password } = req.body;
 
-    let Promise = adminModel.adminLogin(adusername, adpassword);
-
-    Promise.then((result) => {
-        if (result.length > 0) {
-            res.send({ msg: "admin login succesfully" });
-        }
-        else {
-            res.send({ msg: "login fail" });
-        }
-    }).catch((err) => {
-        res.send(err);
-    })
+    adminModel.adminLogin(username, password)
+        .then((result) => {
+            if (result.length > 0) {
+                const token = jwt.sign(
+                    { username: result[0].username },
+                    Secret_key,
+                    { expiresIn: "1h" }
+                );
+                res.json({
+                    msg: "Admin Login Successful",
+                    token: token,
+                    admin: result[0]
+                });
+            } else {
+                return res.status(401).json({ message: "Invalid credentials" });
+            }
+        })
+        .catch(() => {
+            return res.status(401).json({ message: "Invalid credentials" });
+        });
 };
 
 
-exports.viewAllJobseeker=(req,res)=>{
-        
-    let promise =adminModel.viewAllJobseeker();
-    promise.then((result)=>{
+exports.AllHr = (req, res) => {
+    let promise = adminModel.AllHr();
+
+    promise.then((result) => {
         res.send(result);
     });
-    promise.catch((err)=>{
+    promise.catch((err) => {
         res.send(err);
     });
-
 }
+
 
 
 exports.jobseekerDetailed=(req,res)=>{
@@ -43,3 +53,11 @@ exports.jobseekerDetailed=(req,res)=>{
             res.send(err);
         });
 }
+
+
+exports.viewAllJobseeker = (req,res) => {
+  
+    adminModel.viewAllJobseeker()
+    .then(result => res.json(result))
+    .catch(err => res.status(500).json({ error: err }));
+};

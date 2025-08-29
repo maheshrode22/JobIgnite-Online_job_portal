@@ -31,6 +31,22 @@ exports.hrLogin = async (req, res) => {
       return res.status(401).send({ success: false, msg: "Invalid email or password" });
 
     const user = rows[0];
+    
+    // Check if HR account is approved
+    if (user.status === "pending") {
+      return res.status(403).send({ 
+        success: false, 
+        msg: "Your account is pending approval. Please wait for admin approval before logging in." 
+      });
+    }
+    
+    if (user.status === "rejected") {
+      return res.status(403).send({ 
+        success: false, 
+        msg: "Your account has been rejected. Please contact admin for more information." 
+      });
+    }
+
     const dbPwd = user.password || "";
     let ok = false;
 
@@ -137,7 +153,7 @@ exports.hrMe = async (req, res) => {
 exports.updateHr = (req, res) => {
     const { hr_id, hr_name, company_name, password, phone } = req.body;
 
-    let Promise = hrModel.updateHr(hr_name, company_name, password, phone, hr_id)
+    let Promise = hrModel.updateHr(hr_name, company_name, phone, hr_id)
         .then(() => {
             res.send({ msg: "HR profile updated successfully" });
         })

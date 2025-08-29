@@ -1,102 +1,182 @@
+/* Custom styles for AddJob component (40% custom CSS) */
 .add-job-container {
-  margin: 20px auto;
-  padding: 30px 25px;
-  max-width: 800px;
   background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
 }
 
 .add-job-container h2 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 24px;
-  font-weight: 700;
-  color: #0d6efd;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
 }
 
+.add-job-container h2 i {
+  font-size: 2rem;
+}
+
+/* Custom form styling */
 .add-job-form .form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
 }
 
 .add-job-form label {
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #333;
   display: flex;
   align-items: center;
-  font-size: 15px;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.add-job-form input,
-.add-job-form textarea {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  background: #f9f9f9;
+.add-job-form label i {
+  font-size: 1.1rem;
 }
 
-.add-job-form input:focus,
-.add-job-form textarea:focus {
-  outline: none;
-  border-color: #0d6efd;
-  box-shadow: 0 0 6px rgba(13, 110, 253, 0.25);
-  background: #fff;
+/* Custom input focus effects */
+.add-job-form .form-control:focus {
+  border-color: #4A5859;
+  box-shadow: 0 0 0 0.2rem rgba(74, 88, 89, 0.25);
 }
 
-.add-job-form textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-.form-row {
-  display: flex;
-  gap: 20px;
-}
-
-.form-row .form-group {
-  flex: 1;
-}
-
+/* Custom submit button styling */
 .submit-btn {
-  background: #0d6efd;
-  color: #fff;
+  background: linear-gradient(135deg, #1B2E34, #4A5859);
   border: none;
-  padding: 14px;
-  font-size: 17px;
   font-weight: 600;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-  width: 100%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .submit-btn:hover {
-  background: #0b5ed7;
-  box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+  background: linear-gradient(135deg, #4A5859, #7C8989);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 88, 89, 0.3);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .form-row {
-    flex-direction: column;
-    gap: 15px;
-  }
+.submit-btn:active {
+  transform: translateY(0);
+}
 
+.submit-btn i {
+  font-size: 1.1rem;
+}
+
+/* Custom button styling for teal theme */
+.btn-primary {
+  background: linear-gradient(135deg, #1B2E34, #4A5859) !important;
+  border: none !important;
+  color: #ffffff !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4A5859, #7C8989) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 88, 89, 0.3);
+}
+
+.btn-outline-primary {
+  border-color: #4A5859 !important;
+  color: #4A5859 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4A5859 !important;
+  border-color: #4A5859 !important;
+  color: #ffffff !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 575.98px) {
   .add-job-container {
-    padding: 20px;
+    padding: 1.5rem 1rem;
+    margin: 0.5rem;
   }
+  
+  .add-job-container h2 {
+    font-size: 1.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .add-job-container h2 i {
+    font-size: 1.75rem;
+  }
+}
 
-  .submit-btn {
-    font-size: 16px;
-    padding: 12px;
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .add-job-container {
+    padding: 1.75rem 1.5rem;
   }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .add-job-container {
+    padding: 2rem 1.75rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .add-job-container {
+    padding: 2.5rem;
+  }
+  
+  .add-job-container h2 {
+    font-size: 2rem;
+  }
+  
+  .add-job-container h2 i {
+    font-size: 2.25rem;
+  }
+}
+
+/* Form validation states */
+.add-job-form .form-control.is-invalid {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.add-job-form .form-control.is-valid {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+}
+
+/* Loading state */
+.submit-btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-btn:disabled:hover {
+  background: #6c757d;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Accessibility improvements */
+.add-job-form .form-control:focus-visible {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* Animation for form submission */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.add-job-container {
+  animation: fadeIn 0.5s ease-out;
 }

@@ -19,7 +19,7 @@ export default function HRAuth() {
       localStorage.setItem("hr_token", res.token);
      // localStorage.setItem("hr_user", JSON.stringify(res.user));
 
-      alert("Login successful ");
+     
       navigate("/hr");
     } catch (err) {
       alert(err.message || "Something went wrong ");

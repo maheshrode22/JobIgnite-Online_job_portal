@@ -1,100 +1,74 @@
-/* Overall layout */
 .hr-dashboard {
   display: flex;
   min-height: 100vh;
   background: #f4f6f9;
 }
 
-/* Sidebar fixed */
-.sidebar {
-  width: 220px;
-  background: #1a1a2e;
-  color: #fff;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-/* Fixed Header (Navbar) */
-.hr-navbar {
-  position: fixed;
-  top: 0;
-  left: 220px; /* sidebar width */
-  right: 0;
-  height: 60px;
-  background: #1a1a2e;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  z-index: 1001;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.hr-navbar .menu-btn {
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  display: none;
-}
-
-.hr-navbar .title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.hr-navbar .right-icons {
-  font-size: 20px;
-}
-
-/* Main content (scrollable) */
+/* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 220px; /* sidebar जागा */
-  margin-top: 60px;   /* header उंची */
-  overflow-y: auto;   /* फक्त हे scroll होईल */
-  height: calc(100vh - 60px);
+  margin-left: 80px; /* collapsed sidebar */
+  margin-top: 70px; /* navbar height */
+  overflow-y: auto;
+  height: calc(100vh - 70px);
   background: #f5f6fa;
-  min-width: 0;
-  position: relative;
+  transition: margin-left 0.3s ease;
+  width: calc(100% - 80px);
 }
 
-.dashboard-content {
-  padding: 20px;
+/* Expanded Sidebar */
+.hr-sidebar.open ~ .main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
 }
 
-/* Overlay when sidebar open on mobile */
-.sidebar-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 999;
+/* Hover effect for collapsed sidebar */
+.hr-sidebar.closed:hover ~ .main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
 }
 
-/* Responsive */
+/* Mobile Responsive */
 @media (max-width: 768px) {
-  .sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-  }
-  .sidebar.open {
-    transform: translateX(0);
-  }
-  .hr-navbar {
-    left: 0; /* mobile वर header full width */
-  }
-  .hr-navbar .menu-btn {
-    display: block;
-  }
   .main-content {
     margin-left: 0;
-    margin-top: 60px;
-    height: calc(100vh - 60px);
+    margin-top: 56px; /* mobile navbar height */
+    height: calc(100vh - 56px);
+    width: 100%;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .dashboard-content {
+    padding: 8px !important;
+    margin: 0;
+  }
+  
+  /* Ensure no horizontal scroll on mobile */
+  .container {
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+  
+  .dashboard-content {
+    padding: 15px !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1025px) {
+  .main-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+}
+  

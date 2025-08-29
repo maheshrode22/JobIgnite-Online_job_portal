@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+  background: linear-gradient(135deg, #000A0C, #1B2E34);
   padding: 30px;
   animation: HRLogin ease-in-out;
     animation-timeline: view();
@@ -23,7 +23,7 @@
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 20px;
-  color: #2563eb;
+  color: #1B2E34;
   text-align: center;
 }
 
@@ -43,8 +43,8 @@
 }
 
 .form-control:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 0.15rem rgba(37, 99, 235, 0.25);
+  border-color: #4A5859;
+  box-shadow: 0 0 0 0.15rem rgba(74, 88, 89, 0.25);
 }
 
 .btn-primary {
@@ -57,7 +57,7 @@
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  background-color: #1d4ed8;
+  background-color: #4A5859;
 }
 
 .extra-links {

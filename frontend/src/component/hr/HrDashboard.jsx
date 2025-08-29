@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "../hr/sidebar";
 import DashboardHome from "../hr/dashboard";
-import "bootstrap-icons/font/bootstrap-icons.css"; // ✅ Import Bootstrap Icons
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/HrDashboard.css";
+import HrNavbar from "./hrNavbar";
 
 export default function HrDashboard() {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
-      setSidebarOpen(!mobile);
+      if (mobile) {
+        setSidebarOpen(false);
+      }
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -34,35 +37,16 @@ export default function HrDashboard() {
         isMobile={isMobile}
       />
 
-      {/* Main Area */}
+      {/* Main Content */}
       <div className="main-content">
-        <HrNavbar toggleSidebar={toggleSidebar} />
+        <HrNavbar 
+          toggleSidebar={toggleSidebar} 
+          isMobile={isMobile} 
+          sidebarOpen={sidebarOpen}
+        />
         <div className="dashboard-content">
           {isDashboardRoute ? <DashboardHome /> : <Outlet />}
         </div>
-      </div>
-
-      {/* Mobile Overlay */}
-      {isMobile && sidebarOpen && (
-        <div className="sidebar-overlay" onClick={toggleSidebar} />
-      )}
-    </div>
-  );
-}
-
-/* ---------------- Navbar Component ---------------- */
-function HrNavbar({ toggleSidebar }) {
-  return (
-    <div className="hr-navbar">
-      {/* Hamburger menu (mobile only) */}
-      <button className="menu-btn" onClick={toggleSidebar}>
-        <i className="bi bi-list"></i>
-      </button>
-
-      <h3 className="title">HR Dashboard</h3>
-
-      <div className="right-icons">
-        <i className="bi bi-bell-fill"></i>
       </div>
     </div>
   );

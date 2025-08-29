@@ -1,55 +1,54 @@
 
 /* Background */
 .register-container {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #000A0C, #1B2E34);
+}
+
+/* Card Styling */
+.register-card {
+  max-width: 500px;
+  border-radius: 16px;
+  background: #fff;
+  animation: fadeInUp 0.8s ease;
+}
+
+/* Input Focus */
+.form-control:focus {
+  border-color: #4A5859;
+  box-shadow: 0 0 8px rgba(74, 88, 89, 0.4);
+}
+
+/* Button Hover */
+.btn-primary {
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #4A5859;
+  transform: scale(1.05);
+  box-shadow: 0px 5px 15px rgba(74, 88, 89, 0.4);
+}
+
+/* Login Link Hover */
+.login-link {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #4A5859;
+  text-decoration: underline;
+}
+
+/* Fade In Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  
-  /* Card Styling */
-  .register-card {
-    max-width: 500px;
-    border-radius: 16px;
-    background: #fff;
-    animation: fadeInUp 0.8s ease;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  /* Input Focus */
-  .form-control:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
-  }
-  
-  /* Button Hover */
-  .btn-primary {
-    transition: all 0.3s ease;
-  }
-  
-  .btn-primary:hover {
-    background: #1e40af;
-    transform: scale(1.05);
-    box-shadow: 0px 5px 15px rgba(37, 99, 235, 0.4);
-  }
-  
-  /* Login Link Hover */
-  .login-link {
-    cursor: pointer;
-    transition: color 0.3s ease;
-  }
-  
-  .login-link:hover {
-    color: #1e40af;
-    text-decoration: underline;
-  }
-  
-  /* Fade In Animation */
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
+}

@@ -47,6 +47,17 @@ export const getApplicationsByHR = async (hr_id) => {
   });
 };
  
+// ✅ Update HR Profile
+export const updateHr = (id, hrData) => {
+  return axios.put(`${API_URL}/updateHr/${id}`, hrData, {
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+  });
+};
+
+
 export const deleteJob = (id) => {
   return axios.post(`${API_URL}/deletePost`, { id }, { headers: getAuthHeaders() });
 };
@@ -74,3 +85,17 @@ export const getHRMe = async () => {
   });
   return res.data;
 };
+
+
+
+
+
+
+// export const getJobById = async (id) => {
+//   return await axios.get(`${API_URL}/jobs/${id}`);
+// };
+
+// // Update job by id
+// export const updateJob = async (id, jobData) => {
+//   return await axios.put(`${API_URL}/jobs/${id}`, jobData);
+// };

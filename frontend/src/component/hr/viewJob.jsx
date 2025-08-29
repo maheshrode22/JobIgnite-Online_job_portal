@@ -11,7 +11,7 @@ export default function ViewJob() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [show, setShow] = useState(false);
 
-  // 🔹 Search + Pagination
+  // Search + Pagination
   const [searchJob, setSearchJob] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -54,7 +54,7 @@ export default function ViewJob() {
     alert("Update job with ID: " + id);
   };
 
-  // 🔹 Delete job
+  // Delete job
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this job?")) {
       try {
@@ -74,207 +74,276 @@ export default function ViewJob() {
     }
   };
 
-  // 🔹 Filter by job title
+  // Filter by job title
   const filteredJobs = jobs.filter((job) =>
     (job.title || job.job_title || "").toLowerCase().includes(searchJob.toLowerCase())
   );
 
-  // 🔹 Pagination
+  // Pagination
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
   const currentJobs = filteredJobs.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredJobs.length / itemsPerPage);
 
-  if (loading)
-    return <p className="p-4 text-center text-muted">Loading jobs...</p>;
-
-  return (
-    <div className="container mt-4">
-      {/* Header */}
-      <div className="text-center mb-4">
-        <h2 className="fw-bold text-primary">
-          <i className="bi bi-briefcase-fill me-2"></i> My Posted Jobs
-        </h2>
-        <p className="text-muted">Manage, update or delete your posted jobs</p>
-      </div>
-
-      {/* 🔹 Search Box */}
-      <div className="row justify-content-end mb-3">
-        <div className="col-12 col-md-6 col-lg-4">
-          <div className="input-group">
-            <span className="input-group-text bg-primary text-white">
-              <i className="bi bi-search"></i>
-            </span>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by Job Title..."
-              value={searchJob}
-              onChange={(e) => setSearchJob(e.target.value)}
-            />
+  if (loading) {
+    return (
+      <div className="container-fluid py-4">
+        <div className="row justify-content-center">
+          <div className="col-12">
+            <div className="text-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <p className="mt-2 text-muted">Loading jobs...</p>
+            </div>
           </div>
         </div>
       </div>
+    );
+  }
 
-      {/* Jobs Table / Card View */}
-      {jobs.length === 0 ? (
-        <p className="text-dark text-center">
-          <i className="bi bi-emoji-frown text-danger fs-4"></i> No jobs found.
-        </p>
-      ) : (
-        <div className="table-responsive">
-          <table className="table table-hover align-middle shadow-sm custom-table">
-            <thead className="table-primary">
-              <tr>
-                <th>Sr No</th>
-                <th><i className="bi bi-card-text me-1"></i> Title</th>
-                <th><i className="bi bi-building me-1"></i> Company</th>
-                <th><i className="bi bi-geo-alt-fill me-1"></i> Location</th>
-                <th><i className="bi bi-cash-coin me-1"></i> Package</th>
-                <th><i className="bi bi-gear-fill me-1"></i> Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentJobs.map((job, index) => (
-                <tr key={job.job_id}>
-                  <td>{indexOfFirst + index + 1}</td>
-                  <td className="fw-bold">{job.title || job.job_title}</td>
-                  <td>{job.company}</td>
-                  <td>{job.location}</td>
-                  <td>
-                    <Badge bg="success">{job.package}</Badge>
-                  </td>
-                  <td>
-                    <Button
-                      variant="info"
-                      size="sm"
-                      className="me-2"
-                      onClick={() => handleShow(job)}
-                    >
-                      <i className="bi bi-eye-fill"></i> View
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+  return (
+    <div className="container-fluid py-4">
+      <div className="row justify-content-center">
+        <div className="col-12">
+          {/* Header */}
+          <div className="text-center mb-4">
+            <h2 className="fw-bold text-primary">
+              <i className="bi bi-briefcase-fill me-2"></i> My Posted Jobs
+            </h2>
+            <p className="text-muted">Manage, update or delete your posted jobs</p>
+          </div>
 
-      {/* 🔹 Pagination */}
-      {totalPages > 1 && (
-        <div className="d-flex justify-content-center mt-3">
-          <nav>
-            <ul className="pagination flex-wrap">
-              <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  <i className="bi bi-arrow-left-circle"></i> Prev
-                </button>
-              </li>
-              {Array.from({ length: totalPages }, (_, i) => (
-                <li
-                  key={i}
-                  className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => setCurrentPage(i + 1)}
-                  >
-                    {i + 1}
-                  </button>
-                </li>
-              ))}
-              <li
-                className={`page-item ${
-                  currentPage === totalPages ? "disabled" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  Next <i className="bi bi-arrow-right-circle"></i>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      )}
+          {/* Search and Stats */}
+          <div className="row align-items-center mb-4">
+            <div className="col-12 col-md-6 mb-3 mb-md-0">
+              <div className="d-flex align-items-center">
+                <span className="badge bg-primary me-2 fs-6">
+                  {filteredJobs.length}
+                </span>
+                <span className="text-muted">Total Jobs Posted</span>
+              </div>
+            </div>
+            <div className="col-12 col-md-6">
+              <div className="input-group">
+                <span className="input-group-text bg-primary text-white">
+                  <i className="bi bi-search"></i>
+                </span>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search by Job Title..."
+                  value={searchJob}
+                  onChange={(e) => setSearchJob(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
 
-      {/* 🔹 Modal for job details */}
-      <Modal show={show} onHide={handleClose} centered size="lg">
-        <Modal.Header closeButton className="bg-primary text-white">
-          <Modal.Title>
-            <i className="bi bi-info-circle-fill me-2"></i> Job Details
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedJob && (
-            <div className="job-details">
-              <h4 className="fw-bold text-primary mb-3">
-                <i className="bi bi-briefcase-fill me-2"></i>
-                {selectedJob.title || selectedJob.job_title}
-              </h4>
-              <p>
-                <i className="bi bi-building text-primary me-2"></i>
-                <strong>Company:</strong> {selectedJob.company}
-              </p>
-              <p>
-                <i className="bi bi-geo-alt-fill text-danger me-2"></i>
-                <strong>Location:</strong> {selectedJob.location}
-              </p>
-              <p>
-                <i className="bi bi-cash-coin text-success me-2"></i>
-                <strong>Package:</strong> {selectedJob.package}
-              </p>
-              <p>
-                <i className="bi bi-people-fill text-info me-2"></i>
-                <strong>Openings:</strong> {selectedJob.opening}
-              </p>
-              <p>
-                <i className="bi bi-award-fill text-warning me-2"></i>
-                <strong>Experience:</strong> {selectedJob.experience_required}
-              </p>
-              <p>
-                <i className="bi bi-lightbulb-fill text-primary me-2"></i>
-                <strong>Skills:</strong> {selectedJob.skills_required}
-              </p>
-              <p>
-                <i className="bi bi-file-earmark-text-fill text-secondary me-2"></i>
-                <strong>Description:</strong> {selectedJob.description}
-              </p>
-              <p>
-                <i className="bi bi-calendar-event-fill text-danger me-2"></i>
-                <strong>Deadline:</strong> {selectedJob.deadline}
-              </p>
+          {/* Jobs Table */}
+          {jobs.length === 0 ? (
+            <div className="text-center py-5">
+              <i className="bi bi-emoji-frown display-4 text-danger d-block mb-3"></i>
+              <h5>No jobs found</h5>
+              <p className="text-muted">Start by posting your first job</p>
+            </div>
+          ) : (
+            <div className="card shadow-sm">
+              <div className="card-body p-0">
+                <div className="table-responsive">
+                  <table className="table table-hover align-middle mb-0">
+                    <thead className="table-primary">
+                      <tr>
+                        <th className="text-center" style={{width: '80px'}}>#</th>
+                        <th>
+                          <i className="bi bi-card-text me-2"></i>Title
+                        </th>
+                        <th className="d-none d-md-table-cell">
+                          <i className="bi bi-building me-2"></i>Company
+                        </th>
+                        <th className="d-none d-lg-table-cell">
+                          <i className="bi bi-geo-alt-fill me-2"></i>Location
+                        </th>
+                        <th>
+                          <i className="bi bi-cash-coin me-2"></i>Package
+                        </th>
+                        <th className="text-center" style={{width: '120px'}}>
+                          <i className="bi bi-gear-fill me-2"></i>Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentJobs.map((job, index) => (
+                        <tr key={job.job_id}>
+                          <td className="text-center fw-bold">
+                            {indexOfFirst + index + 1}
+                          </td>
+                          <td>
+                            <div className="fw-bold">{job.title || job.job_title}</div>
+                            <small className="text-muted d-md-none">
+                              {job.company}
+                            </small>
+                          </td>
+                          <td className="d-none d-md-table-cell">{job.company}</td>
+                          <td className="d-none d-lg-table-cell">{job.location}</td>
+                          <td>
+                            <Badge bg="success" className="fs-6">
+                              {job.package}
+                            </Badge>
+                          </td>
+                          <td className="text-center">
+                            <Button
+                              variant="outline-primary"
+                              size="sm"
+                              onClick={() => handleShow(job)}
+                              className="btn-sm"
+                            >
+                              <i className="bi bi-eye-fill me-1"></i>
+                              <span className="d-none d-sm-inline">View</span>
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           )}
-        </Modal.Body>
-        <Modal.Footer className="flex-wrap">
-          <Button variant="secondary" onClick={handleClose}>
-            <i className="bi bi-x-circle"></i> Close
-          </Button>
-          {selectedJob && (
-            <>
-              <Button
-                variant="warning"
-                onClick={() => handleUpdate(selectedJob.job_id)}
-              >
-                <i className="bi bi-pencil-square"></i> Update
-              </Button>
-              <Button
-                variant="danger"
-                onClick={() => handleDelete(selectedJob.job_id)}
-              >
-                <i className="bi bi-trash-fill"></i> Delete
-              </Button>
-            </>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="d-flex justify-content-center mt-4">
+              <nav aria-label="Jobs pagination">
+                <ul className="pagination pagination-sm">
+                  <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+                    <button
+                      className="page-link"
+                      onClick={() => setCurrentPage(currentPage - 1)}
+                      disabled={currentPage === 1}
+                    >
+                      <i className="bi bi-chevron-left"></i>
+                      <span className="d-none d-sm-inline ms-1">Previous</span>
+                    </button>
+                  </li>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <li
+                      key={i}
+                      className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => setCurrentPage(i + 1)}
+                      >
+                        {i + 1}
+                      </button>
+                    </li>
+                  ))}
+                  <li
+                    className={`page-item ${
+                      currentPage === totalPages ? "disabled" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => setCurrentPage(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                    >
+                      <span className="d-none d-sm-inline me-1">Next</span>
+                      <i className="bi bi-chevron-right"></i>
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           )}
-        </Modal.Footer>
-      </Modal>
+
+          {/* Modal for job details */}
+          <Modal show={show} onHide={handleClose} centered size="lg" className="custom-job-modal">
+            <Modal.Header closeButton className="bg-gradient text-white">
+              <Modal.Title>
+                <i className="bi bi-info-circle-fill me-2"></i> Job Details
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {selectedJob && (
+                <div className="job-details-container">
+                  <h3 className="fw-bold text-primary mb-4 text-center">
+                    <i className="bi bi-briefcase-fill me-2"></i>
+                    {selectedJob.title || selectedJob.job_title}
+                  </h3>
+
+                  <div className="row g-3">
+                    <div className="col-12 col-md-6">
+                      <div className="detail-card">
+                        <i className="bi bi-building text-primary me-2"></i>
+                        <strong>Company:</strong> {selectedJob.company}
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="detail-card">
+                        <i className="bi bi-geo-alt-fill text-danger me-2"></i>
+                        <strong>Location:</strong> {selectedJob.location}
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="detail-card">
+                        <i className="bi bi-cash-coin text-success me-2"></i>
+                        <strong>Package:</strong> {selectedJob.package} LPA
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="detail-card">
+                        <i className="bi bi-people-fill text-info me-2"></i>
+                        <strong>Openings:</strong> {selectedJob.opening}
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="detail-card">
+                        <i className="bi bi-award-fill text-warning me-2"></i>
+                        <strong>Experience:</strong> {selectedJob.experience_required} yrs
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-6">
+                      <div className="detail-card">
+                        <i className="bi bi-lightbulb-fill text-purple me-2"></i>
+                        <strong>Skills:</strong> {selectedJob.skills_required}
+                      </div>
+                    </div>
+                    <div className="col-12">
+                      <div className="detail-card">
+                        <i className="bi bi-file-earmark-text-fill text-secondary me-2"></i>
+                        <strong>Description:</strong> {selectedJob.description}
+                      </div>
+                    </div>
+                    <div className="col-12">
+                      <div className="detail-card deadline">
+                        <i className="bi bi-calendar-event-fill text-danger me-2"></i>
+                        <strong>Deadline:</strong> {new Date(selectedJob.deadline).toLocaleDateString()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Modal.Body>
+            <Modal.Footer className="d-flex justify-content-between flex-wrap gap-2">
+              <Button variant="outline-secondary" onClick={handleClose}>
+                <i className="bi bi-x-circle me-1"></i> Close
+              </Button>
+              {selectedJob && (
+                <div className="d-flex gap-2">
+                  <Button variant="warning" onClick={() => handleUpdate(selectedJob.job_id)}>
+                    <i className="bi bi-pencil-square me-1"></i> Update
+                  </Button>
+                  <Button variant="danger" onClick={() => handleDelete(selectedJob.job_id)}>
+                    <i className="bi bi-trash-fill me-1"></i> Delete
+                  </Button>
+                </div>
+              )}
+            </Modal.Footer>
+          </Modal>
+        </div>
+      </div>
     </div>
   );
 }

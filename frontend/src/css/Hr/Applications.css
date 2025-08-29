@@ -1,4 +1,4 @@
-/* View Job Styles */
+/* Applications Component Styles */
 .container {
   padding: 20px;
 }
@@ -7,33 +7,48 @@
 .text-center.mb-4 h2 {
   font-size: 2rem;
   margin-bottom: 10px;
+  color: #1B2E34;
+  font-weight: 700;
 }
 
-.text-center.mb-4 p {
-  font-size: 1.1rem;
-  color: #6c757d;
+.text-center.mb-4 h2 i {
+  margin-right: 10px;
+  font-size: 2.2rem;
 }
 
 /* Search Box */
-.input-group {
+.d-flex.justify-content-end.mb-3 {
   margin-bottom: 20px;
 }
 
+.input-group {
+  max-width: 400px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
 .input-group-text {
-  border: none;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-right: none;
+  color: #6c757d;
   font-size: 1.1rem;
+  padding: 12px 15px;
 }
 
 .form-control {
   border: 1px solid #dee2e6;
-  border-radius: 0 8px 8px 0;
-  font-size: 1rem;
+  border-left: none;
   padding: 12px 15px;
+  font-size: 1rem;
+  background: #fff;
 }
 
 .form-control:focus {
   border-color: #4A5859;
   box-shadow: 0 0 0 0.2rem rgba(74, 88, 89, 0.25);
+  background: #fff;
 }
 
 /* Table Styles */
@@ -41,13 +56,15 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 
-.custom-table {
+.table {
   margin-bottom: 0;
+  background: #fff;
 }
 
-.custom-table thead th {
+.table thead th {
   background: linear-gradient(135deg, #1B2E34, #4A5859);
   color: white;
   border: none;
@@ -58,24 +75,25 @@
   vertical-align: middle;
 }
 
-.custom-table thead th:first-child {
+.table thead th:first-child {
   text-align: center;
 }
 
-.custom-table tbody td {
+.table tbody td {
   padding: 12px;
   vertical-align: middle;
   border-bottom: 1px solid #dee2e6;
   font-size: 0.9rem;
+  text-align: center;
 }
 
-.custom-table tbody tr:hover {
+.table tbody tr:hover {
   background-color: #f8f9fa;
   transform: scale(1.01);
   transition: all 0.2s ease;
 }
 
-.custom-table tbody tr:last-child td {
+.table tbody tr:last-child td {
   border-bottom: none;
 }
 
@@ -93,6 +111,7 @@
   padding: 8px 16px;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  margin: 0 2px;
 }
 
 .btn:hover {
@@ -100,18 +119,40 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn-info {
-  background: linear-gradient(135deg, #17a2b8, #138496);
+.btn-primary {
+  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
   border: none;
 }
 
-.btn-info:hover {
-  background: linear-gradient(135deg, #138496, #117a8b);
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0b5ed7, #0a4b9e);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #198754, #157347);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #157347, #146c43);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  border: none;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #c82333, #bd2130);
 }
 
 /* Pagination */
-.pagination {
+.d-flex.justify-content-center.mt-3 {
   margin-top: 20px;
+}
+
+.pagination {
+  margin: 0;
 }
 
 .page-link {
@@ -139,26 +180,6 @@
   background-color: transparent;
 }
 
-/* Modal Styles */
-.modal-header {
-  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
-  color: white;
-  border-bottom: none;
-}
-
-.modal-title {
-  font-weight: 600;
-}
-
-.modal-body {
-  padding: 25px;
-}
-
-.modal-footer {
-  border-top: none;
-  padding: 20px 25px;
-}
-
 /* Responsive Design - Mobile First Approach */
 
 /* Extra Small devices (phones, 576px and down) */
@@ -172,25 +193,30 @@
     margin-bottom: 8px;
   }
   
-  .text-center.mb-4 p {
-    font-size: 1rem;
+  .text-center.mb-4 h2 i {
+    font-size: 1.7rem;
   }
   
-  .input-group {
+  .d-flex.justify-content-end.mb-3 {
     margin-bottom: 15px;
   }
   
+  .input-group {
+    max-width: 100%;
+  }
+  
+  .input-group-text,
   .form-control {
     padding: 10px 12px;
     font-size: 0.9rem;
   }
   
-  .custom-table thead th {
+  .table thead th {
     padding: 12px 8px;
     font-size: 0.8rem;
   }
   
-  .custom-table tbody td {
+  .table tbody td {
     padding: 10px 8px;
     font-size: 0.8rem;
   }
@@ -198,6 +224,7 @@
   .btn {
     padding: 6px 12px;
     font-size: 0.8rem;
+    margin: 2px;
   }
   
   .badge {
@@ -205,21 +232,13 @@
     padding: 4px 8px;
   }
   
-  .pagination {
+  .d-flex.justify-content-center.mt-3 {
     margin-top: 15px;
   }
   
   .page-link {
     padding: 8px 12px;
     font-size: 0.9rem;
-  }
-  
-  .modal-body {
-    padding: 20px;
-  }
-  
-  .modal-footer {
-    padding: 15px 20px;
   }
 }
 
@@ -233,12 +252,20 @@
     font-size: 1.7rem;
   }
   
-  .custom-table thead th {
+  .text-center.mb-4 h2 i {
+    font-size: 1.9rem;
+  }
+  
+  .input-group {
+    max-width: 350px;
+  }
+  
+  .table thead th {
     padding: 13px 10px;
     font-size: 0.85rem;
   }
   
-  .custom-table tbody td {
+  .table tbody td {
     padding: 11px 10px;
     font-size: 0.85rem;
   }
@@ -259,12 +286,20 @@
     font-size: 1.8rem;
   }
   
-  .custom-table thead th {
+  .text-center.mb-4 h2 i {
+    font-size: 2rem;
+  }
+  
+  .input-group {
+    max-width: 400px;
+  }
+  
+  .table thead th {
     padding: 14px 11px;
     font-size: 0.9rem;
   }
   
-  .custom-table tbody td {
+  .table tbody td {
     padding: 12px 11px;
     font-size: 0.9rem;
   }
@@ -281,12 +316,16 @@
     font-size: 1.9rem;
   }
   
-  .custom-table thead th {
+  .text-center.mb-4 h2 i {
+    font-size: 2.1rem;
+  }
+  
+  .table thead th {
     padding: 15px 12px;
     font-size: 0.95rem;
   }
   
-  .custom-table tbody td {
+  .table tbody td {
     padding: 12px 12px;
     font-size: 0.9rem;
   }
@@ -298,12 +337,16 @@
     font-size: 2.2rem;
   }
   
-  .custom-table thead th {
+  .text-center.mb-4 h2 i {
+    font-size: 2.4rem;
+  }
+  
+  .table thead th {
     padding: 16px 12px;
     font-size: 1rem;
   }
   
-  .custom-table tbody td {
+  .table tbody td {
     padding: 13px 12px;
     font-size: 0.95rem;
   }
@@ -321,21 +364,21 @@
   }
   
   /* Stack table cells on very small screens */
-  .custom-table thead,
-  .custom-table tbody,
-  .custom-table tr,
-  .custom-table th,
-  .custom-table td {
+  .table thead,
+  .table tbody,
+  .table tr,
+  .table th,
+  .table td {
     display: block;
   }
   
-  .custom-table thead tr {
+  .table thead tr {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
   
-  .custom-table tr {
+  .table tr {
     border: 1px solid #dee2e6;
     margin-bottom: 10px;
     border-radius: 8px;
@@ -343,7 +386,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .custom-table td {
+  .table td {
     border: none;
     position: relative;
     padding: 12px 15px;
@@ -351,7 +394,7 @@
     border-bottom: 1px solid #eee;
   }
   
-  .custom-table td:before {
+  .table td:before {
     content: attr(data-label);
     font-weight: 600;
     color: #0d6efd;
@@ -360,18 +403,21 @@
     display: inline-block;
   }
   
-  .custom-table td:last-child {
+  .table td:last-child {
     border-bottom: none;
+  }
+  
+  /* Button group adjustments for mobile */
+  .btn {
+    display: block;
+    width: 100%;
+    margin: 5px 0;
+    text-align: center;
   }
 }
 
-/* Loading State */
-.text-center.text-muted {
-  font-size: 1.1rem;
-  padding: 40px 20px;
-}
-
-/* No Jobs Found State */
+/* Loading and Empty States */
+.text-center.text-muted,
 .text-dark.text-center {
   font-size: 1.1rem;
   padding: 40px 20px;
@@ -381,6 +427,7 @@
   font-size: 3rem;
   margin-bottom: 15px;
   display: block;
+  color: #dc3545;
 }
 
 /* Focus and Accessibility */
@@ -395,7 +442,7 @@
 @media print {
   .btn,
   .pagination,
-  .input-group {
+  .d-flex.justify-content-end.mb-3 {
     display: none !important;
   }
   
@@ -404,8 +451,44 @@
     border: 1px solid #dee2e6;
   }
   
-  .custom-table thead th {
+  .table thead th {
     background: #f8f9fa !important;
     color: #000 !important;
   }
 }
+
+/* Animation for table rows */
+.table tbody tr {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects for interactive elements */
+.input-group:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+/* Status indicators */
+.status-pending {
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+}
+
+.status-approved {
+  background: linear-gradient(135deg, #198754, #157347);
+}
+
+.status-rejected {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+} 

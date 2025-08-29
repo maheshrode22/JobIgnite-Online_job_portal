@@ -1,20 +1,36 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "bootstrap-icons/font/bootstrap-icons.css"; // ✅
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/sidebar.css";
 
 export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [jobsOpen, setJobsOpen] = useState(false);
+  const [sidebarLocked, setSidebarLocked] = useState(true);
 
-  const handleToggleJobs = () => setJobsOpen((v) => !v);
+  const handleToggleJobs = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setJobsOpen((v) => !v);
+  };
 
-  const handleLogout = () => {
+  const handleLogout = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     localStorage.removeItem("hr_token");
     localStorage.removeItem("hr_user");
     navigate("/");
   };
+
+  const toggleSidebarLock = () => {
+    setSidebarLocked((prev) => !prev);
+  };
+
+  // Determine sidebar class based on state
+  const sidebarClass = isMobile 
+    ? `hr-sidebar ${isOpen ? "open" : "closed"}`
+    : `hr-sidebar ${isOpen ? "open" : "closed"}`;
 
   return (
     <>
@@ -22,121 +38,176 @@ export default function Sidebar({ isOpen, toggleSidebar, isMobile }) {
         <div className="sidebar-overlay" onClick={toggleSidebar}></div>
       )}
 
-      <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        {/* Header */}
-        <div className="sidebar-header">
-          <h2><i className="bi bi-briefcase-fill"></i> HR Panel</h2>
-          {isMobile && (
-            <button
-              className="toggle-btn"
-              onClick={toggleSidebar}
-              aria-label="Close sidebar"
-            >
-              ×
-            </button>
+      <aside className={sidebarClass}>
+        {/* Logo Section */}
+        <div className="sidebar-logo">
+          <div className="logo-circle">
+            <img src="/src/assets/img/JobIgnite.png" alt="JobIgnite Logo" className="logo-image" />
+          </div>
+          {!isMobile && (
+            <div className="logo-text">
+              <span className="job-text">Job</span>
+              <span className="ignite-text">Ignite</span>
+            </div>
           )}
         </div>
 
-        {/* Menu */}
-        <ul className="sidebar-menu">
-          <li
-            className={
-              location.pathname.startsWith("/hr/dashboard") ||
-              location.pathname === "/hr"
+        {/* Navigation */}
+        <nav className="sidebar-nav">
+          
+          <ul className="nav-list">
+            {/* Collapse Button in Navigation List */}
+            {!isMobile && (
+              <li className="nav-item">
+                <button className="nav-button collapse-nav-btn" onClick={toggleSidebar}>
+                  <i className={`bi ${isOpen ? "bi-lock-fill" : "bi-unlock-fill"}`}></i>
+                </button>
+              </li>
+            )}
+
+            <li
+              className={`nav-item ${
+                location.pathname.startsWith("/hr/dashboard") ||
+                location.pathname === "/hr"
+                  ? "active"
+                  : ""
+              }`}
+            >
+                          <Link
+              to="/hr/dashboard"
+              onClick={(e) => {
+                if (isMobile) {
+                  e.preventDefault();
+                  toggleSidebar();
+                  setTimeout(() => navigate("/hr/dashboard"), 100);
+                }
+              }}
+            >
+                <i className="bi bi-speedometer2"></i>
+              </Link>
+            </li>
+
+            {/* Manage Jobs */}
+            <li className={`nav-item ${
+              jobsOpen || 
+              location.pathname.startsWith("/hr/addJobs") ||
+              location.pathname.startsWith("/hr/viewJob")
                 ? "active"
                 : ""
-            }
-          >
-            <Link
-              to="/hr/dashboard"
-              onClick={isMobile ? toggleSidebar : undefined}
-            >
-              <i className="bi bi-speedometer2 me-2"></i> Dashboard
-            </Link>
-          </li>
+            }`}>
+              <button className="nav-button" onClick={handleToggleJobs}>
+                <i className="bi bi-briefcase"></i>
+              </button>
+            </li>
 
-          <li className={`has-submenu ${jobsOpen ? "open" : ""}`}>
-            <button className="submenu-title" onClick={handleToggleJobs}>
-              <i className="bi bi-briefcase me-2"></i> Manage Jobs{" "}
-              <i className={`bi ${jobsOpen ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
-            </button>
             {jobsOpen && (
-              <ul className="submenu">
+              <>
                 <li
-                  className={
+                  className={`nav-item sub-item ${
                     location.pathname.startsWith("/hr/addJobs") ? "active" : ""
-                  }
+                  }`}
                 >
                   <Link
                     to="/hr/addJobs"
-                    onClick={isMobile ? toggleSidebar : undefined}
+                    onClick={(e) => {
+                      if (isMobile) {
+                        e.preventDefault();
+                        toggleSidebar();
+                        setTimeout(() => navigate("/hr/addJobs"), 100);
+                      }
+                    }}
                   >
-                    <i className="bi bi-plus-circle me-2"></i> Add Job
+                    <i className="bi bi-plus-circle"></i>
                   </Link>
                 </li>
                 <li
-                  className={
+                  className={`nav-item sub-item ${
                     location.pathname.startsWith("/hr/viewJob") ? "active" : ""
-                  }
+                  }`}
                 >
                   <Link
                     to="/hr/viewJob"
-                    onClick={isMobile ? toggleSidebar : undefined}
+                    onClick={(e) => {
+                      if (isMobile) {
+                        e.preventDefault();
+                        toggleSidebar();
+                        setTimeout(() => navigate("/hr/viewJob"), 100);
+                      }
+                    }}
                   >
-                    <i className="bi bi-eye me-2"></i> View Jobs
+                    <i className="bi bi-eye"></i>
                   </Link>
                 </li>
-              </ul>
+              </>
             )}
-          </li>
 
-          <li
-            className={
-              location.pathname.startsWith("/hr/Applications")
-                ? "active"
-                : ""
-            }
-          >
-            <Link
-              to="/hr/Applications"
-              onClick={isMobile ? toggleSidebar : undefined}
+            {/* Applications */}
+            <li
+              className={`nav-item ${
+                location.pathname.startsWith("/hr/Applications")
+                  ? "active"
+                  : ""
+              }`}
             >
-              <i className="bi bi-files me-2"></i> Applications
-            </Link>
-          </li>
+              <Link
+                to="/hr/Applications"
+                onClick={(e) => {
+                  if (isMobile) {
+                    e.preventDefault();
+                    toggleSidebar();
+                    setTimeout(() => navigate("/hr/Applications"), 100);
+                  }
+                }}
+              >
+                <i className="bi bi-files"></i>
+              </Link>
+            </li>
 
-          <li
-            className={
-              location.pathname.startsWith("/hr/hrprofile") ? "active" : ""
-            }
-          >
-            <Link
-              to="/hr/hrprofile"
-              onClick={isMobile ? toggleSidebar : undefined}
+            {/* Profile */}
+            <li
+              className={`nav-item ${
+                location.pathname.startsWith("/hr/hrprofile")
+                  ? "active"
+                  : ""
+              }`}
             >
-              <i className="bi bi-person-circle me-2"></i> Profile
-            </Link>
-          </li>
+              <Link
+                to="/hr/hrprofile"
+                onClick={(e) => {
+                  if (isMobile) {
+                    e.preventDefault();
+                    toggleSidebar();
+                    setTimeout(() => navigate("/hr/hrprofile"), 100);
+                  }
+                }}
+              >
+                <i className="bi bi-person-circle"></i>
+              </Link>
+            </li>
+          </ul>
+        </nav>
 
-          <li
-            className={
-              location.pathname.startsWith("/hr/settings") ? "active" : ""
-            }
-          >
+        {/* Bottom Section */}
+        <div className="sidebar-bottom">
+          <div className="nav-item">
             <Link
               to="/hr/settings"
-              onClick={isMobile ? toggleSidebar : undefined}
+              onClick={(e) => {
+                if (isMobile) {
+                  e.preventDefault();
+                  toggleSidebar();
+                  setTimeout(() => navigate("/hr/settings"), 100);
+                }
+              }}
             >
-              <i className="bi bi-gear-fill me-2"></i> Settings
+              <i className="bi bi-gear"></i>
             </Link>
-          </li>
-        </ul>
-
-        {/* Footer */}
-        <div className="sidebar-footer">
-          <button className="logout-btn" onClick={handleLogout}>
-            <i className="bi bi-box-arrow-right me-2"></i> Logout
-          </button>
+          </div>
+          <div className="nav-item">
+            <button className="nav-button logout-btn" onClick={handleLogout}>
+              <i className="bi bi-box-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </aside>
     </>

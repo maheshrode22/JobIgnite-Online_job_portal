@@ -61,11 +61,11 @@ exports.hrRegisterMod = (...data) => {
     });
 }
 // update hr details
-exports.updateHr = (hr_name, company_name, password, phone, hr_id) => {
+exports.updateHr = (hr_name, company_name,  phone, hr_id) => {
     return new Promise((resolve, reject) => {
         db.query(
-            "UPDATE hr SET hr_name=?, company_name=?,  password=?, phone=? WHERE hr_id=?",
-            [hr_name, company_name, password, phone, hr_id],
+            "UPDATE hr SET hr_name=?, company_name=?, phone=? WHERE hr_id=?",
+            [hr_name, company_name, phone, hr_id],
             (err, result) => {
                 if (err) reject(err);
                 else resolve(result);

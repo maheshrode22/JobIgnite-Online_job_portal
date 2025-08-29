@@ -36,7 +36,7 @@ export default function AdminLogin() {
         </h3>
 
         <form onSubmit={handleLogin}>
-          {/* ✅ Username Field */}
+          {/*  Username Field */}
           <div className="mb-3 text-start">
             <label className="form-label">
               <i className="bi bi-person-fill me-1"></i>Username
@@ -52,7 +52,7 @@ export default function AdminLogin() {
             />
           </div>
 
-          {/* ✅ Password Field */}
+          {/*  Password Field */}
           <div className="mb-3 text-start">
             <label className="form-label">
               <i className="bi bi-lock-fill me-1"></i>Password

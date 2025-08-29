@@ -35,7 +35,8 @@ router.post("/hrlogin",hrctr.hrLogin);
 router.post("/hrregister",hrctr.hrRegister);
 
 
-router.put("/updateHr",hrctr.updateHr);
+router.put("/updateHr",hrctr.updateHr); // update hr profile 
+
 router.post("/deleteHr",hrctr.delHr);
 router.post("/updateStatusHr",hrctr.updateStatusHr);
 router.post("/viewAllPostHrById",hrctr.viewAllPostHrById);

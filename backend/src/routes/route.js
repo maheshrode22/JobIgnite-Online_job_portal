@@ -25,8 +25,8 @@ router.get("/hr/me", auth, hrctr.hrMe);
 // hr model
 router.post("/hrlogin", hrctr.hrLogin);
 router.post("/hrregister", hrctr.hrRegister);
-router.get("/viewAllHr",hrctr.AllHr);
 
+// Admin routes for HR management
 router.get("/viewAllHr", verifyAdminToken, admincon.AllHr);
 
 
@@ -69,6 +69,9 @@ router.get("/viewallJobPost",jobsPost.viewallJobPost);     // view all job post
 router.post("/deletePost",jobsPost.deletePost);   // deleter job post
 
 router.post("/searchJob",jobsPost.searchJob);     // search job post using title
+router.put("/updateJob/:id", jobsPost.updateJobById);
+router.get("/getJobById/:id", jobsPost.getJobById);  // get job by ID
+
 
 
 // AplicationModel

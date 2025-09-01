@@ -66,3 +66,61 @@ return new Promise((resolve,reject)=>{
     })
 })
 });
+
+// Get job by ID
+exports.getJobById = (job_id) => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM jobs WHERE job_id = ?", [job_id], (err, result) => {
+      if (err) reject(err);
+      else resolve(result);
+    });
+  });
+};
+
+
+exports.updateJob = (job_id, {
+  title,
+  company,
+  location,
+  package,
+  opening,
+  experience_required,
+  skills_required,
+  description,
+  deadline
+}) => {
+  return new Promise((resolve, reject) => {
+    const sql = `
+      UPDATE jobs SET
+        title = ?,
+        company = ?,
+        location = ?,
+        package = ?,
+        opening = ?,
+        experience_required = ?,
+        skills_required = ?,
+        description = ?,
+        deadline = ?
+      WHERE job_id = ?
+    `;
+    db.query(
+      sql,
+      [
+        title,
+        company,
+        location,
+        package,
+        opening,
+        experience_required,
+        skills_required,
+        description,
+        deadline,
+        job_id
+      ],
+      (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+  });
+};

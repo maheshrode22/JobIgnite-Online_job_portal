@@ -12,12 +12,15 @@ export default function ViewSeeker() {
   useEffect(() => {
     const fetchSeekers = async () => {
       try {
-        const token = localStorage.getItem("admindToken");
+        const token = localStorage.getItem("admin_token");
+        console.log(token);
+
         if (!token) {
           setError("Admin not authenticated");
           setLoading(false);
           return;
         }
+  
 
         const response = await viewSeeker(token);
         // Sort by newest first

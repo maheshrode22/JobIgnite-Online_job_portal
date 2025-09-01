@@ -4,6 +4,8 @@ import { Button, Modal, Badge } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/viewJob.css";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+
 
 export default function ViewJob() {
   const [jobs, setJobs] = useState([]);
@@ -35,6 +37,7 @@ export default function ViewJob() {
 
     getJobsByHR(hr_id)
       .then((result) => {
+        console.log("API response:", result.data); // Debug log
         setJobs(Array.isArray(result.data) ? result.data : (result.data?.jobs || []));
         setLoading(false);
       })
@@ -46,13 +49,27 @@ export default function ViewJob() {
 
   const handleClose = () => setShow(false);
   const handleShow = (job) => {
+    console.log("=== VIEW JOB MODAL DEBUG ===");
+    console.log("Job data in modal:", job);
+    console.log("Package value:", job.package);
+    console.log("Package type:", typeof job.package);
+    console.log("All job keys:", Object.keys(job));
+    console.log("=== END VIEW DEBUG ===");
     setSelectedJob(job);
     setShow(true);
   };
 
-  const handleUpdate = (id) => {
-    alert("Update job with ID: " + id);
-  };
+  
+  const navigate = useNavigate();
+
+const handleUpdate = () => {
+  if (!selectedJob) return;
+  navigate(`/hr/update-form/${selectedJob.job_id}`, { state: { job: selectedJob } });
+  setShow(false); // modal बंद कर
+};
+
+  
+  
 
   // Delete job
   const handleDelete = async (id) => {
@@ -188,7 +205,7 @@ export default function ViewJob() {
                           <td className="d-none d-lg-table-cell">{job.location}</td>
                           <td>
                             <Badge bg="success" className="fs-6">
-                              {job.package}
+                              {job.package ? job.package.replace(/[^0-9.]/g, '') : 'N/A'}
                             </Badge>
                           </td>
                           <td className="text-center">
@@ -289,7 +306,7 @@ export default function ViewJob() {
                     <div className="col-12 col-md-6">
                       <div className="detail-card">
                         <i className="bi bi-cash-coin text-success me-2"></i>
-                        <strong>Package:</strong> {selectedJob.package} LPA
+                        <strong>Package:</strong> {selectedJob.package ? selectedJob.package.replace(/[^0-9.]/g, '') : 'Not specified'} LPA
                       </div>
                     </div>
                     <div className="col-12 col-md-6">
@@ -332,7 +349,7 @@ export default function ViewJob() {
               </Button>
               {selectedJob && (
                 <div className="d-flex gap-2">
-                  <Button variant="warning" onClick={() => handleUpdate(selectedJob.job_id)}>
+                  <Button variant="warning" onClick={() => handleUpdate()}>
                     <i className="bi bi-pencil-square me-1"></i> Update
                   </Button>
                   <Button variant="danger" onClick={() => handleDelete(selectedJob.job_id)}>

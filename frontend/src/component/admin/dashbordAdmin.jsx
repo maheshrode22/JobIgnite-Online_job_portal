@@ -1,6 +1,6 @@
 import React from "react";
-import "bootstrap-icons/font/bootstrap-icons.css"; // Bootstrap Icons
-import "../../css/Hr/dashboard.css"; // Keep HR CSS
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "../../css/Hr/dashboard.css"; // HR CSS वापरत होता
 
 export default function DashboardAdmin() {
   const metrics = [
@@ -48,13 +48,11 @@ export default function DashboardAdmin() {
 
       {/* Recent Activity */}
       <div className="recent-activity mt-5 shadow rounded-4 p-4 bg-white">
-        <h4 className="fw-bold mb-3">
-          <i className="bi bi-clock-history me-2 text-primary"></i> Recent Activity
-        </h4>
+        <h4 className="mb-3">Recent Activities</h4>
         <ul className="list-unstyled">
           {recentActivities.map((activity, index) => (
-            <li key={index} className="d-flex align-items-center mb-2">
-              <i className="bi bi-check2-circle text-success me-2"></i>
+            <li key={index} className="mb-2">
+              <i className="bi bi-circle-fill text-primary me-2"></i>
               {activity}
             </li>
           ))}

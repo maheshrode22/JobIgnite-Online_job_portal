@@ -12,7 +12,7 @@ app.use(express.json()); // JSON body parse
 app.use(bodyParser.urlencoded({ extended: true })); // URL encoded parse
 
 //  View engine + static files
-app.set("view engine", "ejs");
+// app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 //  Routes

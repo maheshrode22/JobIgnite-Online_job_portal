@@ -203,8 +203,12 @@ exports.AllHr = (req, res) => {
 // View all posts created by a specific HR
 exports.viewAllPostHrById = (req, res) => {
   const { hr_id } = req.body;
+  console.log("Fetching jobs for HR ID:", hr_id); // Debug log
   hrModel.viewAllPostHrById(hr_id)
-    .then((result) => res.send(result))
+    .then((result) => {
+      console.log("Jobs data:", result); // Debug log
+      res.send(result);
+    })
     .catch((err) => res.status(500).send(err));
 };
 

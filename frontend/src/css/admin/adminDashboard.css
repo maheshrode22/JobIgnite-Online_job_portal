@@ -1,0 +1,250 @@
+/* Admin Dashboard Styles - Professional Design */
+.admin-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  margin-left: 80px; /* collapsed sidebar */
+  margin-top: 70px; /* navbar height */
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+  background: #f5f6fa;
+  transition: margin-left 0.3s ease;
+  width: calc(100% - 80px);
+}
+
+/* Expanded Sidebar */
+.admin-sidebar.open ~ .main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+}
+
+/* Hover effect for collapsed sidebar */
+.admin-sidebar.closed:hover ~ .main-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Welcome Banner */
+.welcome-banner {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.welcome-banner h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.welcome-banner p {
+  margin: 0.5rem 0 0 0;
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+/* Metrics Cards */
+.metric-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.icon-circle.bg-primary {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.icon-circle.bg-info {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+}
+
+.icon-circle.bg-success {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.icon-circle.bg-warning {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.icon-circle.bg-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+/* Recent Activity */
+.recent-activity {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.recent-activity h4 {
+  color: #2c3e50;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recent-activity h4::before {
+  content: '';
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 2px;
+}
+
+.recent-activity ul {
+  margin: 0;
+  padding: 0;
+}
+
+.recent-activity li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.recent-activity li:last-child {
+  border-bottom: none;
+}
+
+.recent-activity li i {
+  color: #3b82f6;
+  font-size: 0.8rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    margin-top: 56px; /* mobile navbar height */
+    height: calc(100vh - 56px);
+    width: 100%;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  .dashboard-content {
+    padding: 1rem !important;
+    margin: 0;
+  }
+  
+  .welcome-banner {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .welcome-banner h2 {
+    font-size: 1.5rem;
+  }
+  
+  .welcome-banner p {
+    font-size: 1rem;
+  }
+  
+  .metric-card {
+    padding: 1rem;
+  }
+  
+  .recent-activity {
+    padding: 1.5rem;
+  }
+  
+  /* Ensure no horizontal scroll on mobile */
+  .container {
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+  
+  .dashboard-content {
+    padding: 1.5rem !important;
+  }
+  
+  .welcome-banner {
+    padding: 1.75rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1025px) {
+  .main-content {
+    margin-left: 80px;
+    width: calc(100% - 80px);
+  }
+  
+  .dashboard-content {
+    padding: 2rem;
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.metric-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.metric-card:nth-child(1) { animation-delay: 0.1s; }
+.metric-card:nth-child(2) { animation-delay: 0.2s; }
+.metric-card:nth-child(3) { animation-delay: 0.3s; }
+.metric-card:nth-child(4) { animation-delay: 0.4s; }
+
+.recent-activity {
+  animation: fadeInUp 0.6s ease-out 0.5s both;
+} 

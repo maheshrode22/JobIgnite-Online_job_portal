@@ -1,0 +1,506 @@
+/* Admin Sidebar Styles - Professional Design */
+.admin-sidebar {
+  width: 80px;
+  background: #1e293b;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  align-items: center;
+  padding: 25px 0;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+  border-right: 1px solid #334155;
+}
+
+/* Hover effect - expand sidebar to full width */
+.admin-sidebar:hover {
+  width: 260px;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.admin-sidebar:hover .sidebar-logo {
+  align-items: flex-start;
+  width: 100%;
+}
+
+.admin-sidebar:hover .logo-circle {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+.admin-sidebar:hover .logo-text {
+  opacity: 1;
+}
+
+.admin-sidebar:hover .sidebar-nav {
+  width: 100%;
+}
+
+.admin-sidebar:hover .sidebar-bottom {
+  width: 100%;
+  align-items: flex-start;
+}
+
+.admin-sidebar:hover .nav-list {
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.admin-sidebar:hover .nav-item {
+  justify-content: flex-start;
+}
+
+.admin-sidebar:hover .nav-item a,
+.admin-sidebar:hover .nav-button {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0 15px;
+  height: 50px;
+}
+
+.admin-sidebar:hover .sidebar-bottom .nav-item a,
+.admin-sidebar:hover .sidebar-bottom .nav-button {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0 15px;
+  height: 50px;
+}
+
+.admin-sidebar:hover .nav-item a::after,
+.admin-sidebar:hover .nav-button::after {
+  opacity: 1;
+}
+
+.admin-sidebar:hover .logout-btn::after {
+  opacity: 1;
+}
+
+/* Logo Section */
+.admin-sidebar .sidebar-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: -10px;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 15px;
+  padding: 10px 10px;
+}
+
+.admin-sidebar:hover .sidebar-logo,
+.admin-sidebar.open .sidebar-logo {
+  gap: 15px;
+}
+
+.admin-sidebar .logo-circle {
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  position: relative;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.admin-sidebar .logo-circle::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8, #06b6d4, #3b82f6);
+  border-radius: 50%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.admin-sidebar .logo-circle:hover::before {
+  opacity: 1;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.admin-sidebar .logo-circle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.6);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.admin-sidebar .logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.admin-sidebar .admin-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.admin-sidebar .panel-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #94a3b8;
+  line-height: 1;
+}
+
+/* Sidebar Navigation */
+.admin-sidebar .sidebar-nav {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-sidebar .nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-sidebar .nav-item {
+  width: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.admin-sidebar .nav-item a,
+.admin-sidebar .nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  position: relative;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-sidebar .nav-item a i,
+.admin-sidebar .nav-button i {
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+/* Navigation Item Text Labels */
+.admin-sidebar .nav-item a span,
+.admin-sidebar .nav-button span {
+  display: none;
+  margin-left: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show text when sidebar is expanded */
+.admin-sidebar:hover .nav-item a span,
+.admin-sidebar:hover .nav-button span,
+.admin-sidebar.open .nav-item a span,
+.admin-sidebar.open .nav-button span {
+  display: inline;
+  opacity: 1;
+}
+
+.admin-sidebar .nav-item a::after,
+.admin-sidebar .nav-button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide tooltips when sidebar is expanded */
+.admin-sidebar:hover .nav-item a::after,
+.admin-sidebar:hover .nav-button::after,
+.admin-sidebar.open .nav-item a::after,
+.admin-sidebar.open .nav-button::after {
+  display: none;
+}
+
+.admin-sidebar .nav-item a:hover,
+.admin-sidebar .nav-button:hover {
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.admin-sidebar .nav-item.active a,
+.admin-sidebar .nav-item.active .nav-button {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
+/* Sidebar Bottom */
+.admin-sidebar .sidebar-bottom {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 0;
+}
+
+.admin-sidebar .sidebar-bottom .nav-item {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-sidebar .logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  position: relative;
+}
+
+.admin-sidebar .logout-btn i {
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+.admin-sidebar .logout-btn span {
+  display: none;
+  margin-left: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show logout text when sidebar is expanded */
+.admin-sidebar:hover .logout-btn span,
+.admin-sidebar.open .logout-btn span {
+  display: inline;
+  opacity: 1;
+}
+
+.admin-sidebar .logout-btn::after {
+  content: "Logout";
+  position: absolute;
+  left: 60px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1e293b;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide logout tooltip when sidebar is expanded */
+.admin-sidebar:hover .logout-btn::after,
+.admin-sidebar.open .logout-btn::after {
+  display: none;
+}
+
+.admin-sidebar .logout-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+  }
+  .admin-sidebar.open {
+    transform: translateX(0);
+    width: 260px;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .admin-sidebar.open .sidebar-logo {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .admin-sidebar.open .nav-list {
+    align-items: flex-start;
+    gap: 15px;
+  }
+  .admin-sidebar.open .nav-item {
+    justify-content: flex-start;
+  }
+  .admin-sidebar.open .nav-item a,
+  .admin-sidebar.open .nav-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 15px;
+    height: 50px;
+  }
+  .admin-sidebar.open .nav-item a span,
+  .admin-sidebar.open .nav-button span {
+    display: inline;
+    opacity: 1;
+  }
+  .admin-sidebar.open .logout-btn span {
+    display: inline;
+    opacity: 1;
+  }
+}
+
+/* Desktop: always visible */
+@media (min-width: 769px) {
+  .admin-sidebar {
+    transform: translateX(0);
+  }
+  
+  .admin-sidebar.closed {
+    width: 80px;
+  }
+  
+  .admin-sidebar.closed:hover {
+    width: 260px;
+  }
+  
+  .admin-sidebar.closed:hover .nav-list {
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .admin-sidebar.closed:hover .nav-item {
+    justify-content: flex-start;
+  }
+  
+  .admin-sidebar.closed:hover .nav-item a,
+  .admin-sidebar.closed:hover .nav-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 15px;
+    height: 50px;
+  }
+  
+  .admin-sidebar.closed:hover .sidebar-bottom .nav-item a,
+  .admin-sidebar.closed:hover .sidebar-bottom .nav-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 15px;
+    height: 50px;
+  }
+  
+  .admin-sidebar.closed:hover .nav-item a::after,
+  .admin-sidebar.closed:hover .nav-button::after {
+    opacity: 1;
+  }
+  
+  .admin-sidebar.closed:hover .logout-btn::after {
+    opacity: 1;
+  }
+  
+  .admin-sidebar.open {
+    width: 260px;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .admin-sidebar.open .sidebar-logo {
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .admin-sidebar.open .nav-list {
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .admin-sidebar.open .nav-item {
+    justify-content: flex-start;
+  }
+  
+  .admin-sidebar.open .nav-item a,
+  .admin-sidebar.open .nav-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 15px;
+    height: 50px;
+  }
+  
+  .admin-sidebar.open .sidebar-bottom .nav-item a,
+  .admin-sidebar.open .sidebar-bottom .nav-button {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 15px;
+    height: 50px;
+  }
+  
+  .admin-sidebar.open .nav-item a span,
+  .admin-sidebar.open .nav-button span {
+    display: inline;
+    opacity: 1;
+  }
+  
+  .admin-sidebar.open .logout-btn span {
+    display: inline;
+    opacity: 1;
+  }
+} 

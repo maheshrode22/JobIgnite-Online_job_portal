@@ -59,3 +59,32 @@ exports.searchJob=(req,res)=>{
         res.send("something error"+err);
     })
 };
+
+
+exports.updateJobById = async (req, res) => {
+  const job_id = req.params.id;
+  const data = req.body;
+
+  try {
+    const result = await jobPostModel.updateJob(job_id, data);
+    if (result.affectedRows === 0) return res.status(404).json({ msg: "Job not found" });
+    res.json({ msg: "Job updated successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Database error" });
+  }
+};
+
+// Get job by ID
+exports.getJobById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await jobPostModel.getJobById(id);
+    if (result.length === 0) return res.status(404).json({ msg: "Job not found" });
+    res.json({ job: result[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Database error" });
+  }
+};
+

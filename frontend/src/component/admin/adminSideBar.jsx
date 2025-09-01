@@ -1,22 +1,29 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "../../css/Hr/sidebar.css";
+import "../../css/admin/adminSidebar.css";
 
 export default function AdminSidebar({ isOpen, toggleSidebar, isMobile }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [sidebarLocked, setSidebarLocked] = useState(true);
 
-  // State for submenus
-  const [adminOpen, setAdminOpen] = useState(false);
-  const [seekerOpen, setSeekerOpen] = useState(false);
-  const [jobOpen, setJobOpen] = useState(false);
-
-  const handleLogout = () => {
-    // Remove token and admin data
-    localStorage.removeItem("admindToken");
-    // Force redirect to login page
-    window.location.href = "/";
+  const handleLogout = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    localStorage.removeItem("admin_token");
+    localStorage.removeItem("admin_user");
+    navigate("/");
   };
+
+  const toggleSidebarLock = () => {
+    setSidebarLocked((prev) => !prev);
+  };
+
+  // Determine sidebar class based on state
+  const sidebarClass = isMobile 
+    ? `admin-sidebar ${isOpen ? "open" : "closed"}`
+    : `admin-sidebar ${isOpen ? "open" : "closed"}`;
 
   return (
     <>
@@ -25,106 +32,127 @@ export default function AdminSidebar({ isOpen, toggleSidebar, isMobile }) {
         <div className="sidebar-overlay" onClick={toggleSidebar}></div>
       )}
 
-      <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
-        {/* Header */}
-        <div className="sidebar-header">
-          <h2>
-            <i className="bi bi-shield-fill-check"></i> Admin Panel
-          </h2>
-          {isMobile && (
-            <button className="toggle-btn" onClick={toggleSidebar}>
-              ×
-            </button>
+      <aside className={sidebarClass}>
+        {/* Logo Section */}
+        <div className="sidebar-logo">
+          <div className="logo-circle">
+            <i className="bi bi-shield-fill-check"></i>
+          </div>
+          {!isMobile && (
+            <div className="logo-text">
+              <span className="admin-text">Admin</span>
+              <span className="panel-text">Panel</span>
+            </div>
           )}
         </div>
 
-        {/* Menu Items */}
-        <ul className="sidebar-menu">
-          {/* Dashboard */}
-          <li className={location.pathname.startsWith("/admin/dashboardAdmin") ? "active" : ""}>
-            <Link to="/admin/dashboardAdmin" onClick={isMobile ? toggleSidebar : undefined}>
-              <i className="bi bi-speedometer2 me-2"></i> Dashboard
-            </Link>
-          </li>
-
-          {/* HR Management */}
-          <li className={`has-submenu ${adminOpen ? "open" : ""}`}>
-            <button className="submenu-title" onClick={() => setAdminOpen(prev => !prev)}>
-              <i className="bi bi-person-badge-fill me-2"></i> HR Management
-              <i className={`bi ${adminOpen ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
-            </button>
-            {adminOpen && (
-              <ul className="submenu">
-                <li className={location.pathname.startsWith("/admin/viewHR") ? "active" : ""}>
-                  <Link to="/admin/viewHr" onClick={isMobile ? toggleSidebar : undefined}>
-                    <i className="bi bi-eye me-2"></i> View HR
-                  </Link>
-                </li>
-              </ul>
+        {/* Navigation */}
+        <nav className="sidebar-nav">
+          <ul className="nav-list">
+            {/* Collapse Button in Navigation List */}
+            {!isMobile && (
+              <li className="nav-item">
+                <button className="nav-button collapse-nav-btn" onClick={toggleSidebar}>
+                  <i className={`bi ${isOpen ? "bi-lock-fill" : "bi-unlock-fill"}`}></i>
+                </button>
+              </li>
             )}
-          </li>
 
-          {/* Job Seeker Management */}
-          <li className={`has-submenu ${seekerOpen ? "open" : ""}`}>
-            <button className="submenu-title" onClick={() => setSeekerOpen(prev => !prev)}>
-              <i className="bi bi-people-fill me-2"></i> Job Seeker Management
-              <i className={`bi ${seekerOpen ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
+            {/* Dashboard */}
+            <li className={`nav-item ${
+              location.pathname.startsWith("/admin/dashboardAdmin") ||
+              location.pathname === "/admin"
+                ? "active"
+                : ""
+            }`}>
+              <Link
+                to="/admin/dashboardAdmin"
+                onClick={(e) => {
+                  if (isMobile) {
+                    e.preventDefault();
+                    toggleSidebar();
+                    setTimeout(() => navigate("/admin/dashboardAdmin"), 100);
+                  }
+                }}
+              >
+                <i className="bi bi-speedometer2"></i>
+                <span>Dashboard</span>
+              </Link>
+            </li>
+
+            {/* HR Management */}
+            <li className={`nav-item ${
+              location.pathname.startsWith("/admin/viewHr")
+                ? "active"
+                : ""
+            }`}>
+              <Link
+                to="/admin/viewHr"
+                onClick={(e) => {
+                  if (isMobile) {
+                    e.preventDefault();
+                    toggleSidebar();
+                    setTimeout(() => navigate("/admin/viewHr"), 100);
+                  }
+                }}
+              >
+                <i className="bi bi-person-badge-fill"></i>
+                <span>HR Management</span>
+              </Link>
+            </li>
+
+            {/* Job Seeker Management */}
+            <li className={`nav-item ${
+              location.pathname.startsWith("/admin/viewSeeker")
+                ? "active"
+                : ""
+            }`}>
+              <Link
+                to="/admin/viewSeeker"
+                onClick={(e) => {
+                  if (isMobile) {
+                    e.preventDefault();
+                    toggleSidebar();
+                    setTimeout(() => navigate("/admin/viewSeeker"), 100);
+                  }
+                }}
+              >
+                <i className="bi bi-people-fill"></i>
+                <span>Job Seekers</span>
+              </Link>
+            </li>
+
+            {/* Job Management */}
+            <li className={`nav-item ${
+              location.pathname.startsWith("/admin/viewJobs")
+                ? "active"
+                : ""
+            }`}>
+              <Link
+                to="/admin/viewJobs"
+                onClick={(e) => {
+                  if (isMobile) {
+                    e.preventDefault();
+                    toggleSidebar();
+                    setTimeout(() => navigate("/admin/viewJobs"), 100);
+                  }
+                }}
+              >
+                <i className="bi bi-briefcase-fill"></i>
+                <span>Job Management</span>
+              </Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Bottom Section */}
+        <div className="sidebar-bottom">
+          <div className="nav-item">
+            <button className="nav-button logout-btn" onClick={handleLogout}>
+              <i className="bi bi-box-arrow-right"></i>
+              <span>Logout</span>
             </button>
-            {seekerOpen && (
-              <ul className="submenu">
-                <li className={location.pathname.startsWith("/admin/viewSeeker") ? "active" : ""}>
-                  <Link to="/admin/viewSeeker" onClick={isMobile ? toggleSidebar : undefined}>
-                    <i className="bi bi-eye me-2"></i> View Seekers
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-
-          {/* Job Management */}
-          <li className={`has-submenu ${jobOpen ? "open" : ""}`}>
-            <button className="submenu-title" onClick={() => setJobOpen(prev => !prev)}>
-              <i className="bi bi-briefcase-fill me-2"></i> Job Management
-              <i className={`bi ${jobOpen ? "bi-chevron-up" : "bi-chevron-down"}`}></i>
-            </button>
-            {jobOpen && (
-              <ul className="submenu">
-                <li className={location.pathname.startsWith("/admin/viewJobs") ? "active" : ""}>
-                  <Link to="/admin/viewJobs" onClick={isMobile ? toggleSidebar : undefined}>
-                    <i className="bi bi-eye me-2"></i> View Jobs
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
-
-          {/* Reports */}
-          <li className={location.pathname.startsWith("/admin/reports") ? "active" : ""}>
-            <Link to="/admin/reports" onClick={isMobile ? toggleSidebar : undefined}>
-              <i className="bi bi-bar-chart-fill me-2"></i> Reports
-            </Link>
-          </li>
-
-          {/* Profile */}
-          <li className={location.pathname.startsWith("/admin/profile") ? "active" : ""}>
-            <Link to="/admin/profile" onClick={isMobile ? toggleSidebar : undefined}>
-              <i className="bi bi-person-circle me-2"></i> Profile
-            </Link>
-          </li>
-
-          {/* Settings */}
-          <li className={location.pathname.startsWith("/admin/settings") ? "active" : ""}>
-            <Link to="/admin/settings" onClick={isMobile ? toggleSidebar : undefined}>
-              <i className="bi bi-gear-fill me-2"></i> Settings
-            </Link>
-          </li>
-        </ul>
-
-        {/* Footer */}
-        <div className="sidebar-footer">
-          <button className="logout-btn btn btn-danger w-100" onClick={handleLogout}>
-            <i className="bi bi-box-arrow-right me-2"></i> Logout
-          </button>
+          </div>
         </div>
       </aside>
     </>

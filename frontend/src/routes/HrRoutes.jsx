@@ -6,6 +6,7 @@ import Dashboard from "../component/hr/dashboard";
 import HRProfile from "../component/hr/hrprofile";
 import ViewJob from "../component/hr/viewJob";
 import Applications from "../component/hr/Applications";
+import UpdateJobForm from "../component/hr/UpdateJob";
 export default function HrRoutes() {
   return (
     <Routes>
@@ -16,6 +17,7 @@ export default function HrRoutes() {
        <Route path="/hrprofile" element={<HRProfile />}></Route> 
        <Route path="/viewJob" element={<ViewJob/>}></Route>
       <Route path="/Applications" element={<Applications/>}></Route>
+      <Route path="/update-form/:id" element={<UpdateJobForm/>}></Route>
       </Route>
     </Routes>
   );

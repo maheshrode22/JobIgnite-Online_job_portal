@@ -67,3 +67,52 @@ exports.jobseekerDetailed=(id)=>{
         });
     });
 };
+
+// Count functions for dashboard stats
+exports.countJobSeekers = () => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT COUNT(*) as count FROM job_seekers", (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result[0].count);
+            }
+        });
+    });
+};
+
+exports.countHRs = () => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT COUNT(*) as count FROM hr", (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result[0].count);
+            }
+        });
+    });
+};
+
+exports.countJobs = () => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT COUNT(*) as count FROM jobs", (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result[0].count);
+            }
+        });
+    });
+};
+
+exports.countPendingApprovals = () => {
+    return new Promise((resolve, reject) => {
+        db.query("SELECT COUNT(*) as count FROM hr WHERE status = 'pending'", (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result[0].count);
+            }
+        });
+    });
+};

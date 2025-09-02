@@ -29,9 +29,9 @@ export default function HRRegister({ onBack }) {
 
   return (
    
-     <div className="mt">
+     <div className="">
        
-        <p className="text-muted text-center mb-4">
+        <p className="text-center mb-1">
           Create your HR account to post jobs and manage applicants
         </p>
 

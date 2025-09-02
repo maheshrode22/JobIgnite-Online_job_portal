@@ -1,23 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Montagu+Slab:wght@400;600;700&family=Open+Sans:wght@300;400;600;700&display=swap');
-
-
-/* Navbar Base */
-.navbar {
-  background: linear-gradient(90deg, #222, #444);
-  padding: 12px 20px;
-  transition: all 0.3s ease;
-}
-
-.navbar-brand img {
+/* Logo */
+.logo-img {
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   object-fit: cover;
   transition: transform 0.3s ease;
 }
-.navbar-brand img:hover {
+.logo-img:hover {
   transform: scale(1.1);
 }
+
+/* Brand Text */
 .brand-text {
   font-family: "Montagu Slab", serif;
   font-size: 20px;
@@ -25,61 +18,194 @@
   font-weight: bold;
   letter-spacing: 1px;
 }
-.ignite{
+.ignite {
   color: #e6c500;
 }
 
-/* Nav Links */
-.nav-link {
-  color: #ddd !important;
-  font-weight: 500;
+/* Navbar Container */
+.navbar {
+  padding: 0.5rem 0;
   transition: all 0.3s ease;
+  z-index: 1030;
 }
-.nav-link:hover {
+
+/* Nav Items */
+.navbar-nav .nav-item {
+  margin: 0 30px; /* spacing between menu items */
+}
+
+/* Nav Links */
+.navbar-nav .nav-link {
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem !important;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: #fff !important;
+  background: transparent !important; /* remove default bg */
+}
+
+.navbar-nav .nav-link i {
+  font-size: 18px;
+}
+
+/* Hover + Focus (No background box) */
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
   color: #f8db37 !important;
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
   transform: translateY(-2px);
 }
 
-/* Login / Logout Button */
-.btn-warning {
-  background-color: #f8db37;
-  border: none;
-  color: black;
+/* Active Nav Link */
+.navbar-nav .nav-link.active {
+  color: #f8db37 !important;
   font-weight: 600;
-  transition: 0.3s ease;
-}
-.btn-warning:hover {
-  background-color: #e6c500;
-  transform: scale(1.05);
+  background: transparent !important;
 }
 
 /* Dropdown */
+.dropdown {
+  position: relative;
+}
+
 .dropdown-menu {
   border-radius: 10px;
   border: none;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  margin-top: 0.5rem;
+  min-width: 200px;
+  position: absolute;
+  right: 0;
+  top: 100%;
 }
+
 .dropdown-item {
-  padding: 10px 15px;
-  transition: background 0.3s ease;
-}
-.dropdown-item:hover {
-  background: #f8db37;
-  color: black;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
   font-weight: 500;
 }
 
+.dropdown-item:hover {
+  background: #f8db37;
+  color: black;
+  font-weight: 600;
+  transform: translateX(5px);
+}
 
-/* Responsive */
-@media (max-width: 991px) {
-  .navbar-collapse {
-    background: #333;
-    border-radius: 10px;
-    margin-top: 10px;
-    padding: 15px;
+.dropdown-item i {
+  width: 20px;
+  text-align: center;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-warning {
+  background: #ffc107;
+  border: #ffc107;
+  color: #000;
+}
+
+.btn-warning:hover {
+  background: #e0a800;
+  border: #e0a800;
+  color: #000;
+}
+
+.btn-danger {
+  background: #dc3545;
+  border: #dc3545;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+  border: #c82333;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 991.98px) {
+  .navbar-nav {
+    text-align: center;
+    margin: 1rem 0;
   }
+  
   .nav-link {
-    padding: 10px 0;
-    display: block;
+    padding: 0.75rem 1rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .dropdown {
+    position: static;
+  }
+  
+  .dropdown-menu {
+    text-align: center;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.05);
+    position: static;
+    width: 100%;
+    min-width: auto;
+  }
+  
+  .dropdown-item {
+    color: #fff;
+  }
+  
+  .dropdown-item:hover {
+    background: rgba(248, 219, 55, 0.2);
+    color: #f8db37;
+  }
+  
+  .d-flex.ms-auto {
+    margin: 1rem 0;
+    justify-content: center;
+  }
+  
+  .navbar-collapse.show {
+    display: block !important;
+  }
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+  border: none;
+  padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+/* Smooth transitions */
+.navbar-collapse {
+  transition: all 0.3s ease;
+}
+
+/* Brand responsive */
+@media (max-width: 576px) {
+  .brand-text {
+    font-size: 18px;
+  }
+  
+  .logo-img {
+    width: 40px;
+    height: 40px;
   }
 }

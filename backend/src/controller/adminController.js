@@ -61,3 +61,21 @@ exports.viewAllJobseeker = (req,res) => {
     .then(result => res.json(result))
     .catch(err => res.status(500).json({ error: err }));
 };
+
+// Dashboard stats for admin
+exports.getDashboardStats = async (req, res) => {
+  try {
+    const totalJobSeekers = await adminModel.countJobSeekers();
+    const totalHRs = await adminModel.countHRs();
+    const totalJobs = await adminModel.countJobs();
+    const pendingApprovals = await adminModel.countPendingApprovals();
+
+    res.json({
+      success: true,
+      data: { totalJobSeekers, totalHRs, totalJobs, pendingApprovals }
+    });
+  } catch (err) {
+    console.error("Dashboard Stats Error:", err);
+    res.status(500).json({ success: false, message: "Server Error" });
+  }
+};

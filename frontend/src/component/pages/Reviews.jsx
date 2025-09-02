@@ -21,7 +21,7 @@ export default function Reviews() {
   ];
 
   return (
-    <div className="Reviews-section" id="reviews-section">
+    <div className="Reviews-section" id="Reviews-section">
       <h2>What Job Seekers Say</h2>
       <div className="Reviews-container">
         {reviews.map((review, i) => (

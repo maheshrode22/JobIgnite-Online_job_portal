@@ -90,13 +90,13 @@ export default function ViewHR() {
           List HR
         </button>
         <button
-          className={`btn me-2 ${activeTab === "approved" ? "btn-success" : "btn-outline-success"}`}
+          className={`btn me-2  text-primary ${activeTab === "approved" ? "btn-success" : "btn-outline-success"}`}
           onClick={() => setActiveTab("approved")}
         >
           Approved HR
         </button>
         <button
-          className={`btn ${activeTab === "rejected" ? "btn-danger" : "btn-outline-danger"}`}
+          className={`btn  text-primary ${activeTab === "rejected" ? "btn-danger" : "btn-outline-danger"}`}
           onClick={() => setActiveTab("rejected")}
         >
           Rejected HR

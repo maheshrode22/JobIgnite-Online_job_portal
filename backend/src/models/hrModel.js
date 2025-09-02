@@ -114,3 +114,45 @@ exports.viewAllPostHrById=(hr_id)=>{
         })
     })
 }
+
+
+// show in dashboard
+// Total Job Seekers
+exports.countJobSeekers = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT COUNT(*) AS total FROM job_seekers", (err, result) => {
+      if (err) return reject(err);
+      resolve(result[0].total);
+    });
+  });
+};
+
+// Total Approved HRs
+exports.countHRs = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT COUNT(*) AS total FROM hr WHERE status='approved'", (err, result) => {
+      if (err) return reject(err);
+      resolve(result[0].total);
+    });
+  });
+};
+
+// Total Jobs
+exports.countJobs = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT COUNT(*) AS total FROM jobs", (err, result) => {
+      if (err) return reject(err);
+      resolve(result[0].total);
+    });
+  });
+};
+
+// Pending HR Approvals
+exports.countPendingApprovals = () => {
+  return new Promise((resolve, reject) => {
+    db.query("SELECT COUNT(*) AS total FROM hr WHERE status='pending'", (err, result) => {
+      if (err) return reject(err);
+      resolve(result[0].total);
+    });
+  });
+};

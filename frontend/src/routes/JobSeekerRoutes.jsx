@@ -7,19 +7,17 @@ import SeekerDetail from "../component/jobSeeker/seekerDetails";
 import SeekerProfile from "../component/jobSeeker/jobseekerProfile";
 import ApplicationHistory from "../component/jobSeeker/appliedHistory";
 
-
 export default function JobSeekerRoutes() {
   return (
     <Routes>
       <Route path="/" element={<JsDashboard />}>
-      <Route index element={<BrowseJobs />} />
-      <Route path="browse-jobs" element={<BrowseJobs />} />
-      <Route path="jobDetail/:id" element={<JobDetails />} />
-      <Route path="seekerDetail" element={<SeekerDetail/>}/>
-      <Route path="jobSeekerPro" element={<SeekerProfile />}/>
-      <Route path="appHistory" element={<ApplicationHistory />}/>
-</Route>
-
+        <Route index element={<BrowseJobs />} />
+        <Route path="browse-jobs" element={<BrowseJobs />} />
+        <Route path="jobDetail/:id" element={<JobDetails />} />
+        <Route path="seekerDetail" element={<SeekerDetail/>}/>
+        <Route path="jobSeekerPro" element={<SeekerProfile />}/>
+        <Route path="application-status" element={<ApplicationHistory />}/>
+      </Route>
     </Routes>
   );
 }

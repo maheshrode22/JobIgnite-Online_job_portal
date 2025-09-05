@@ -107,7 +107,7 @@ export default function ViewHR() {
       {filteredHR.length === 0 ? (
         <p className="text-secondary">No HR data found.</p>
       ) : (
-        <div className="table-responsive shadow-sm rounded">
+        <div className="table-responsive shadow-sm rounded p-2">
           <table className="table table-hover align-middle mb-0">
             <thead className="table-dark">
               <tr>

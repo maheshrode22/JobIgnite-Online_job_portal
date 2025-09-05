@@ -1,10 +1,9 @@
 
 body {
     margin: 0;
-    padding-top: 80px; /* Account for fixed navbar */
+    padding-top: 0; /* Remove padding since navbar handles spacing */
     font-family: "Poppins", sans-serif;
-  
-    background-color: #212529; 
+    background-color: #f8fafc; 
     color: #222;
   }
   

@@ -17,12 +17,16 @@ export default function SeekerRegister({ onBack }) {
 
     try {
       const result = await registerSeeker(seekerData);
-      setMsg(result.data.message || "Registration Successful!");
+
+      // ✅ backend response मध्ये `msg`
+      setMsg(result.data.msg || "Registration Successful!");
       alert("Registration successful!");
       onBack(); // Go back to login
     } catch (err) {
       console.error("Error:", err.response?.data || err.message);
-      setMsg(err.response?.data?.message || "Registration Failed!");
+
+      // ✅ error msg देखील backend मध्ये `msg`
+      setMsg(err.response?.data?.msg || "Registration Failed!");
     }
   };
 

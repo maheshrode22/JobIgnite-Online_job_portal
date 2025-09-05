@@ -8,8 +8,8 @@
 /* Main Content */
 .main-content {
   flex: 1;
-  margin-left: 80px; /* collapsed sidebar */
-  margin-top: 70px; /* navbar height */
+  margin-left: 0px; /* collapsed sidebar */
+  margin-top: 0; /* navbar height */
   overflow-y: auto;
   height: calc(100vh - 70px);
   background: #f5f6fa;

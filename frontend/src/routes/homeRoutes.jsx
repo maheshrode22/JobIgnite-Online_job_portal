@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import Navbar from "../component/Navbar";
+import HomeNavBar from "../component/homeNavbar";
 import Home from "../component/pages/home";
 import About from "../component/pages/Reviews";
 import Services from "../component/pages/Service";
@@ -26,7 +26,7 @@ function HomeRoutes() {
   return (
     <>
       {loading && <LogoLoader />}
-      <Navbar />
+      <HomeNavBar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

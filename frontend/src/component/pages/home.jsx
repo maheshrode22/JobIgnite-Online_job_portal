@@ -3,6 +3,7 @@ import Slide from "../slide";
 import Reviews from "./Reviews";
 import Contact from "./Contact";
 import Services from "./Service";
+import HomePartners from "./homePartener";
 
 function Home() {
   return (
@@ -18,6 +19,9 @@ function Home() {
 
       <div id="contact-section">
           <Contact />
+      </div>
+      <div id="partener-section">
+          <HomePartners />
       </div>
 
     </div>

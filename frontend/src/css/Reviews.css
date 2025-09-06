@@ -1,6 +1,6 @@
 .Reviews-section {
   background: #ffffff;
-  padding: 100px 10%;
+  padding: 80px 10%;
   text-align: center;
   overflow: hidden;
   position: relative;
@@ -69,15 +69,43 @@
   100% { transform: translateX(-50%); }
 }
 
-/* ✅ Responsive Fix */
+/* ✅ Tablet view (medium screens) */
 @media (max-width: 992px) {
+  .Reviews-section {
+    padding: 60px 5%;
+  }
   .review-box {
     flex: 0 0 60%; /* wider on tablets */
+    padding: 20px;
+  }
+  .review-right {
+    font-size: 1rem;
   }
 }
 
+/* ✅ Mobile view (small screens) */
 @media (max-width: 576px) {
+  .Reviews-section {
+    padding: 50px 3%;
+  }
+  .Reviews-slider {
+    gap: 20px;
+  }
   .review-box {
-    flex: 0 0 90%; /* show 1 big review at a time on mobile */
+    flex: 0 0 90%; /* one review at a time */
+    flex-direction: column; /* stack image and text vertically */
+    text-align: center;
+    padding: 20px;
+  }
+  .review-left {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  .review-right {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .Reviews-section h2 {
+    font-size: 2rem;
   }
 }

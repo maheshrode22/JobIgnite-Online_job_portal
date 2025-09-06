@@ -25,6 +25,7 @@
   display: flex;
   width: max-content;
   animation: scrollLeft 20s linear infinite;
+  will-change: transform;
 }
 
 /* Partner boxes */
@@ -59,19 +60,30 @@
   100% { transform: translateX(-50%); }
 }
 
-/* Responsive */
+/* ✅ Tablet */
 @media (max-width: 992px) {
   .partner-box img {
     max-width: 80px;
   }
+  .partner-box {
+    margin-right: 30px;
+  }
 }
 
+/* ✅ Mobile */
 @media (max-width: 576px) {
+  .partners-section h2 {
+    font-size: 1.5rem;
+  }
   .partners-slider {
-    flex-direction: column;
-    animation: none;
+    animation: scrollLeft 15s linear infinite; /* faster scroll on mobile */
+    gap: 20px;
   }
   .partner-box {
-    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 8px 12px;
+  }
+  .partner-box img {
+    max-width: 70px; /* smaller logo for mobile */
   }
 }

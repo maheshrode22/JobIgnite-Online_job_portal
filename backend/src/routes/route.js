@@ -18,6 +18,8 @@ router.post("/adminLogin",admincon.adminLogin);
 router.get("/viewAlljobSeeker",verifyAdminToken, admincon.viewAllJobseeker);
 router.post("/viewJobSeekerDetailed",admincon.jobseekerDetailed);
 
+router.get("/dashboard-stats", verifyAdminToken,admincon.getDashboardStats);
+
 // Protected example
 router.get("/hr/me", auth, hrctr.hrMe);
 
@@ -28,11 +30,6 @@ router.post("/hrregister", hrctr.hrRegister);
 
 // Admin routes for HR management
 router.get("/viewAllHr", verifyAdminToken, admincon.AllHr);
-
-
-// hr model
-router.post("/hrlogin",hrctr.hrLogin);
-router.post("/hrregister",hrctr.hrRegister);
 
 
 router.put("/updateHr",hrctr.updateHr); // update hr profile 

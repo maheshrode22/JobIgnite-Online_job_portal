@@ -90,13 +90,13 @@ export default function ViewHR() {
           List HR
         </button>
         <button
-          className={`btn me-2 ${activeTab === "approved" ? "btn-success" : "btn-outline-success"}`}
+          className={`btn me-2  text-primary ${activeTab === "approved" ? "btn-success" : "btn-outline-success"}`}
           onClick={() => setActiveTab("approved")}
         >
           Approved HR
         </button>
         <button
-          className={`btn ${activeTab === "rejected" ? "btn-danger" : "btn-outline-danger"}`}
+          className={`btn  text-primary ${activeTab === "rejected" ? "btn-danger" : "btn-outline-danger"}`}
           onClick={() => setActiveTab("rejected")}
         >
           Rejected HR
@@ -107,7 +107,7 @@ export default function ViewHR() {
       {filteredHR.length === 0 ? (
         <p className="text-secondary">No HR data found.</p>
       ) : (
-        <div className="table-responsive shadow-sm rounded">
+        <div className="table-responsive shadow-sm rounded p-2">
           <table className="table table-hover align-middle mb-0">
             <thead className="table-dark">
               <tr>

@@ -4,7 +4,7 @@ import "../../css/Hr/HRAuth.css";
 import { adminLogin } from "../../Services/adminService";
 
 export default function AdminLogin() {
-  const [username, setUsername] = useState(""); // ✅ Changed from email to username
+  const [username, setUsername] = useState(""); //  Changed from email to username
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function AdminLogin() {
       if (admindata?.data?.token) {
         localStorage.setItem("admin_token", admindata.data.token);
         alert("Login successful!");
-        navigate("/Admin");
+        navigate("/admin/dashboardAdmin");
       } else {
         setErrorMessage("Invalid credentials");
       }

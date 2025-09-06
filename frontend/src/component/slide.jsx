@@ -1,23 +1,28 @@
 import React from "react";
 import "../css/slide.css";
-import slideimage from "../assets/img/slide2.jpg";
+import sideImage from "../assets/img/job.jpg"; // Right-side image
 
 function Slide() {
   return (
-    <section
-      className="hero-section text-white"
-      style={{ backgroundImage: `url(${slideimage})` }}
-    >
-      <div className="hero-content">
-        <h1 className="slide-heading">
-          Find The Most Exciting Startup Jobs
-        </h1>
-        <p className="slide-para">
-          Join the best startups and make an impact on the future.
-        </p>
-        <a href="/jobSeekerAuth" className="btn-slide">
-          Browse Jobs
-        </a>
+    <section className="hero-section-white">
+      <div className="hero-content-white">
+        {/* Left content */}
+        <div className="hero-left">
+          <h1 className="slide-heading-black">
+            Find The Most Exciting Startup Jobs
+          </h1>
+          <p className="slide-para-black">
+            Join the best startups and make an impact on the future.
+          </p>
+          <a href="/jobSeekerAuth" className="btn-slide-orange">
+            Browse Jobs
+          </a>
+        </div>
+
+        {/* Right Image */}
+        <div className="hero-right">
+          <img src={sideImage} alt="Hero Side" className="hero-img" />
+        </div>
       </div>
     </section>
   );

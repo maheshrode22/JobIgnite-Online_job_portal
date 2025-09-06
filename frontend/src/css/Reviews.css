@@ -1,92 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&family=Montagu+Slab:opsz,wght@16..144,100..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap');
-
 .Reviews-section {
-  background-color: rgb(33, 37, 41); /* different from services */
+  background: #ffffff;
+  padding: 80px 10%;
   text-align: center;
-  color:#fff;
-  padding: 60px 20px;
+  overflow: hidden;
+  position: relative;
 }
 
 .Reviews-section h2 {
-  font-size: 2rem;
-  font-family: "Open Sans","Montagu Slab", sans-serif;
-  font-weight:600;
-  margin-bottom: 40px;
-  color: white;
-  animation: reviewshead linear;
-  animation-timeline: view();
-  animation-range:entry 0% cover 40%;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: black;
+  font-weight: 900;
 }
 
-.Reviews-container {
+.Reviews-slider {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  animation: reviewshead linear;
-  animation-timeline: view();
-  animation-range:entry 0% cover 40%;
+  gap: 40px;
+  animation: scrollReviews 30s linear infinite;
+  will-change: transform;
 }
 
 .review-box {
-  background-color: #fff;
-  padding: 35px 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  flex: 1 1 calc(33.333% - 30px); /* default: 3 per row */
-  max-width: calc(33.333% - 30px);
-  box-sizing: border-box;
-  transition: transform 0.3s, box-shadow 0.3s;
+  background: #f9f9f9;
+  border-radius: 16px;
+  flex: 0 0 35%;
+  display: flex;
+  padding: 25px 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.review-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(19, 18, 18, 0.15);
+.review-left {
+  flex: 1;
+  text-align: center;
+  margin-right: 20px;
 }
 
-.review-box h3 {
-  font-size: 1.9rem;
-  font-weight: bolder;
-  text-shadow: 0 0 1px black;
-  color:#101010;
-  margin-top: 10px;
+.review-left img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
 }
 
-.review-box h4 {
+.review-left h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.review-left h4 {
+  margin: 0;
   font-size: 1rem;
-  color: #302f2f;
-  margin: 5px 0 15px 0;
+  color: #1f1e1d;
 }
 
-.review-box p {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
+.review-right {
+  flex: 2;
+  font-size: 1.1rem;
+  color: #000;
+  text-align: left;
+  line-height: 1.5;
 }
 
-@keyframes reviewshead{
-  from{
-    opacity: 0;
-    scale: 0.5;
-  }
-  to{
-    opacity: 1;
-    scale:1;
-  }
+@keyframes scrollReviews {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Tablet view: 2 per row */
+/* ✅ Tablet view (medium screens) */
 @media (max-width: 992px) {
+  .Reviews-section {
+    padding: 60px 5%;
+  }
   .review-box {
-    flex: 1 1 calc(50% - 30px);
-    max-width: calc(50% - 30px);
+    flex: 0 0 60%; /* wider on tablets */
+    padding: 20px;
+  }
+  .review-right {
+    font-size: 1rem;
   }
 }
 
-/* Mobile view: 1 per row */
+/* ✅ Mobile view (small screens) */
 @media (max-width: 576px) {
+  .Reviews-section {
+    padding: 50px 3%;
+  }
+  .Reviews-slider {
+    gap: 20px;
+  }
   .review-box {
-    flex: 1 1 100%;
-    max-width: 100%;
+    flex: 0 0 90%; /* one review at a time */
+    flex-direction: column; /* stack image and text vertically */
+    text-align: center;
+    padding: 20px;
+  }
+  .review-left {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  .review-right {
+    text-align: center;
+    font-size: 1rem;
+  }
+  .Reviews-section h2 {
+    font-size: 2rem;
   }
 }

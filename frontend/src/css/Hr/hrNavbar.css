@@ -534,12 +534,12 @@
     height: 28px;
   }
   
-  .navbar-action-btn {
+  .hrnavbar-action-btn {
     width: 32px;
     height: 32px;
   }
   
-  .navbar-actions {
+  .hrnavbar-actions {
     gap: 8px;
   }
   
@@ -605,12 +605,12 @@
     height: 24px;
   }
   
-  .navbar-action-btn {
+  .hrnavbar-action-btn {
     width: 28px;
     height: 28px;
   }
   
-  .navbar-actions {
+  .hrnavbar-actions {
     gap: 6px;
   }
   
@@ -620,7 +620,7 @@
     font-size: 8px;
   }
   
-  .navbar-right {
+  .hrnavbar-right {
     width: 140px;
   }
   

@@ -38,12 +38,7 @@ export default function AdminSidebar({ isOpen, toggleSidebar, isMobile }) {
           <div className="logo-circle">
             <i className="bi bi-shield-fill-check"></i>
           </div>
-          {!isMobile && (
-            <div className="logo-text">
-              <span className="admin-text">Admin</span>
-              <span className="panel-text">Panel</span>
-            </div>
-          )}
+          
         </div>
 
         {/* Navigation */}

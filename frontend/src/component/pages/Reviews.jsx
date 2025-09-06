@@ -30,7 +30,7 @@ export default function Reviews() {
   const allReviews = [...reviews, ...reviews];
 
   return (
-    <div className="Reviews-section" id="reviews-section">
+    <div className="Reviews-section" id="Reviews-section">
       <h2>What Job Seekers Say</h2>
       <div className="Reviews-slider">
         {allReviews.map((review, i) => (

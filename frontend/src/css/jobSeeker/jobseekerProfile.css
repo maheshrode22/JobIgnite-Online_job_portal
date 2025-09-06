@@ -1,147 +1,22 @@
-/* Container */
-.seekerprofile-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
+.seeker-profile .card {
+  border-radius: 12px;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.05);
 }
 
-/* Card */
-.seekerprofile-card {
-  background: #fff;
-  padding: 20px;
-  max-width: 800px;
-  width: 100%;
-  box-shadow: 0 1px 10px black;
-  border-radius: 10px;
+.seeker-profile h5 {
+  margin-bottom: 0.5rem;
 }
 
-/* Title */
-.seeker-profile-title {
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: #333;
+.seeker-profile .badge {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
 }
 
-/* Grid for two inputs in one row */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Always two columns */
-  gap: 15px;
+.seeker-profile .btn-light {
+  border-radius: 50%;
+  padding: 6px 8px;
 }
-
-/* Form Items - Label and Input in the SAME ROW */
-.seekerprofile-item {
-  display: flex;
-  align-items: center; /* Vertically center */
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.seekerprofile-item select{
-    flex: 2;
-    width:265px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    font-size: 16px;
-    color: #333;
-    cursor: pointer;
-}
-
-.seekerprofile-item label {
-  flex: 1;
-  font-weight: bold;
-  color: #555;
-  text-align: right; /* Align label text to the right */
-}
-
-.seekerprofile-item input {
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* Buttons */
-.seekerprofile-actions {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.btn {
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 5px;
-}
-
-.btn.save {
-  background: #f8db37;
-  color:black;
-  font-weight:600;
-}
-.btn.save:hover{
-  background: #ffd500;
-  color:black;
-  font-weight:600;
-}
-
-.btn.edit {
-  background: #f8db37;
-  color:black;
-  font-weight:600;
-}
-.btn.edit:hover{
-    background: #fdd90d;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .form-grid {
-    grid-template-columns: repeat(2, 1fr); /* Keep two inputs even on mobile */
-  }
-
-  .seekerprofile-item {
-    flex-direction: column; /* Stack label and input vertically */
-    align-items: flex-start;
-  }
-
-  .seekerprofile-item label {
-    text-align: left;
-    margin-bottom: 5px;
-  }
-
-  .seekerprofile-item input {
-    width: 100%;
-  }
-}
-
-/* Small devices (up to 480px) */
-@media (max-width: 480px) {
-  .form-grid {
-    grid-template-columns: 1fr; /* Only one item per row */
-    gap: 10px;
-  }
-
-  .seekerprofile-item {
-    display: flex;
-    flex-direction: column; /* Label above input */
-    align-items: flex-start;
-    justify-content: flex-start; /* Override space-between */
-  }
-
-  .seekerprofile-item label {
-    text-align: left;
-    margin-bottom: 5px;
-  }
-
-  .seekerprofile-item input,
-  .seekerprofile-item select {
-    flex: unset;      /* Remove flex:2 */
-    width: 100%;      /* Full width of the row */
-  }
+.seeker-profile .btn-light:hover {
+  background-color: #e2e6ea;
 }

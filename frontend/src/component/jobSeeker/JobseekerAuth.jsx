@@ -3,6 +3,7 @@ import "../../css/Hr/HRAuth.css";
 import { useNavigate } from "react-router-dom";
 import SeekerRegister from "./SeekerRegister";
 import { loginJobSeeker } from "../../Services/SeekerService";
+import { jwtDecode } from "jwt-decode";
 
 export default function JobSeekerAuth() {
   const [activeForm, setActiveForm] = useState("login"); // login | register | forgot
@@ -24,9 +25,15 @@ export default function JobSeekerAuth() {
       });
 
       if (response.data && response.data.success) {
-        const user = response.data.user;
-        localStorage.setItem("seekerData", JSON.stringify(user));
-        localStorage.setItem("seeker_id", user.seeker_id);
+        const { token } = response.data;
+
+        // Token save kar
+        localStorage.setItem("token", token);
+
+        // Decode token for user info (optional)
+        const seeker = jwtDecode(token);
+        console.log("Logged in user:", seeker);
+
         navigate("/jobSeeker"); // Redirect to dashboard
       } else {
         setErrorMessage(response.data?.message || "Invalid credentials. Try again.");

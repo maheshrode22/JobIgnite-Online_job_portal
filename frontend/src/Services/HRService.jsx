@@ -52,13 +52,7 @@ export const deleteJob = (id) => {
   return axios.post(`${API_URL}/deletePost`, { id });
 };
  
-// HR Register (duplicate)
-export const hrRegister = async (data) => {
-  const res = await axios.post(`${API_URL}/hrregister`, data, {
-    headers: { "Content-Type": "application/json" },
-  });
-  return res.data;
-};
+
  
 // HR Login
 export const hrLogin = async (email, password) => {
@@ -74,10 +68,10 @@ export const getHRMe = async () => {
   return res.data;
 };
  
-// Update Job - INCOMPLETE FUNCTION
+// Update Job
 export const updateJob = async (id, jobData) => {
-  // This was incomplete - missing return statement
-  await axios.put(`${API_URL}/updateJob/${id}`, jobData, {
+  const res = await axios.put(`${API_URL}/updateJob/${id}`, jobData, {
     headers: { "Content-Type": "application/json" }
   });
+  return res.data;
 };

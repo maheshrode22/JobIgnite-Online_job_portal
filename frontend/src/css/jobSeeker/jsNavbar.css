@@ -1,70 +1,207 @@
-.jsnavbar {
-  height: 60px;
-  background: #222;
-  border-bottom: 1px solid #eaeaea;
-  padding: 0 16px;
+/* Navbar Base */
+.navbar {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  padding: 0.6rem 1.5rem;
+}
+
+/* Logo */
+.navbar-brand {
+  font-weight: 600;
+  font-size: 18px;
+  color: #212529 !important;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 8;
-  max-width: 100%;
+  gap: 6px;
 }
 
-.jsnavbar-title {
-  font-weight: 700;
-  color: white;
+/* Nav Links (Always visible dark, hover blue) */
+.navbar-nav .nav-link {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 6px 14px;
+  color: #212529 !important;   /* Default visible */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: #0d6efd;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #0d6efd !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Active Link */
+.navbar-nav .nav-link.active {
+  color: #0d6efd !important;
+  font-weight: 600;
+}
+.navbar-nav .nav-link.active::after {
+  width: 100%;
+}
+
+/* Bell Icon - Fixed visibility */
+.navbar-nav .btn {
+  background: none !important;
+  border: none !important;
+  color: #212529 !important;  /* Always visible dark color */
   font-size: 18px;
+  padding: 8px;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-/* Actions (right side) */
-.jsnavbar-actions {
+.navbar-nav .btn:hover {
+  color: #0d6efd !important;  /* Blue on hover */
+  transform: scale(1.1);
+}
+
+.navbar-nav .btn:focus {
+  box-shadow: none !important;
+  color: #212529 !important;
+}
+
+/* Bell + Profile icon */
+.navbar-icons {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 18px;
 }
 
-.jsnav-btn {
-  background: transparent;
+.navbar-icons .icon-btn {
+  font-size: 20px;
+  color: #212529;   /* Default visible */
+  background: none;
   border: none;
-  font-size: 18px;
+  position: relative;
   cursor: pointer;
-  color: white;
+  transition: transform 0.2s ease, color 0.3s ease;
 }
 
-/* Hamburger hidden on desktop */
-.jshamburger {
-  font-size: 24px;
-  background: transparent;
+.navbar-icons .icon-btn:hover {
+  color: #0d6efd;
+  transform: scale(1.1);
+}
+
+/* Notification badge */
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #dc3545;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 3px 6px;
+}
+
+/* Profile Avatar */
+.profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0d6efd;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.1);
+}
+
+/* Offcanvas Logout Button - Fixed visibility */
+.offcanvas .btn-outline-danger {
+  color: #dc3545 !important;  /* Red text always visible */
+  border-color: #dc3545 !important;  /* Red border always visible */
+  background-color: transparent !important;
+  font-weight: 500;
+  padding: 10px 16px;
+  transition: all 0.3s ease;
+}
+
+.offcanvas .btn-outline-danger:hover {
+  color: #ffffff !important;  /* White text on hover */
+  background-color: #dc3545 !important;  /* Red background on hover */
+  border-color: #dc3545 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+.offcanvas .btn-outline-danger:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+  color: #dc3545 !important;
+  background-color: transparent !important;
+}
+
+/* Offcanvas general styling */
+.offcanvas {
+  border-left: 1px solid #e9ecef;
+}
+
+.offcanvas-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.offcanvas-body {
+  padding: 1.5rem;
+}
+
+/* Opportunities Dropdown */
+.nav-item.dropdown .dropdown-menu {
   border: none;
-  cursor: pointer;
-  display: none;
-  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 8px 0;
+  margin-top: 8px;
+  min-width: 220px;
 }
 
-/* --- Mobile View --- */
-@media (max-width: 768px) {
-  .jshamburger {
-    display: block; /* show hamburger */
-    position: absolute;
-    left: 16px;
-  }
+.nav-item.dropdown .dropdown-item {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #212529;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+}
 
-  .jsnavbar {
-    position: relative;
-    justify-content: center; /* left - center - right */
-  }
+.nav-item.dropdown .dropdown-item:hover {
+  background-color: #f8f9fa;
+  color: #0d6efd;
+  transform: translateX(4px);
+}
 
-  .jsnavbar-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-  }
+.nav-item.dropdown .dropdown-item i {
+  width: 16px;
+  text-align: center;
+}
 
-  .jsnavbar-actions {
-    position: absolute;
-    right: 16px;
-  }
+/* Dropdown toggle arrow */
+.nav-item.dropdown .dropdown-toggle::after {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Active dropdown state */
+.nav-item.dropdown .nav-link.active {
+  color: #0d6efd !important;
+  font-weight: 600;
 }

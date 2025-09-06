@@ -1,7 +1,7 @@
 /* ===== DASHBOARD LAYOUT ===== */
 .dashboard-container {
   padding: 30px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  background: #f8f9fa;
   min-height: 100vh;
   margin-left: 80px;
   padding-top: 90px;
@@ -27,30 +27,14 @@
 
 /* ===== WELCOME BANNER ===== */
 .welcome-banner {
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  background: #007bff;
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
   position: relative;
-  overflow: hidden;
 }
 
-.welcome-banner::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-  transform: rotate(45deg);
-  animation: shimmer 3s infinite;
-}
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
 
 .welcome-text h2 {
   color: #ffffff;
@@ -76,16 +60,7 @@
   backdrop-filter: blur(10px);
 }
 
-.welcome-illustration {
-  font-size: 4rem;
-  color: rgba(255, 255, 255, 0.2);
-  animation: float 3s ease-in-out infinite;
-}
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
 
 /* ===== QUICK STATS ===== */
 .quick-stat-card {

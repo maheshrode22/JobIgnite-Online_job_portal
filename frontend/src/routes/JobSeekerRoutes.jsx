@@ -17,6 +17,7 @@ export default function JobSeekerRoutes() {
         <Route path="seekerDetail" element={<SeekerDetail/>}/>
         <Route path="jobSeekerPro" element={<SeekerProfile />}/>
         <Route path="application-status" element={<ApplicationHistory />}/>
+        <Route path="seekerProfile" element={<SeekerProfile/>}/>
       </Route>
     </Routes>
   );

@@ -1,48 +1,127 @@
-let jobseekerModel=require("../models/jobseekerModel.js");
+let jobseekerModel = require("../models/jobseekerModel.js");
 const { sendMail } = require("../Services/mailService.js");
 const { registrationTemplate } = require("../Services/mailTemplates.js");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
+// exports.loginJobSeeker = async (req, res) => {
+//   const { jobUser, jobPass } = req.body;
 
-exports.jobSeekerLogin=(req,res)=>{
-    let {jobUser,jobPass}=req.body;
+//   try {
+//     const result = await jobseekerModel.jobSeekerLogin(jobUser);
+
+//     if (result.length === 0) {
+//       return res.status(401).json({ success: false, message: "Invalid credentials" });
+//     }
+
+//     const user = result[0];
+
+//     // bcrypt compare
+//     const isMatch = await bcrypt.compare(jobPass, user.password);
+//     if (!isMatch) {
+//       return res.status(401).json({ success: false, message: "Invalid credentials" });
+//     }
+
+//     // Generate JWT with complete user data
+//     const token = jwt.sign(
+//       { 
+//         id: user.seeker_id, 
+//         name: user.name,
+//         email: user.email, 
+//         phone: user.phone,
+//         address: user.address,
+//         role: "jobseeker",
+//         createdAt: user.created_at || new Date()
+//       },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "15m" }
+//     );
+
+//     res.json({
+//       success: true,
+//       token
     
-    let promise=jobseekerModel.jobSeekerLogin(jobUser,jobPass);
-    promise.then((result)=>{
-        if(result.length>0){
-            res.send({user:result[0],
-                success:true
-            });
-        }
-        else{
-            res.send({msg:"invalid email or password"});
-        }
+//     });
+//   } catch (err) {
+//     console.error("Login error:", err);
+//     res.status(500).json({ success: false, message: "Server error" });
+//   }
+// };
+
+
+
+
+exports.loginJobSeeker = async (req, res) => {
+  const { jobUser, jobPass } = req.body;
+
+  try {
+    const result = await jobseekerModel.jobSeekerLogin(jobUser);
+
+    if (result.length === 0) {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+
+    const user = result[0];
+
+    // bcrypt compare
+    const isMatch = await bcrypt.compare(jobPass, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, message: "Invalid credentials" });
+    }
+
+    // Remove password before sending in token
+    const { password, ...safeUser } = user;
+
+    // Generate JWT with complete user data
+    const token = jwt.sign(
+      { 
+        ...safeUser,   // ✅ DB मधलं complete user data (password सोडून बाकी सगळं)
+        role: "jobseeker"
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "15m" }
+    );
+
+    res.json({
+      success: true,
+      token,
+      user: safeUser   // ✅ हवं असेल तर frontend direct use करू शकेल
     });
-    promise.catch((err)=>{
-        res.send(err);
-    });
-}
+
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
 
 exports.jobSeekerRegister = async (req, res) => {
     try {
         const { name, email, password, phone, address } = req.body;
 
-        const result = await jobseekerModel.jobSeekerRegister(name, email, password, phone, address);
-
-        res.send({ msg: "Your registration is successful" });
-
-        const { subject, body } = registrationTemplate(name);
-
-        // Use await to catch errors properly
-        try {
-            await sendMail(email, subject, body);
-            console.log("Mail function executed for:", email);
-        } catch (err) {
-            console.error("Mail sending failed:", err);
+        // check user already exists
+        const existingUser = await jobseekerModel.findByEmail(email);
+        if (existingUser) {
+            return res.status(400).json({ msg: "Email already registered" });
         }
 
+        // password hash
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await jobseekerModel.jobSeekerRegister(
+            name,
+            email,
+            hashedPassword,
+            phone,
+            address
+        );
+
+        res.status(201).json({ msg: "Registration successful" });
     } catch (err) {
         console.error("Registration error:", err);
-        res.status(500).send({ message: "Registration failed", error: err });
+        res.status(500).json({ msg: "Registration failed", error: err });
     }
 };
 

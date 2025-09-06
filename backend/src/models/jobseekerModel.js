@@ -1,18 +1,20 @@
 let db = require("../config/db.js");
-// Login job seeker
-exports.jobSeekerLogin = (jobUser, jobPass) => {
+// jobSeekerModel.js
+exports.jobSeekerLogin = (jobUser) => {
     return new Promise((resolve, reject) => {
-        db.query("select * from job_seekers where email=? AND password=?", [jobUser, jobPass], (err, result) => {
-            if (err) {
-                reject(err);
-            }
-            else {
-                resolve(result);
-            }
-        });
+      db.query(
+        "SELECT * FROM job_seekers WHERE email=?",
+        [jobUser],
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        }
+      );
     });
-}
-// register job seeker
+  };
+
+  
+//register job seeker
 exports.jobSeekerRegister = (...data) => {
     return new Promise((resolve, reject) => {
         db.query("insert into job_seekers(name,email,password,phone,address) values(?,?,?,?,?)", [...data], (err, result) => {
@@ -26,6 +28,22 @@ exports.jobSeekerRegister = (...data) => {
     });
 }
 
+
+
+
+// Find user by email
+exports.findByEmail = (email) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            "SELECT * FROM job_seekers WHERE email = ?",
+            [email],
+            (err, results) => {
+                if (err) reject(err);
+                else resolve(results[0]);
+            }
+        );
+    });
+};
 
 // make or  create job seeker profile
 exports.jobSeekerProfile=(...data)=>{

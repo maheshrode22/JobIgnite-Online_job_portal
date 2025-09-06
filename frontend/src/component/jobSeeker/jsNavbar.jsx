@@ -241,7 +241,7 @@ export default function JSNavbar() {
                     <a
                       href="#"
                       className="text-primary small"
-                      onClick={() => navigate("/jobSeeker/jobSeekerPro")}
+                      onClick={() => navigate("/jobSeeker/seekerProfile")}
                     >
                       View & Update Profile
                     </a>  

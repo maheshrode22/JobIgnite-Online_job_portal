@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { PencilSquare } from "react-bootstrap-icons"; // bootstrap icons
+import "../../css/jobSeeker/jobseekerProfile.css";
+
 
 export default function SeekerProfile() {
   const [profile] = useState({

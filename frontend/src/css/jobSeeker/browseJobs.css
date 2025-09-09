@@ -1,4 +1,7 @@
 /* Job Card */
+.container{
+  margin-top: 30px;
+}
 .jobcard {
   border: none;
   border-radius: 16px;
@@ -93,4 +96,13 @@
   font-size: 0.75rem;
   color: #6b7280;
   font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .container {
+      max-width: 100%;
+      padding-left: 8px;
+      padding-right: 8px;
+      margin-top:50px;
+  }
 }

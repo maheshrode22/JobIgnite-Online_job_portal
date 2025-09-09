@@ -39,9 +39,26 @@ export const getProfileById = async (seeker_id) => {
   });
 };
 
+// 🔹 Get Complete Profile (with JOIN)
+export const getCompleteProfile = async (seeker_id) => {
+  return await axios.get(`${API_URL}/getCompleteProfile/${seeker_id}`, {
+    headers: getAuthHeaders(),
+  });
+};
+
 // 🔹 Update Profile
 export const updateProfile = async (profileData) => {
   return await axios.put(`${API_URL}/updateJobSeekerProfile`, profileData, {
+    headers: { 
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+  });
+};
+
+// 🔹 Update Job Seeker Profile
+export const updateJobSeekerProfile = async (data) => {
+  return await axios.put(`${API_URL}/updateJobSeekerProfile`, data, {
     headers: { 
       "Content-Type": "application/json",
       ...getAuthHeaders(),

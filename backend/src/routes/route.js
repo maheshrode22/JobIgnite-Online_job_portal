@@ -44,15 +44,16 @@ router.post("/viewAllPostHrById",hrctr.viewAllPostHrById);
 
 
 
-
 //job seeker routers        ////j
 
 router.post("/jobseekerLogin",jobseekCtr.loginJobSeeker); // job seeker Login
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister); // job seeker registation 
 
+
 // Protected job seeker routes - require JWT authentication
 router.post("/jobSeekerProfile", jobseekerAuth, jobseekCtr.jobSeekerProfile);   // make or create job seeker profile
 router.get("/getProfile/:seekerId", jobseekerAuth, jobseekCtr.getProfile);
+router.get("/getCompleteProfile/:seekerId", jobseekerAuth, jobseekCtr.getCompleteProfile); // get complete profile
 router.delete("/deleteSeeker/:seeker_id", jobseekerAuth, jobseekCtr.deletejobSeeker); // delete job seeker profile
 router.put("/updateSeeker", jobseekerAuth, jobseekCtr.updateSeeker);
 router.put("/updateJobSeekerProfile", jobseekerAuth, jobseekCtr.updateJobSeekerProfile); // update job seeker profile 

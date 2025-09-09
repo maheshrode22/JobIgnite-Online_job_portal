@@ -5,6 +5,7 @@ import "../../css/jobSeeker/browseJobs.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import HomePartners from "../../component/pages/homePartener.jsx";
 
 dayjs.extend(relativeTime);
 
@@ -158,7 +159,11 @@ export default function BrowseJobs() {
                 </div>
               </div>
             </div>
+              
+   
+            
           ))
+           
         ) : (
           <div className="text-center py-5">
             <span style={{ fontSize: "2rem" }}>🔍</span>
@@ -167,6 +172,9 @@ export default function BrowseJobs() {
           </div>
         )}
       </div>
+      <div id="partener-section">
+             <HomePartners />
+         </div>
     </div>
   );
 }

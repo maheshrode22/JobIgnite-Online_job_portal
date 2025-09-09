@@ -7,8 +7,7 @@ let appCtr=require("../controller/applicationController.js");
 let jobsPost=require("../controller/jobsPostControler.js");
 
 let auth = require("../middleware/authMiddleware.js");
-
-
+let jobseekerAuth = require("../middleware/jobseekerAuth.js");
 
 let verifyAdminToken = require("../middleware/adminmiddle.js");
 
@@ -45,17 +44,22 @@ router.post("/viewAllPostHrById",hrctr.viewAllPostHrById);
 
 
 
-
 //job seeker routers        ////j
 
-router.post("/jobseekerLogin",jobseekCtr.jobSeekerLogin); // job seeker Login
+router.post("/jobseekerLogin",jobseekCtr.loginJobSeeker); // job seeker Login
 router.post("/jobSeekerRegister",jobseekCtr.jobSeekerRegister); // job seeker registation 
-router.post("/jobSeekerProfile",jobseekCtr.jobSeekerProfile);   //   // make or  create job seeker profile
-router.get("/getProfile/:seekerId",jobseekCtr.getProfile);
-router.delete("/deleteSeeker/:seeker_id",jobseekCtr.deletejobSeeker);// // delete job seeker profile
-router.put("/updateSeeker",jobseekCtr.updateSeeker);
 
-router.put("/updateJobSeekerProfile",jobseekCtr.updateJobSeekerProfile); // update job seeker profile 
+
+// Protected job seeker routes - require JWT authentication
+router.post("/jobSeekerProfile", jobseekerAuth, jobseekCtr.jobSeekerProfile);   // make or create job seeker profile
+router.get("/getProfile/:seekerId", jobseekerAuth, jobseekCtr.getProfile);
+router.get("/getCompleteProfile/:seekerId", jobseekerAuth, jobseekCtr.getCompleteProfile); // get complete profile
+router.delete("/deleteSeeker/:seeker_id", jobseekerAuth, jobseekCtr.deletejobSeeker); // delete job seeker profile
+router.put("/updateSeeker", jobseekerAuth, jobseekCtr.updateSeeker);
+router.put("/updateJobSeekerProfile", jobseekerAuth, jobseekCtr.updateJobSeekerProfile); // update job seeker profile 
+
+
+
 // job post routers 
 
 
@@ -73,8 +77,8 @@ router.get("/getJobById/:id", jobsPost.getJobById);  // get job by ID
 
 // AplicationModel
 
-router.post("/jobSeekerApply",appCtr.jobSeekerApply); // apply job
-router.get("/trackApplication/:seeker_id",appCtr.trackApplicationsBySeeker);
+router.post("/jobSeekerApply", jobseekerAuth, appCtr.jobSeekerApply); // apply job
+router.get("/trackApplication/:seeker_id", jobseekerAuth, appCtr.trackApplicationsBySeeker);
 router.post("/viewAllApplicationByHR",appCtr.viewAllApplicationByHR);  // view all applied 
 
 

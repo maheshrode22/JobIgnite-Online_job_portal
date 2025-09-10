@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import JobIgniteLogo from "../../assets/img/JobIgnite.png";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/jobSeeker/jsNavbar.css";  
 
-
 export default function JSNavbar() {
   const [userData, setUserData] = useState(null);
   const [activeLink, setActiveLink] = useState("");
   const [showOpportunitiesDropdown, setShowOpportunitiesDropdown] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,21 +18,16 @@ export default function JSNavbar() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        
-        // Check if token is expired
         const currentTime = Date.now() / 1000;
         if (decoded.exp && decoded.exp < currentTime) {
-          // Token expired - clear and redirect to home
           localStorage.removeItem("token");
           setUserData(null);
           navigate("/");
           return;
         }
-        
         setUserData(decoded);
       } catch (error) {
         console.error("Error decoding token:", error);
-        // Invalid token - clear and redirect to home
         localStorage.removeItem("token");
         setUserData(null);
         navigate("/");
@@ -61,7 +55,7 @@ export default function JSNavbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setUserData(null);
-    navigate("/"); // Navigate to home page instead of jobSeeker
+    navigate("/");
   };
 
   const handleOpportunitiesClick = () => {
@@ -70,111 +64,98 @@ export default function JSNavbar() {
 
   const handleOpportunityItemClick = (route) => {
     setShowOpportunitiesDropdown(false);
+    setIsMobileMenuOpen(false);
+    navigate(route);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+    setShowOpportunitiesDropdown(false);
+  };
+
+  const handleNavClick = (route) => {
+    setIsMobileMenuOpen(false);
     navigate(route);
   };
 
   return (
     <>
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg bg-white border-bottom px-3 py-2 shadow-sm">
-        <div className="container-fluid">
+      <nav className="jsNavBar fixed-top">
+        <div className="navbar-container">
           {/* Logo */}
-          <a
-            className="navbar-brand d-flex align-items-center"
+          <div
+            className="jsNavBar-logo"
             onClick={() => navigate("/")}
             style={{ cursor: "pointer" }}
           >
-            <img src={JobIgniteLogo} alt="JobIgnite" height="34" className="me-2" />
-            <span className="fw-semibold text-dark">JobIgnite</span>
-          </a>
+            <img src={JobIgniteLogo} alt="JobIgnite" />
+            <span className="brand-text">
+              Job<span className="ignite">Ignite</span>
+            </span>
+          </div>
 
-          {/* Hamburger for mobile */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
+          {/* Hamburger Menu Toggle */}
+          <button 
+            className="menu-toggle" 
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
           >
-            <span className="navbar-toggler-icon"></span>
+            <i className={`bi ${isMobileMenuOpen ? 'bi-x-lg' : 'bi-list'}`}></i>
           </button>
 
-          {/* Links + Right side */}
-          <div className="collapse navbar-collapse" id="mainNavbar">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+          {/* Menu */}
+          <div className={`jsNavBar-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+            <ul className="jsNavBar-nav">
+              <li>
                 <span
-                  className={`nav-link ${activeLink === "jobs" ? "active text-primary fw-semibold" : ""}`}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigate("/jobSeeker/browse-jobs")}
+                  className={`jsNavBar-link ${
+                    activeLink === "jobs" ? "active" : ""
+                  }`}
+                  onClick={() => handleNavClick("/jobSeeker/browse-jobs")}
                 >
                   Jobs
                 </span>
               </li>
-              <li className="nav-item">
+              <li>
                 <span
-                  className={`nav-link ${activeLink === "participate" ? "active text-primary fw-semibold" : ""}`}
-                  style={{ cursor: "pointer" }}
-                  onClick={() => navigate("/jobSeeker/participate")}
+                  className={`jsNavBar-link ${
+                    activeLink === "participate" ? "active" : ""
+                  }`}
+                  onClick={() => handleNavClick("/jobSeeker/participate")}
                 >
                   Participate
                 </span>
               </li>
               <li className="nav-item dropdown">
                 <span
-                  className={`nav-link dropdown-toggle ${activeLink === "opportunities" ? "active text-primary fw-semibold" : ""}`}
-                  style={{ cursor: "pointer" }}
+                  className={`jsNavBar-link ${
+                    activeLink === "opportunities" ? "active" : ""
+                  }`}
                   onClick={handleOpportunitiesClick}
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
+                  style={{ cursor: "pointer" }}
                 >
-                  Opportunities
+                  Opportunities <i className="bi bi-caret-down-fill ms-1"></i>
                 </span>
-                <ul className={`dropdown-menu ${showOpportunitiesDropdown ? 'show' : ''}`}>
-                  <li>
-                    <span 
-                      className="dropdown-item" 
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleOpportunityItemClick("/jobSeeker/recommended-jobs")}
-                    >
-                      <i className="bi bi-star me-2"></i>Recommended jobs
-                    </span>
+                <ul
+                  className={`jsNavBar-dropdown ${
+                    showOpportunitiesDropdown ? "show" : ""
+                  }`}
+                >
+                  <li onClick={() => handleOpportunityItemClick("/jobSeeker/recommended-jobs")}>
+                    <i className="bi bi-star me-2"></i>Recommended jobs
                   </li>
-                  <li>
-                    <span 
-                      className="dropdown-item" 
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleOpportunityItemClick("/jobSeeker/job-invites")}
-                    >
-                      <i className="bi bi-envelope me-2"></i>Job invites
-                    </span>
+                  <li onClick={() => handleOpportunityItemClick("/jobSeeker/job-invites")}>
+                    <i className="bi bi-envelope me-2"></i>Job invites
                   </li>
-                  <li>
-                    <span 
-                      className="dropdown-item" 
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleOpportunityItemClick("/jobSeeker/job-alerts")}
-                    >
-                      <i className="bi bi-bell me-2"></i>Jobs from alerts
-                    </span>
+                  <li onClick={() => handleOpportunityItemClick("/jobSeeker/job-alerts")}>
+                    <i className="bi bi-bell me-2"></i>Jobs from alerts
                   </li>
-                  <li>
-                    <span 
-                      className="dropdown-item" 
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleOpportunityItemClick("/jobSeeker/application-status")}
-                    >
-                      <i className="bi bi-clipboard-check me-2"></i>Application status
-                    </span>
+                  <li onClick={() => handleOpportunityItemClick("/jobSeeker/application-status")}>
+                    <i className="bi bi-clipboard-check me-2"></i>Application status
                   </li>
-                  <li>
-                    <span 
-                      className="dropdown-item" 
-                      style={{ cursor: "pointer" }}
-                      onClick={() => handleOpportunityItemClick("/jobSeeker/saved-jobs")}
-                    >
-                      <i className="bi bi-bookmark me-2"></i>Saved jobs
-                    </span>
+                  <li onClick={() => handleOpportunityItemClick("/jobSeeker/saved-jobs")}>
+                    <i className="bi bi-bookmark me-2"></i>Saved jobs
                   </li>
                 </ul>
               </li>
@@ -182,32 +163,18 @@ export default function JSNavbar() {
 
             {/* Right side */}
             {userData && (
-              <ul className="navbar-nav ms-auto align-items-center gap-3">
-                {/* Bell */}
-                <li className="nav-item">
-                  <button className="btn position-relative">
-                    <i className="bi bi-bell fs-5"></i>
-                   
-                  </button>
-                </li> 
-
-                {/* Profile */}
-                <li
-                  className="nav-item"
+              <div className="navbar-icons">
+                <button className="icon-btn">
+                  <i className="bi bi-bell fs-5"></i>
+                </button>
+                <div
+                  className="profile-avatar"
                   data-bs-toggle="offcanvas"
                   data-bs-target="#profilePanel"
-                  style={{ cursor: "pointer" }}
                 >
-                  <div className="d-flex align-items-center">
-                    <div
-                      className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                      style={{ width: "36px", height: "36px" }}
-                    >
-                      {getInitials(userData?.name || userData?.fullName)}
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                  {getInitials(userData?.name || userData?.fullName)}
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -226,7 +193,6 @@ export default function JSNavbar() {
         <div className="offcanvas-body">
           {userData ? (
             <>
-              {/* User Info */}
               <div className="d-flex align-items-center mb-3">
                 <div
                   className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3"
@@ -238,18 +204,17 @@ export default function JSNavbar() {
                   <h6 className="mb-0">{userData?.name}</h6>
                   <small className="text-muted">{userData?.email}</small>
                   <div>
-                    <a
-                      href="#"
+                    <span
                       className="text-primary small"
-                      onClick={() => navigate("/jobSeeker/jobSeekerPro")}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/jobSeeker/seekerProfile")}
                     >
                       View & Update Profile
-                    </a>  
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Profile performance */}
               <div className="d-flex justify-content-around text-center my-4">
                 <div>
                   <h5 className="text-danger mb-0">47</h5>
@@ -261,7 +226,6 @@ export default function JSNavbar() {
                 </div>
               </div>
 
-              {/* Links */}
               <ul className="list-group mb-3">
                 <li className="list-group-item list-group-item-action">
                   <i className="bi bi-journal-text me-2"></i> Career guidance
@@ -274,9 +238,8 @@ export default function JSNavbar() {
                 </li>
               </ul>
 
-              {/* Logout */}
               <button
-                className="btn btn-outline-danger w-100"
+                className="btn btn-outline-danger w-100 text-danger"
                 onClick={handleLogout}
               >
                 <i className="bi bi-box-arrow-right me-1"></i> Logout

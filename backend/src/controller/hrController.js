@@ -6,7 +6,7 @@ const { registrationTemplate } = require("../Services/mailTemplates");
 
 const signToken = (payload) =>
   jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN || "1d",
+    expiresIn: process.env.JWT_EXPIRES_IN || "15m",
   });
 
 const sanitize = (row) => ({

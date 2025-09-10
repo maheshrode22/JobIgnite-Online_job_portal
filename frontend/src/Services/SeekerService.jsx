@@ -56,11 +56,11 @@ export const updateProfile = async (profileData) => {
   });
 };
 
-// 🔹 Update Job Seeker Profile
+// 🔹 Update Job Seeker Profile (for file uploads)
 export const updateJobSeekerProfile = async (data) => {
   return await axios.put(`${API_URL}/updateJobSeekerProfile`, data, {
     headers: { 
-      "Content-Type": "application/json",
+      // Don't set Content-Type for FormData - let axios handle it
       ...getAuthHeaders(),
     },
   });
@@ -120,4 +120,45 @@ export const getJobSeekerProfile = () => {
       headers: getAuthHeaders(),
     }
   );
+};
+
+
+
+export const savePersonalInfo = async (data) => {
+  return await axios.post(`${API_URL}/profile/personal`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+  });
+};
+
+// 🔹 Save Education
+export const saveEducation = async (data) => {
+  return await axios.post(`${API_URL}/profile/education`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+  });
+};
+
+// 🔹 Save Skills
+export const saveSkills = async (data) => {
+  return await axios.post(`${API_URL}/profile/skills`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+  });
+};
+
+// 🔹 Save Experience
+export const saveExperience = async (data) => {
+  return await axios.post(`${API_URL}/profile/experience`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+  });
 };

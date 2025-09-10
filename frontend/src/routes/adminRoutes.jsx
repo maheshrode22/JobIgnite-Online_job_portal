@@ -18,7 +18,8 @@ export default function AdminRoutes() {
         <Route path="/viewHr" element={<ViewHR  />}></Route>
         <Route path="/viewSeeker" element={<ViewSeeker  />}></Route>
         <Route path="/viewJobs" element={<ViewJobs />}></Route>
-         <Route path="/viewJobDetails " element={<ViewJobDetails />}></Route>
+        <Route path="/viewJobDetails/:id" element={<ViewJobDetails />} />
+
       </Route>
     </Routes>
   );

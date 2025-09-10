@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { 
-  PencilSquare, PersonFill, GeoAltFill, TelephoneFill, EnvelopeFill, FileEarmarkTextFill, StarFill, BookFill 
+  PencilSquare, PersonFill, GeoAltFill, TelephoneFill, EnvelopeFill, FileEarmarkTextFill, StarFill, BookFill, BriefcaseFill
 } from "react-bootstrap-icons";
 import "../../css/jobSeeker/jobseekerProfile.css";
-import { getCompleteProfile, updateSeeker, updateJobSeekerProfile } from "../../Services/SeekerService";
+import { 
+  getCompleteProfile, 
+  updateSeeker, 
+  updateJobSeekerProfile,
+  savePersonalInfo,
+  saveEducation,
+  saveSkills,
+  saveExperience
+} from "../../Services/SeekerService";
 
 export default function SeekerProfile() {
   const [profile, setProfile] = useState(null);
@@ -64,10 +72,11 @@ export default function SeekerProfile() {
     }
   };
 
+  // Updated Basic Info handler using new API
   const handleSaveBasicInfo = async () => {
     try {
-      const updateData = {
-        seeker_id: profile.seeker_id,
+      const personalData = {
+        // Basic info for job_seekers table
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
@@ -78,60 +87,125 @@ export default function SeekerProfile() {
         state_id: formData.state_id,
         district_id: formData.district_id,
         city_id: formData.city_id,
+        // Profile info for job_seeker_profile table
         gender: formData.gender,
         birth_date: formData.birth_date
       };
-      await updateSeeker(updateData);
-      setProfile({ ...profile, ...updateData });
+      
+      await savePersonalInfo(personalData);
+      
+      // Refresh profile data from backend
+      await loadProfile();
       setEditing({ ...editing, basicInfo: false });
-      setSuccess("Basic information updated successfully!");
+      setSuccess("Personal information saved successfully!");
     } catch (error) {
-      setError("Failed to update basic information");
+      console.error("Error saving personal info:", error);
+      setError("Failed to save personal information");
     }
   };
 
+  // Updated Skills handler using new API
+  const handleSaveSkillsInterests = async () => {
+    try {
+      const skillsData = {
+        skills: formData.skills || "",
+        hobbies: formData.hobbies || "",
+        languages: formData.languages || ""
+      };
+
+      await saveSkills(skillsData);
+      
+      // Refresh profile data from backend
+      await loadProfile();
+      setEditing({ ...editing, skillsInterests: false });
+      setSuccess("Skills and interests saved successfully!");
+    } catch (error) {
+      console.error("Error saving skills:", error);
+      setError("Failed to save skills and interests");
+    }
+  };
+
+  // Updated Education handler using new API
+  const handleSaveEducation = async () => {
+    try {
+      const educationData = {
+        // Graduation
+        degree: formData.graduation || "",
+        university: formData.graduation_university || "",
+        year: formData.graduation_year || "",
+        cgpa: formData.graduation_cgpa || "",
+        // Post Graduation
+        post_degree: formData.post_graduation || "",
+        post_university: formData.post_graduation_university || "",
+        post_year: formData.post_graduation_year || "",
+        post_cgpa: formData.post_graduation_cgpa || "",
+        // HSC
+        hsc_year: formData.hsc_year || "",
+        hsc_marks: formData.hsc_marks || "",
+        // SSC
+        ssc_year: formData.ssc_year || "",
+        ssc_marks: formData.ssc_marks || ""
+      };
+
+      await saveEducation(educationData);
+      
+      // Refresh profile data from backend
+      await loadProfile();
+      setEditing({ ...editing, education: false });
+      setSuccess("Education details saved successfully!");
+    } catch (error) {
+      console.error("Error saving education:", error);
+      setError("Failed to save education details");
+    }
+  };
+
+  // New Experience handler
+  const handleSaveExperience = async () => {
+    try {
+      const experienceData = {
+        company: formData.company || "",
+        role: formData.role || "",
+        years: formData.years || ""
+      };
+
+      await saveExperience(experienceData);
+      
+      // Refresh profile data from backend
+      await loadProfile();
+      setEditing({ ...editing, experience: false });
+      setSuccess("Experience details saved successfully!");
+    } catch (error) {
+      console.error("Error saving experience:", error);
+      setError("Failed to save experience details");
+    }
+  };
+
+  // Keep the old handleSaveResumeProfile for resume and profile image uploads
   const handleSaveResumeProfile = async () => {
     try {
       const form = new FormData();
-      form.append("seeker_id", profile.seeker_id);
+      // Don't append seeker_id - backend will get it from JWT token
       if (resumeFile) form.append("resume", resumeFile);
       if (profileFile) form.append("profile_image", profileFile);
 
-      form.append("skills", formData.skills || "");
-      form.append("hobbies", formData.hobbies || "");
-      form.append("languages", formData.languages || "");
-      form.append("graduation", formData.graduation || "");
-      form.append("graduation_university", formData.graduation_university || "");
-      form.append("graduation_year", formData.graduation_year || "");
-      form.append("graduation_cgpa", formData.graduation_cgpa || "");
-      form.append("post_graduation", formData.post_graduation || "");
-      form.append("post_graduation_university", formData.post_graduation_university || "");
-      form.append("post_graduation_year", formData.post_graduation_year || "");
-      form.append("post_graduation_cgpa", formData.post_graduation_cgpa || "");
-      form.append("hsc_year", formData.hsc_year || "");
-      form.append("hsc_marks", formData.hsc_marks || "");
-      form.append("ssc_year", formData.ssc_year || "");
-      form.append("ssc_marks", formData.ssc_marks || "");
+      console.log("Uploading files:", { resumeFile: resumeFile?.name, profileFile: profileFile?.name });
 
       await updateJobSeekerProfile(form);
 
       setProfile({ 
         ...profile, 
         resume: resumeFile ? resumeFile.name : profile.resume, 
-        profile_image: profileFile ? URL.createObjectURL(profileFile) : profile.profile_image,
-        ...formData 
+        profile_image: profileFile ? URL.createObjectURL(profileFile) : profile.profile_image
       });
-      setEditing({ ...editing, resumeProfile: false, skillsInterests: false, education: false });
+      setEditing({ ...editing, resumeProfile: false });
       setResumeFile(null);
       setProfileFile(null);
-      setSuccess("Profile updated successfully!");
+      setSuccess("Resume and profile image updated successfully!");
     } catch (error) {
-      setError("Failed to update profile information");
+      console.error("Error saving resume/profile:", error);
+      setError("Failed to update resume and profile image");
     }
   };
-
-  const handleSaveSkillsInterests = handleSaveResumeProfile;
-  const handleSaveEducation = handleSaveResumeProfile;
 
   if (loading) {
     return (
@@ -163,21 +237,17 @@ export default function SeekerProfile() {
           <div className="d-flex align-items-center">
             <div className="profile-avatar me-3 position-relative">
               {formData.profile_image ? (
-                <img src={formData.profile_image} alt="Profile" className="rounded-circle" width="80" height="80" />
+                <img 
+                  src={formData.profile_image.startsWith('http') ? formData.profile_image : `http://localhost:3000/uploads/profile_images/${formData.profile_image}`} 
+                  alt="Profile" 
+                  className="rounded-circle" 
+                  width="80" 
+                  height="80" 
+                />
               ) : (
                 <PersonFill size={60} className="text-muted" />
               )}
-              {editing.resumeProfile && (
-                <label className="position-absolute bottom-0 end-0 bg-white rounded-circle p-1 shadow" style={{ cursor: "pointer" }}>
-                  <PencilSquare size={16} />
-                  <input 
-                    type="file" 
-                    accept="image/*" 
-                    style={{ display: "none" }} 
-                    onChange={handleProfileImageChange} 
-                  />
-                </label>
-              )}
+             
             </div>
             <div>
               <h3 className="fw-bold mb-1">{profile.name}</h3>
@@ -244,12 +314,36 @@ export default function SeekerProfile() {
         <div className="row">
           <div className="col-md-6 mb-3">
             <label>Resume Upload</label>
-            {!editing.resumeProfile ? <p>{profile.resume || "Not uploaded"}</p> : <input type="file" className="form-control" onChange={handleResumeChange} />}
+            {!editing.resumeProfile ? (
+              <div>
+                <p>{profile.resume || "Not uploaded"}</p>
+                {profile.resume && (
+                  <a 
+                    href={`http://localhost:3000/uploads/resumes/${profile.resume}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="btn btn-outline-primary btn-sm"
+                  >
+                    Download Resume
+                  </a>
+                )}
+              </div>
+            ) : (
+              <input type="file" className="form-control" onChange={handleResumeChange} />
+            )}
           </div>
           <div className="col-md-6 mb-3">
             <label>Profile Image</label>
             {!editing.resumeProfile ? (
-              profile.profile_image ? <img src={profile.profile_image} alt="Profile" width="80" height="80" className="rounded-circle" /> : <p>Not uploaded</p>
+              profile.profile_image ? (
+                <img 
+                  src={profile.profile_image.startsWith('http') ? profile.profile_image : `http://localhost:3000/uploads/profile_images/${profile.profile_image}`} 
+                  alt="Profile" 
+                  width="80" 
+                  height="80" 
+                  className="rounded-circle" 
+                />
+              ) : <p>Not uploaded</p>
             ) : (
               <input type="file" className="form-control" accept="image/*" onChange={handleProfileImageChange} />
             )}
@@ -318,6 +412,32 @@ export default function SeekerProfile() {
               <input type="text" className="form-control mb-2" value={formData.ssc_year||''} onChange={(e)=>handleInputChange('ssc_year',e.target.value)} />
               <input type="text" className="form-control" value={formData.ssc_marks||''} onChange={(e)=>handleInputChange('ssc_marks',e.target.value)} />
             </>}
+          </div>
+        </div>
+      </div>
+
+      {/* Experience Details */}
+      <div className="card p-4 mb-4 shadow-sm">
+        <div className="d-flex justify-content-between align-items-start mb-3">
+          <h5 className="fw-semibold mb-0"><BriefcaseFill className="me-2"/> Experience Details</h5>
+          {!editing.experience ? <PencilSquare className="text-secondary" style={{cursor:'pointer'}} onClick={()=>handleEdit('experience')} /> : <div>
+            <button className="btn btn-success btn-sm me-2" onClick={handleSaveExperience}>Save</button>
+            <button className="btn btn-secondary btn-sm" onClick={()=>handleCancel('experience')}>Cancel</button>
+          </div>}
+        </div>
+
+        <div className="row">
+          <div className="col-md-6">
+            <label>Company</label>
+            {!editing.experience ? <p>{profile.company || 'Not specified'}</p> : <input type="text" className="form-control" value={formData.company||''} onChange={(e)=>handleInputChange('company',e.target.value)} />}
+          </div>
+          <div className="col-md-6">
+            <label>Role/Position</label>
+            {!editing.experience ? <p>{profile.role || 'Not specified'}</p> : <input type="text" className="form-control" value={formData.role||''} onChange={(e)=>handleInputChange('role',e.target.value)} />}
+          </div>
+          <div className="col-md-12">
+            <label>Years of Experience</label>
+            {!editing.experience ? <p>{profile.years || 'Not specified'}</p> : <input type="text" className="form-control" value={formData.years||''} onChange={(e)=>handleInputChange('years',e.target.value)} />}
           </div>
         </div>
       </div>

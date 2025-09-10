@@ -18,6 +18,25 @@
   position: relative;
 }
 
+/* Profile Avatar (fixed override issue) */
+.jsNavBar .navbar-icons .profile-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #539f8a;  /* custom background */
+  color: #fff;               /* custom text color */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.jsNavBar .navbar-icons .profile-avatar:hover {
+  transform: scale(1.1);
+}
+
 /* Logo */
 .jsNavBar-logo {
   display: flex;
@@ -180,25 +199,6 @@
   transform: scale(1.1);
 }
 
-/* Profile Avatar */
-.profile-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #f5b400;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.profile-avatar:hover {
-  transform: scale(1.1);
-}
-
 /* 📱 Responsive Design */
 @media (max-width: 1200px) {
   .navbar-container {
@@ -349,7 +349,7 @@
     gap: 15px;
   }
 
-  .profile-avatar {
+  .jsNavBar .navbar-icons .profile-avatar {
     width: 32px;
     height: 32px;
     font-size: 14px;

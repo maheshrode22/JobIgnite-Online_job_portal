@@ -1,4 +1,4 @@
-let jobseekerModel = require("../models/jobseekerModel.js");
+﻿let jobseekerModel = require("../models/jobseekerModel.js");
 const { sendMail } = require("../Services/mailService.js");
 const { registrationTemplate } = require("../Services/mailTemplates.js");
 
@@ -204,19 +204,136 @@ exports.updateSeeker = (req, res) => {
 
 // updated to handle all profile fields
 exports.updateJobSeekerProfile = (req, res) => {
-    let { seeker_id, gender, birth_date, resume, profile_image, skills, hobbies, languages, graduation, graduation_university, graduation_year, graduation_cgpa, post_graduation, post_graduation_university, post_graduation_year, post_graduation_cgpa, hsc_year, hsc_marks, ssc_year, ssc_marks } = req.body;
-
-    jobseekerModel.updateJobSeekerProfile(seeker_id, gender, birth_date, resume, profile_image, skills, hobbies, languages, graduation, graduation_university, graduation_year, graduation_cgpa, post_graduation, post_graduation_university, post_graduation_year, post_graduation_cgpa, hsc_year, hsc_marks, ssc_year, ssc_marks)
-    .then((result) => {
-        if (result.affectedRows > 0) {
-            res.send({ msg: "Profile updated successfully" });
-        } else {
-            res.status(400).send({ msg: "Profile update failed" });
+    try {
+        console.log("=== DEBUGGING RESUME/PROFILE UPDATE ===");
+        console.log("req.body:", req.body);
+        console.log("req.files:", req.files);
+        console.log("req.user:", req.user);
+        
+        // Get seeker_id from JWT token, not from req.body
+        const seeker_id = req.user.seeker_id;
+        const { gender, birth_date, skills, hobbies, languages, graduation, graduation_university, graduation_year, graduation_cgpa, post_graduation, post_graduation_university, post_graduation_year, post_graduation_cgpa, hsc_year, hsc_marks, ssc_year, ssc_marks } = req.body;
+        
+        // Handle file uploads
+        let resume = null;
+        let profile_image = null;
+        
+        if (req.files) {
+            if (req.files.resume && req.files.resume[0]) {
+                resume = req.files.resume[0].filename; // Get filename from multer
+                console.log("Resume file uploaded:", resume);
+            }
+            if (req.files.profile_image && req.files.profile_image[0]) {
+                profile_image = req.files.profile_image[0].filename; // Get filename from multer
+                console.log("Profile image uploaded:", profile_image);
+            }
         }
-    })
-    .catch((err) => {
-        res.status(500).send({ error: err.message });
-    });
+        
+        console.log("Processed data:", {
+            seeker_id, gender, birth_date, resume, profile_image, skills, hobbies, languages,
+            graduation, graduation_university, graduation_year, graduation_cgpa,
+            post_graduation, post_graduation_university, post_graduation_year, post_graduation_cgpa,
+            hsc_year, hsc_marks, ssc_year, ssc_marks
+        });
+
+        jobseekerModel.updateJobSeekerProfile(seeker_id, gender, birth_date, resume, profile_image, skills, hobbies, languages, graduation, graduation_university, graduation_year, graduation_cgpa, post_graduation, post_graduation_university, post_graduation_year, post_graduation_cgpa, hsc_year, hsc_marks, ssc_year, ssc_marks)
+        .then((result) => {
+            console.log("Update result:", result);
+            if (result.affectedRows > 0) {
+                res.json({ success: true, msg: "Profile updated successfully" });
+            } else {
+                res.status(400).json({ success: false, msg: "Profile update failed" });
+            }
+        })
+        .catch((err) => {
+            console.error("Error updating profile:", err);
+            res.status(500).json({ success: false, msg: "Internal server error" });
+        });
+    } catch (err) {
+        console.error("Error in updateJobSeekerProfile:", err);
+        res.status(500).json({ success: false, msg: "Internal server error" });
+    }
 };
 
 
+
+
+
+
+
+exports.savePersonalInfo = async (req, res) => {
+  try {
+    const userId = req.user.seeker_id;
+    const { 
+      name, email, phone, 
+      address_line1, address_line2, landmark, pincode, 
+      state_id, district_id, city_id,
+      gender, birth_date 
+    } = req.body;
+
+    console.log("Saving complete personal info for user:", userId, req.body);
+
+    // Update job_seekers table (basic info)
+    await jobseekerModel.updateSeeker(
+      userId, name, email, phone, 
+      address_line1, address_line2, landmark, pincode, 
+      state_id, district_id, city_id
+    );
+
+    // Update job_seeker_profile table (profile info)
+    await jobseekerModel.updateProfileInfo(userId, { gender, birth_date });
+
+    res.json({ success: true, message: "Personal information saved successfully" });
+  } catch (err) {
+    console.error("Error saving personal info:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+exports.saveEducation = async (req, res) => {
+  try {
+    const userId = req.user.seeker_id;
+    const { degree, university, year } = req.body;
+
+    console.log("Saving education for user:", userId, { degree, university, year });
+
+    await jobseekerModel.updateEducation(userId, { degree, university, year });
+
+    res.json({ success: true, message: "Education saved successfully" });
+  } catch (err) {
+    console.error("Error saving education:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+exports.saveSkills = async (req, res) => {
+  try {
+    const userId = req.user.seeker_id;
+    const { skills, hobbies, languages } = req.body;
+
+    console.log("Saving skills for user:", userId, { skills, hobbies, languages });
+
+    await jobseekerModel.updateSkills(userId, { skills, hobbies, languages });
+
+    res.json({ success: true, message: "Skills saved successfully" });
+  } catch (err) {
+    console.error("Error saving skills:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+exports.saveExperience = async (req, res) => {
+  try {
+    const userId = req.user.seeker_id;
+    const { company, role, years } = req.body;
+
+    console.log("Saving experience for user:", userId, { company, role, years });
+
+    await jobseekerModel.updateExperience(userId, { company, role, years });
+
+    res.json({ success: true, message: "Experience saved successfully" });
+  } catch (err) {
+    console.error("Error saving experience:", err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};

@@ -29,54 +29,43 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="hrauth-container">
-      <div className="hrauth-box shadow-lg mt">
-        <h3 className="mb-4 text-primary fw-bold text-center">
-          <i className="bi bi-person-badge-fill me-2"></i>Admin Login
-        </h3>
+   <div className="hrauth-container">
+  <div className="hrauth-box">
+    <h3 className="hrauth-title">Admin Login</h3>
 
-        <form onSubmit={handleLogin}>
-          {/*  Username Field */}
-          <div className="mb-3 text-start">
-            <label className="form-label">
-              <i className="bi bi-person-fill me-1"></i>Username
-            </label>
-            <input
-              type="text"
-              name="username"
-              className="form-control"
-              placeholder="Enter username"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
-
-          {/*  Password Field */}
-          <div className="mb-3 text-start">
-            <label className="form-label">
-              <i className="bi bi-lock-fill me-1"></i>Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Enter password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          {errorMessage && (
-            <p className="text-danger fw-semibold">{errorMessage}</p>
-          )}
-
-          <button type="submit" className="btn btn-primary w-100 mb-3">
-            <i className="bi bi-box-arrow-in-right me-2"></i>Login
-          </button>
-        </form>
+    <form onSubmit={handleLogin}>
+      <div className="hrauth-group">
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          placeholder="Enter username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
       </div>
-    </div>
+
+      <div className="hrauth-group">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+
+      {errorMessage && <p className="hrauth-error">{errorMessage}</p>}
+
+      <button type="submit" className="hrauth-btn">
+        Login
+      </button>
+    </form>
+  </div>
+</div>
+
   );
 }

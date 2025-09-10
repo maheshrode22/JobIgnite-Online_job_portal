@@ -1,13 +1,44 @@
 ﻿const jobseekerModel = require("../models/jobseekerModel.js");
 const { sendMail } = require("../Services/mailService.js");
 const { registrationTemplate } = require("../Services/mailTemplates.js");
+
 const bcrypt = require("bcryptjs");
+
 const jwt = require("jsonwebtoken");
 
 // ---------------- Login ----------------
 exports.loginJobSeeker = async (req, res) => {
   const { jobUser, jobPass } = req.body;
 
+exports.jobSeekerLogin = (req, res) => {
+    const { jobUser, jobPass } = req.body;
+
+    jobseekerModel.jobSeekerLogin(jobUser, jobPass)
+      .then((result) => {
+        if (result.length > 0) {
+          // user found
+          const payload = {
+            seeker_id: result[0].seeker_id,
+            email: result[0].email,
+            name: result[0].name
+          };
+
+          const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+          res.send({
+            success: true,
+            token,          // ✅ send token
+            user: result[0] // optional
+          });
+        } else {
+          res.send({
+            success: false,
+            message: "Invalid email or password"
+          });
+        }
+      })
+      .catch((err) => res.status(500).send(err));
+};
   try {
     const result = await jobseekerModel.jobSeekerLogin(jobUser);
 
@@ -34,6 +65,7 @@ exports.loginJobSeeker = async (req, res) => {
     res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
 
 // ---------------- Register ----------------
 exports.jobSeekerRegister = async (req, res) => {

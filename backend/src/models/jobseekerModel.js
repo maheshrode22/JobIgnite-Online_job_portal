@@ -137,10 +137,7 @@ exports.updateSeeker = (seeker_id, name, email, phone, address_line1, address_li
 // Personal Info update - updates job_seekers table
 exports.updatePersonalInfo = (userId, { name, email, phone }) => {
     return new Promise((resolve, reject) => {
-      console.log("=== DEBUGGING MODEL UPDATE ===");
-      console.log("Updating personal info in job_seekers table:");
-      console.log("userId:", userId, "type:", typeof userId);
-      console.log("Data:", { name, email, phone });
+     
       
       // First, check if user exists
       db.query(

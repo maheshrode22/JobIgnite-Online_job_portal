@@ -149,24 +149,76 @@ exports.updateSeeker = (req, res) => {
     .catch((err) => res.status(500).send({ error: err.message }));
 };
 
-// ---------------- Save Sections ----------------
+// ---------------- Save Personal Info (FIXED VERSION) ----------------
 exports.savePersonalInfo = async (req, res) => {
   try {
     const userId = req.user.seeker_id;
-    await jobseekerModel.updateSeeker(userId, req.body);
-    await jobseekerModel.updateProfileInfo(userId, req.body);
-    res.json({ success: true, message: "Personal information saved successfully" });
+    const { 
+      name, 
+      email, 
+      phone, 
+      address_line1, 
+      address_line2, 
+      landmark, 
+      pincode, 
+      state_id, 
+      district_id, 
+      city_id,
+      gender,
+      birth_date 
+    } = req.body;
+
+    console.log("Saving personal info for user:", userId);
+    console.log("Request body:", req.body);
+
+    // Update basic info in job_seekers table
+    const basicUpdateResult = await jobseekerModel.updateSeeker(
+      userId, name, email, phone, address_line1, address_line2, 
+      landmark, pincode, state_id, district_id, city_id
+    );
+
+    // Try to update profile info (gender, birth_date) in job_seeker_profile table
+    // Only if gender or birth_date are provided
+    if (gender !== undefined || birth_date !== undefined) {
+      try {
+        await jobseekerModel.updateProfileInfo(userId, { gender, birth_date });
+        console.log("Profile info updated successfully");
+      } catch (profileError) {
+        console.error("Profile info update failed:", profileError.message);
+        // If profile update fails, we'll still return success for basic info update
+        // but log the error for debugging
+        if (profileError.message.includes("Unknown column 'gender'")) {
+          console.log("Gender column doesn't exist in job_seeker_profile table");
+          // You might want to add gender to job_seekers table instead
+        }
+      }
+    }
+
+    res.json({ 
+      success: true, 
+      message: "Personal information saved successfully",
+      updated: basicUpdateResult.affectedRows > 0
+    });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error("Save personal info error:", err);
+    res.status(500).json({ 
+      success: false, 
+      message: err.message || "Failed to save personal information" 
+    });
   }
 };
 
+// ---------------- Save Education (FIXED VERSION) ----------------
 exports.saveEducation = async (req, res) => {
   try {
     const userId = req.user.seeker_id;
-    await jobseekerModel.updateEducation(userId, req.body);
+    
+    // Use the comprehensive education update function instead of the simple one
+    await jobseekerModel.updateCompleteEducation(userId, req.body);
+    
     res.json({ success: true, message: "Education saved successfully" });
   } catch (err) {
+    console.error("Education save error:", err);
     res.status(500).json({ success: false, message: err.message });
   }
 };
@@ -181,13 +233,36 @@ exports.saveSkills = async (req, res) => {
   }
 };
 
+// ---------------- Save Experience (IMPROVED VERSION) ----------------
 exports.saveExperience = async (req, res) => {
   try {
     const userId = req.user.seeker_id;
-    await jobseekerModel.updateExperience(userId, req.body);
-    res.json({ success: true, message: "Experience saved successfully" });
+    const { company, role, years } = req.body;
+    
+    console.log("=== EXPERIENCE UPDATE DEBUG ===");
+    console.log("User ID:", userId);
+    console.log("Request body:", req.body);
+    console.log("Extracted fields:", { company, role, years });
+    
+    const result = await jobseekerModel.updateExperience(userId, { company, role, years });
+    
+    console.log("Update result:", result);
+    console.log("Affected rows:", result.affectedRows);
+    console.log("=== END EXPERIENCE DEBUG ===");
+    
+    res.json({ 
+      success: true, 
+      message: "Experience saved successfully",
+      affectedRows: result.affectedRows,
+      data: { company, role, years }
+    });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    console.error("Experience save error:", err);
+    res.status(500).json({ 
+      success: false, 
+      message: err.message,
+      error: err
+    });
   }
 };
 

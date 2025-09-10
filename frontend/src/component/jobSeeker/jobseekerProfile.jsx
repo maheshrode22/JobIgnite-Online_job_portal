@@ -238,7 +238,7 @@ export default function SeekerProfile() {
             <div className="profile-avatar me-3 position-relative">
               {formData.profile_image ? (
                 <img 
-                  src={formData.profile_image.startsWith('http') ? formData.profile_image : `http://localhost:3000/uploads/profile_images/${formData.profile_image}`} 
+                  src={formData.profile_image.startsWith('http') ? formData.profile_image : `http://localhost:3000/uploads/resumes/${formData.profile_image}`} 
                   alt="Profile" 
                   className="rounded-circle" 
                   width="80" 

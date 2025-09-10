@@ -1,103 +1,100 @@
+/* ====== Auth Page Wrapper ====== */
 .hrauth-container {
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #000A0C, #1B2E34);
-  padding: 30px;
-  animation: HRLogin ease-in-out;
-    animation-timeline: view();
-    animation-range:entry 0% cover 40%;
+  justify-content: center;    /* center horizontally */
+  align-items: center;        /* center vertically */
+  background: linear-gradient(135deg, #f0f4ff, #e6edff); /* soft blue gradient */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+/* ====== Auth Card ====== */
 .hrauth-box {
-  width: 420px;
-  padding: 35px 30px;
-  border-radius: 18px;
   background: #ffffff;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  animation: fadeInUp 0.8s ease;
+  width: 100%;
+  max-width: 400px;
+  padding: 32px 28px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.4s ease-in-out;
 }
 
-.hrauth-box h3 {
-  font-size: 24px;
+/* ====== Title ====== */
+.hrauth-title {
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 20px;
-  color: #1B2E34;
   text-align: center;
+  color: #1a237e; /* dark professional blue */
+  margin-bottom: 24px;
 }
 
-.form-label {
+/* ====== Form Groups ====== */
+.hrauth-group {
+  margin-bottom: 18px;
+}
+
+.hrauth-group label {
+  display: block;
   font-weight: 600;
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #374151;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #333;
 }
 
-.form-control {
-  border-radius: 10px;
-  padding: 11px 14px;
-  font-size: 14px;
-  border: 1px solid #d1d5db;
-  transition: all 0.3s ease;
+.hrauth-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
 }
 
-.form-control:focus {
-  border-color: #4A5859;
-  box-shadow: 0 0 0 0.15rem rgba(74, 88, 89, 0.25);
+.hrauth-group input:focus {
+  border-color: #3949ab;
+  box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.2);
+  outline: none;
 }
 
-.btn-primary {
-  border-radius: 10px;
-  padding: 11px;
-  font-size: 15px;
+/* ====== Error Message ====== */
+.hrauth-error {
+  color: #d32f2f;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+/* ====== Button ====== */
+.hrauth-btn {
+  width: 100%;
+  padding: 12px;
+  background: #3949ab;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
   font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  background-color: #4A5859;
-}
-
-.extra-links {
-  font-size: 13.5px;
-  margin-top: 15px;
-}
-
-.extra-links span {
   cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  transition: background 0.3s, transform 0.1s;
 }
 
-.extra-links span:hover {
-  text-decoration: underline;
+.hrauth-btn:hover {
+  background: #303f9f;
 }
 
-@keyframes HRLogin {
-  from{
-    opacity:0;
-    transform: translateX(0px);
-  }
-  to{
-    opacity:1;
-    transform: translateX(100px);
-  }
+.hrauth-btn:active {
+  transform: scale(0.98);
 }
 
-@keyframes fadeInUp {
-  0% {
+/* ====== Fade-In Animation ====== */
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translatex(0px);
+    transform: translateY(20px);
   }
-  100% {
+  to {
     opacity: 1;
-    transform: translatex(10px);
+    transform: translateY(0);
   }
-}
-
-
-.mt{
-  margin-top: 60px;
 }

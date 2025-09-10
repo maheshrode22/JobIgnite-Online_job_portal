@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const hrModel = require("../models/hrModel.js");
 const { sendMail } = require("../Services/mailService");
 const { registrationTemplate } = require("../Services/mailTemplates");
+const { validateHRData } = require("../validation/hrValidation/hrValidation.js");
 
 const signToken = (payload) =>
   jwt.sign(payload, process.env.JWT_SECRET, {
@@ -94,8 +95,11 @@ exports.hrLogin = async (req, res) => {
 exports.hrRegister = async (req, res) => {
   try {
     const { name, company, email, password, phone } = req.body;
-    if (!name || !company || !email || !password || !phone)
-      return res.status(400).send({ success: false, message: "All fields required" });
+
+   const validationMsg = validateHRData({ name, company, email, password, phone });
+      if (validationMsg) {
+      return res.status(400).send({ success: false, message: validationMsg });
+  }
 
     const exists = await hrModel.hrFindByEmail(email);
     if (exists && exists.length > 0)

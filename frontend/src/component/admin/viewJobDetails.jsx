@@ -1,79 +1,19 @@
-import React, { useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { applyForJob } from "../../Services/SeekerService"; // apply function
-import { API_URL } from "../../Services/adminService";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../../css/jobSeeker/jobDetails.css";
 
 export default function ViewJobDetails() {
-  const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Get job object from navigation state
   const job = location.state?.job;
-  const [applied, setApplied] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  console.log("Job object:", job);
-
-  const handleApply = async () => {
-    const seeker = JSON.parse(localStorage.getItem("jobSeeker")); // full object
-    const seeker_id = seeker?.seeker_id;
-
-    if (!seeker_id) {
-      alert(" Please login to apply!");
-      navigate("/jobSeeker/auth");
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const res = await applyForJob(seeker_id, job.job_id);
-
-      if (res.data.msg === "apply successfully") {
-        setApplied(true);
-      } else {
-        alert(res.data.msg || "Failed to apply. Try again.");
-      }
-    } catch (err) {
-      console.error("Apply error:", err);
-      alert("Something went wrong while applying.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // ✅ Delete Job Handler
-  const handleDeleteJob = async () => {
-    if (!window.confirm("Are you sure you want to delete this job?")) return;
-
-    try {
-      const token = localStorage.getItem("admin_token"); // only admin can delete
-      const res = await fetch(`${API_URL}/deleteJob`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ id: job.job_id }),
-      });
-
-      const data = await res.json();
-      if (data.msg === "Job deleted successfully") {
-        alert("Job deleted successfully!");
-        navigate("/admin/viewJob"); // redirect to job list
-      } else {
-        alert(data.msg || "Failed to delete job");
-      }
-    } catch (err) {
-      console.error("Delete error:", err);
-      alert("Something went wrong while deleting the job.");
-    }
-  };
 
   if (!job) {
     return (
       <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
         <div className="card p-4 shadow-sm">
-          <h3>No Job Data Found (ID: {id})</h3>
+          <h3>No Job Data Found</h3>
           <button
             className="btn btn-primary btn-sm mt-3"
             onClick={() => navigate("/jobSeeker/browse-jobs")}
@@ -90,63 +30,40 @@ export default function ViewJobDetails() {
       <div className="card shadow-sm p-4 bg-white">
         <h2 className="card-title mb-3 text-primary">Job Title: {job.title}</h2>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Company:</strong> {job.company}
+          <li className="list-group-item">
+            <strong>Company:</strong> {job.company_name || job.company}
           </li>
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Location:</strong> {job.location}
+          <li className="list-group-item">
+            <strong>Location:</strong> {job.location}
           </li>
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Openings:</strong> {job.opening}
+          <li className="list-group-item">
+            <strong>Openings:</strong> {job.opening}
           </li>
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Experience Required:</strong> {job.experience_required}
+          <li className="list-group-item">
+            <strong>Experience Required:</strong> {job.experience_required}
           </li>
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Package:</strong> {job.package}
+          <li className="list-group-item">
+            <strong>Package:</strong> {job.package}
           </li>
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Skills:</strong> {job.skills_required}
+          <li className="list-group-item">
+            <strong>Skills:</strong> {job.skills_required}
           </li>
-          <li className="list-group-item text-primary">
-            <strong className="text-dark">Description:</strong> {job.description}
+          <li className="list-group-item">
+            <strong>Description:</strong> {job.description}
+          </li>
+          <li className="list-group-item">
+            <strong>Deadline:</strong> {job.deadline}
           </li>
         </ul>
 
-        {/* Buttons */}
-        <div className="mt-4 d-flex justify-content-center gap-3 button-group">
+        <div className="mt-4 text-center">
           <button
-            className="backjob"
+            className="btn btn-secondary"
             onClick={() => navigate("/jobSeeker/browse-jobs")}
           >
-            Back Job
-          </button>
-
-          <button
-            className="applyjob"
-            onClick={handleApply}
-            disabled={applied || loading}
-          >
-            {applied ? " Applied" : loading ? "Applying..." : "Apply"}
-          </button>
-
-          {/* ✅ Delete Button */}
-          <button
-            className="btn btn-danger"
-            onClick={handleDeleteJob}
-          >
-            Delete Job
+            Back to Jobs
           </button>
         </div>
-
-        {/* Success Message */}
-        {applied && (
-          <div className="text-center mt-3">
-            <div className="alert alert-success" role="alert">
-              🎉 Job Applied Successfully!
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

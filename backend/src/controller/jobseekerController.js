@@ -1,26 +1,38 @@
 let jobseekerModel=require("../models/jobseekerModel.js");
 const { sendMail } = require("../Services/mailService.js");
 const { registrationTemplate } = require("../Services/mailTemplates.js");
+const jwt = require("jsonwebtoken");
 
 
-exports.jobSeekerLogin=(req,res)=>{
-    let {jobUser,jobPass}=req.body;
-    
-    let promise=jobseekerModel.jobSeekerLogin(jobUser,jobPass);
-    promise.then((result)=>{
-        if(result.length>0){
-            res.send({user:result[0],
-                success:true
-            });
+exports.jobSeekerLogin = (req, res) => {
+    const { jobUser, jobPass } = req.body;
+
+    jobseekerModel.jobSeekerLogin(jobUser, jobPass)
+      .then((result) => {
+        if (result.length > 0) {
+          // user found
+          const payload = {
+            seeker_id: result[0].seeker_id,
+            email: result[0].email,
+            name: result[0].name
+          };
+
+          const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
+
+          res.send({
+            success: true,
+            token,          // ✅ send token
+            user: result[0] // optional
+          });
+        } else {
+          res.send({
+            success: false,
+            message: "Invalid email or password"
+          });
         }
-        else{
-            res.send({msg:"invalid email or password"});
-        }
-    });
-    promise.catch((err)=>{
-        res.send(err);
-    });
-}
+      })
+      .catch((err) => res.status(500).send(err));
+};
 
 exports.jobSeekerRegister = async (req, res) => {
     try {

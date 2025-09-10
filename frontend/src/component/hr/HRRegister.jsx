@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { registerHR } from "../../Services/HRService"; 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "../../css/Hr/HRRegister.css";
+import "../../css/Hr/Register.css";
 
 export default function HRRegister({ onBack }) {
   const [name, setName] = useState("");

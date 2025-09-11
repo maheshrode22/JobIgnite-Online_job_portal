@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { registerHR } from "../../Services/HRService"; 
+import { validateHRData } from "../../validation/hrResgister";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../../css/Hr/Register.css";
@@ -16,6 +17,13 @@ export default function HRRegister({ onBack }) {
     e.preventDefault();
     const hrData = { name, company, email, password, phone };
 
+    // 🔹 run validation first
+    const error = validateHRData(hrData);
+    if (error) {
+      setMsg(error); // show validation error
+      return; // stop if validation fails
+    }
+
     try {
       const result = await registerHR(hrData);
       setMsg(result.data.message || "Registration Successful!");
@@ -28,9 +36,7 @@ export default function HRRegister({ onBack }) {
   };
 
   return (
-   
      <div className="">
-       
         <p className="text-center mb-1">
           Create your HR account to post jobs and manage applicants
         </p>
@@ -124,6 +130,5 @@ export default function HRRegister({ onBack }) {
           </div>
         </form>
       </div>
-    
   );
 }

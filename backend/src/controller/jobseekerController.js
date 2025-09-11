@@ -1,6 +1,7 @@
 ﻿let jobseekerModel = require("../models/jobseekerModel.js");
 const { sendMail } = require("../Services/mailService.js");
 const { registrationTemplate } = require("../Services/mailTemplates.js");
+const { validateJobSeeker } = require("../validation/seekerValidation/SeekerValidation.js");
 
 const bcrypt = require("bcryptjs");
 
@@ -84,8 +85,11 @@ exports.jobSeekerLogin = (req, res) => {
 exports.jobSeekerRegister = async (req, res) => {
   try {
       const { name, email, password, phone, address } = req.body;
-      if (!name || !email || !password || !phone || !address)
-        return res.status(400).send({ success: false, message: "All fields required" });
+      
+          const validationError = validateJobSeeker({ name, email, password, phone, address });
+          if (validationError) {
+          return res.status(400).send({ success: false, message: validationError });
+        }
 
         const exists=await jobseekerModel.findByEmail(email);
         if(exists && exists.length>0)

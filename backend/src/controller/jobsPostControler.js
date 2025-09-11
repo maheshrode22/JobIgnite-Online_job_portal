@@ -1,6 +1,14 @@
 let jobPostModel = require("../models/jobsPostModel");
 
+const { validateJobData } = require("../validation/hrValidation/addJobValidation");
+
 exports.createJobs = (req, res) => {
+
+     const error = validateJobData(req.body);
+        if (error) {
+            return res.status(400).json({ msg: error });
+        }
+
     let {hr_id, title, company, opening, experience_required, location,
          package, skills_required, description, deadline} = req.body;
 

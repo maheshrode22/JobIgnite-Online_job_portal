@@ -132,31 +132,12 @@ exports.updateSeeker = (seeker_id, name, email, phone, address_line1, address_li
 
 
 
-// update job seeker profile - updated to match your database schema
-exports.updateJobSeekerProfile=(seeker_id,gender,birth_date,resume,profile_image,skills,hobbies,languages,graduation,graduation_university,graduation_year,graduation_cgpa,post_graduation,post_graduation_university,post_graduation_year,post_graduation_cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks)=>{
-    return new Promise((resolve,reject)=>{
-        db.query("update job_seeker_profile set gender=?,birth_date=?,resume=?,profile_image=?,skills=?,hobbies=?,languages=?,graduation=?,graduation_university=?,graduation_year=?,graduation_cgpa=?,post_graduation=?,post_graduation_university=?,post_graduation_year=?,post_graduation_cgpa=?,hsc_year=?,hsc_marks=?,ssc_year=?,ssc_marks=? where seeker_id=?",[gender,birth_date,resume,profile_image,skills,hobbies,languages,graduation,graduation_university,graduation_year,graduation_cgpa,post_graduation,post_graduation_university,post_graduation_year,post_graduation_cgpa,hsc_year,hsc_marks,ssc_year,ssc_marks,seeker_id],(err,result)=>{
-            if(err){
-                reject(err);
-
-            }else{
-                resolve(result);
-            }
-        })
-    });
-};
-
-
-
 
 
 // Personal Info update - updates job_seekers table
 exports.updatePersonalInfo = (userId, { name, email, phone }) => {
     return new Promise((resolve, reject) => {
-      console.log("=== DEBUGGING MODEL UPDATE ===");
-      console.log("Updating personal info in job_seekers table:");
-      console.log("userId:", userId, "type:", typeof userId);
-      console.log("Data:", { name, email, phone });
+     
       
       // First, check if user exists
       db.query(
@@ -421,5 +402,36 @@ exports.updateCompleteEducation = (userId, educationData) => {
           }
         }
       );
+    });
+  };
+
+
+
+
+  // Save resume path in job_seeker_profile
+exports.saveResume = (seekerId, resumePath) => {
+    return new Promise((resolve, reject) => {
+      const query = `
+        UPDATE job_seeker_profile 
+        SET resume = ? 
+        WHERE seeker_id = ?`;
+      db.query(query, [resumePath, seekerId], (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+  };
+  
+  // Save profile image path in job_seeker_profile
+  exports.saveProfileImage = (seekerId, profilePath) => {
+    return new Promise((resolve, reject) => {
+      const query = `
+        UPDATE job_seeker_profile 
+        SET profile_image = ? 
+        WHERE seeker_id = ?`;
+      db.query(query, [profilePath, seekerId], (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
     });
   };

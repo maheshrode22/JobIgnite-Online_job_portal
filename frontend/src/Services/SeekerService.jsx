@@ -1,164 +1,67 @@
-import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
-const API_URL = "http://localhost:3000"; // backend running port
+// ----------------- Authentication -----------------
+export const registerSeeker = async (seekerData) =>
+  axiosInstance.post("/jobSeekerRegister", seekerData, { headers: { "Content-Type": "application/json" } });
 
-// 🔑 Helper function for auth headers
-const getAuthHeaders = () => {
-  const token = localStorage.getItem("token");
-  return token ? { Authorization: `Bearer ${token}` } : {};
+export const loginJobSeeker = async (credentials) =>
+  axiosInstance.post("/jobseekerLogin", credentials, { headers: { "Content-Type": "application/json" } });
+
+// ----------------- Profile CRUD -----------------
+export const jobSeekerProfile = async (profileData) =>
+  axiosInstance.post("/jobSeekerProfile", profileData, { headers: { "Content-Type": "application/json" } });
+
+export const getProfileById = async (seeker_id) => axiosInstance.get(`/getProfile/${seeker_id}`);
+export const getCompleteProfile = async (seeker_id) => axiosInstance.get(`/getCompleteProfile/${seeker_id}`);
+
+export const updateProfile = async (profileData) =>
+  axiosInstance.put("/updateJobSeekerProfile", profileData, { headers: { "Content-Type": "application/json" } });
+
+export const updateJobSeekerProfile = async (formData) =>
+  axiosInstance.put("/updateJobSeekerProfile", formData); // FormData handled automatically
+
+// ----------------- Profile Sections -----------------
+export const savePersonalInfo = async (data) =>
+  axiosInstance.post("/profile/personal", data, { headers: { "Content-Type": "application/json" } });
+
+export const saveEducation = async (data) =>
+  axiosInstance.post("/profile/education", data, { headers: { "Content-Type": "application/json" } });
+
+export const saveSkills = async (data) =>
+  axiosInstance.post("/profile/skills", data, { headers: { "Content-Type": "application/json" } });
+
+export const saveExperience = async (data) =>
+  axiosInstance.post("/profile/experience", data, { headers: { "Content-Type": "application/json" } });
+
+// ----------------- Job Management -----------------
+export const getAllJobs = async () => axiosInstance.get("/viewAllJobPost");
+
+export const applyForJob = async (seeker_id, job_id) =>
+  axiosInstance.post("/jobSeekerApply", { seeker_id, job_id }, { headers: { "Content-Type": "application/json" } });
+
+export const getSeekerApplications = async (seeker_id) => axiosInstance.get(`/trackApplication/${seeker_id}`);
+
+// ----------------- Admin / Management -----------------
+export const deleteSeeker = async (seeker_id) => axiosInstance.delete(`/deleteSeeker/${seeker_id}`);
+
+export const updateSeeker = async (data) =>
+  axiosInstance.put("/updateSeeker", data, { headers: { "Content-Type": "application/json" } });
+
+// ----------------- Current User -----------------
+export const getJobSeekerProfile = async () =>
+  axiosInstance.post("/jobSeekerProfile", {}, { headers: { "Content-Type": "application/json" } });
+
+// ----------------- File Uploads -----------------
+export const uploadResume = async (seekerId, file) => {
+  const formData = new FormData();
+  formData.append("resume", file);
+
+  return axiosInstance.post(`/uploadResume/${seekerId}`, formData);
 };
 
-// 🔹 Seeker Register
-export const registerSeeker = async (seekerData) => {
-  return await axios.post(`${API_URL}/jobSeekerRegister`, seekerData, {
-    headers: { "Content-Type": "application/json" },
-  });
-};
+export const uploadProfileImage = async (seekerId, file) => {
+  const formData = new FormData();
+  formData.append("profile_image", file);
 
-// 🔹 Login
-export const loginJobSeeker = (credentials) => {
-  return axios.post(`${API_URL}/jobseekerLogin`, credentials, {
-    headers: { "Content-Type": "application/json" },
-  });
-};
-
-// 🔹 Create Profile
-export const jobSeekerProfile = async (profileData) => {
-  return await axios.post(`${API_URL}/jobSeekerProfile`, profileData, {
-    headers: { 
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Get Profile by ID
-export const getProfileById = async (seeker_id) => {
-  return await axios.get(`${API_URL}/getProfile/${seeker_id}`, {
-    headers: getAuthHeaders(),
-  });
-};
-
-// 🔹 Get Complete Profile (with JOIN)
-export const getCompleteProfile = async (seeker_id) => {
-  return await axios.get(`${API_URL}/getCompleteProfile/${seeker_id}`, {
-    headers: getAuthHeaders(),
-  });
-};
-
-// 🔹 Update Profile
-export const updateProfile = async (profileData) => {
-  return await axios.put(`${API_URL}/updateJobSeekerProfile`, profileData, {
-    headers: { 
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Update Job Seeker Profile (for file uploads)
-export const updateJobSeekerProfile = async (data) => {
-  return await axios.put(`${API_URL}/updateJobSeekerProfile`, data, {
-    headers: { 
-      // Don't set Content-Type for FormData - let axios handle it
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Get All Jobs
-export const getAllJobs = async () => {
-  return await axios.get(`${API_URL}/viewAllJobPost`, {
-    headers: getAuthHeaders(),
-  });
-};
-
-// 🔹 Apply for Job
-export const applyForJob = async (seeker_id, job_id) => {
-  return await axios.post(
-    `${API_URL}/jobSeekerApply`,
-    { seeker_id, job_id },
-    {
-      headers: { 
-        "Content-Type": "application/json",
-        ...getAuthHeaders(),
-      },
-    }
-  );
-};
-
-// 🔹 Get Seeker Applications
-export const getSeekerApplications = async (seeker_id) => {
-  return await axios.get(`${API_URL}/trackApplication/${seeker_id}`, {
-    headers: getAuthHeaders(),
-  });
-};
-
-// 🔹 Delete Seeker
-export const deleteSeeker = async (seeker_id) => {
-  return await axios.delete(`${API_URL}/deleteSeeker/${seeker_id}`, {
-    headers: getAuthHeaders(),
-  });
-};
-
-// 🔹 Update Seeker
-export const updateSeeker = async (data) => {
-  return await axios.put(`${API_URL}/updateSeeker`, data, {
-    headers: { 
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Get Current Job Seeker Profile (from token)
-export const getJobSeekerProfile = () => {
-  return axios.post(
-    `${API_URL}/jobSeekerProfile`,
-    {},
-    {
-      headers: getAuthHeaders(),
-    }
-  );
-};
-
-
-
-export const savePersonalInfo = async (data) => {
-  return await axios.post(`${API_URL}/profile/personal`, data, {
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Save Education
-export const saveEducation = async (data) => {
-  return await axios.post(`${API_URL}/profile/education`, data, {
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Save Skills
-export const saveSkills = async (data) => {
-  return await axios.post(`${API_URL}/profile/skills`, data, {
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
-};
-
-// 🔹 Save Experience
-export const saveExperience = async (data) => {
-  return await axios.post(`${API_URL}/profile/experience`, data, {
-    headers: {
-      "Content-Type": "application/json",
-      ...getAuthHeaders(),
-    },
-  });
+  return axiosInstance.post(`/uploadProfileImage/${seekerId}`, formData);
 };

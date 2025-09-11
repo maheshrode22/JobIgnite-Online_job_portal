@@ -1,5 +1,7 @@
 ﻿import React, { useState } from "react";
 import { registerSeeker } from "../../Services/SeekerService";
+import { validateSeekerData } from "../../validation/SeekerRegistaion";
+
 
 export default function SeekerRegister({ onBack }) {
   const [name, setName] = useState("");
@@ -14,6 +16,14 @@ export default function SeekerRegister({ onBack }) {
 
     const seekerData = { name, email, password, phone, address };
     console.log("Sending Seeker Data:", seekerData);
+
+    
+      const error = validateSeekerData(seekerData);
+    if (error) {
+      setMsg(error); // show validation error
+      return; // stop if validation fails
+    }
+    
 
     try {
       const result = await registerSeeker(seekerData);

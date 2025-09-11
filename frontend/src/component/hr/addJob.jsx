@@ -3,6 +3,7 @@ import "../../css/Hr/addJob.css";
 import { addJobPost } from "../../Services/HRService";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { jwtDecode } from "jwt-decode";
+import { validateJobData } from "../../validation/AddjobValidation";
 
 export default function AddJob() {
   const [title, setTitle] = useState("");
@@ -47,6 +48,12 @@ export default function AddJob() {
       hr_id,
     };
 
+
+     const error = validateJobData(jobData);
+      if (error) {
+      setMsg(error);  // Show validation error
+      return;         // Stop submission
+      }
     try {
       const result = await addJobPost(jobData);
       setMsg(result.data.msg || "Job added successfully!");

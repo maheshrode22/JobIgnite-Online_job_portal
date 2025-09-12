@@ -232,7 +232,6 @@ export default function DashboardHome() {
     </div>
   );
 }
-
 // Helper function to get activity icons
 function getActivityIcon(type) {
   const icons = {

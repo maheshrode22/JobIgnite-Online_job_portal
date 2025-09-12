@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { applyForJob, getAllJobs, getSeekerApplications } from "../../Services/SeekerService";
+import { applyForJob, getAllJobs, getSeekerApplications, getCompleteProfile } from "../../Services/SeekerService";
 import { jwtDecode } from "jwt-decode";
 import "../../css/jobSeeker/jobDetails.css";
 
@@ -16,6 +16,8 @@ export default function JobDetails() {
   const [saved, setSaved] = useState(false);
   const [relatedJobs, setRelatedJobs] = useState([]);
   const [loadingRelatedJobs, setLoadingRelatedJobs] = useState(true);
+  const [hasResume, setHasResume] = useState(false);
+  const [resumeLoading, setResumeLoading] = useState(true);
 
   // Decode token and get user data
   useEffect(() => {
@@ -29,6 +31,33 @@ export default function JobDetails() {
       }
     }
   }, []);
+
+  // Check if user has uploaded resume
+  useEffect(() => {
+    const checkResumeStatus = async () => {
+      if (userData) {
+        try {
+          setResumeLoading(true);
+          const seeker_id = userData.seeker_id || userData.id;
+          const response = await getCompleteProfile(seeker_id);
+          const profile = response.data;
+          
+          // Check if resume exists and is not empty
+          setHasResume(profile.resume && profile.resume.trim() !== '');
+          console.log("Resume status:", profile.resume ? "Uploaded" : "Not uploaded");
+        } catch (error) {
+          console.error("Error checking resume status:", error);
+          setHasResume(false);
+        } finally {
+          setResumeLoading(false);
+        }
+      }
+    };
+
+    if (userData) {
+      checkResumeStatus();
+    }
+  }, [userData]);
 
   // ✅ Check if already applied
   useEffect(() => {
@@ -85,11 +114,24 @@ export default function JobDetails() {
     }
   }, [job]);
 
-  // Apply handler
+  // Apply handler with resume check
   const handleApply = async () => {
     if (!userData) {
       alert("Please login to apply for jobs!");
       navigate("/jobSeeker");
+      return;
+    }
+
+    // Check if user has uploaded resume
+    if (!hasResume) {
+      const uploadResume = confirm(
+        "You need to upload your resume before applying for jobs.\n\n" +
+        "Would you like to go to your profile to upload your resume?"
+      );
+      
+      if (uploadResume) {
+        navigate("/jobSeeker/seekerProfile");
+      }
       return;
     }
 
@@ -206,13 +248,35 @@ export default function JobDetails() {
               {saved ? '✓ Saved' : 'Save'}
             </button>
             {userData ? (
-              <button
-                className={`apply-btn ${applied ? 'applied' : ''}`}
-                onClick={handleApply}
-                disabled={applied || loading}
-              >
-                {applied ? '✓ Applied' : loading ? 'Applying...' : 'Apply'}
-              </button>
+              <div>
+                {!hasResume && !resumeLoading ? (
+                  <div className="resume-warning mb-2">
+                    <div className="alert alert-warning d-flex align-items-center" role="alert">
+                      <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                      <div>
+                        <strong>Resume Required!</strong> Please upload your resume to apply for jobs.
+                        <button 
+                          className="btn btn-sm btn-outline-primary ms-2"
+                          onClick={() => navigate("/jobSeeker/seekerProfile")}
+                        >
+                          Upload Resume
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                
+                <button
+                  className={`apply-btn ${applied ? 'applied' : ''} ${!hasResume ? 'disabled' : ''}`}
+                  onClick={handleApply}
+                  disabled={applied || loading || !hasResume || resumeLoading}
+                >
+                  {applied ? '✓ Applied' : 
+                   loading ? 'Applying...' : 
+                   !hasResume ? 'Resume Required' : 
+                   'Apply'}
+                </button>
+              </div>
             ) : (
               <button
                 className="apply-btn login-required"

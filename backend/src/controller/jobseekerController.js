@@ -4,43 +4,13 @@ const { registrationTemplate } = require("../Services/mailTemplates.js");
 const { validateJobSeeker } = require("../validation/seekerValidation/SeekerValidation.js");
 
 const bcrypt = require("bcryptjs");
-
 const jwt = require("jsonwebtoken");
 
 // ---------------- Login ----------------
 exports.loginJobSeeker = async (req, res) => {
-  const { jobUser, jobPass } = req.body;
-
-exports.jobSeekerLogin = (req, res) => {
+  try {
     const { jobUser, jobPass } = req.body;
 
-    jobseekerModel.jobSeekerLogin(jobUser, jobPass)
-      .then((result) => {
-        if (result.length > 0) {
-          // user found
-          const payload = {
-            seeker_id: result[0].seeker_id,
-            email: result[0].email,
-            name: result[0].name
-          };
-
-          const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-          res.send({
-            success: true,
-            token,          // ✅ send token
-            user: result[0] // optional
-          });
-        } else {
-          res.send({
-            success: false,
-            message: "Invalid email or password"
-          });
-        }
-      })
-      .catch((err) => res.status(500).send(err));
-};
-  try {
     const result = await jobseekerModel.jobSeekerLogin(jobUser);
 
     if (!result || result.length === 0) {
@@ -57,7 +27,7 @@ exports.jobSeekerLogin = (req, res) => {
     const token = jwt.sign(
       { ...safeUser, role: "jobseeker" },
       process.env.JWT_SECRET,
-      { expiresIn: "15m" }
+      { expiresIn: "1h" }
     );
 
     res.json({ success: true, token, user: safeUser });
@@ -76,7 +46,7 @@ exports.jobSeekerRegister = async (req, res) => {
     if (!name || !email || !password || !phone || !address)
       return res.status(400).send({ success: false, message: "All fields required" });
 
-      const { name, email, password, phone, address } = req.body;
+     
       
           const validationError = validateJobSeeker({ name, email, password, phone, address });
           if (validationError) {

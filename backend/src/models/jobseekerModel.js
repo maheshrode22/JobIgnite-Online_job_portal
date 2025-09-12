@@ -14,7 +14,7 @@ exports.jobSeekerLogin = (jobUser) => {
   };
   exports.jobSeekerRegister = (...data) => {
     return new Promise((resolve, reject) => {
-        db.query("INSERT INTO job_seekers(name,email,password,phone,address_line1,address_line2,landmark,pincode,state_id,district_id,city_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [...data], (err, result) => {
+        db.query("INSERT INTO job_seekers(name,email,password,phone,address_line1) VALUES(?,?,?,?,?)", [...data], (err, result) => {
             if (err) {
                 reject(err);
             } 

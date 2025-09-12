@@ -82,11 +82,11 @@ const SeekerDetail = () => {
         {/* Email */}
         <div className="seekerprofile-item">
           <span className="label">Email:</span>
-          {isEditing ? (
-            <input type="email" name="email" value={formData.email} onChange={handleChange} />
+           (
+            <input type="email" name="email" value={formData.email} onChange={handleChange} readOnly = {true} />
           ) : (
             <span className="value">{seeker.email}</span>
-          )}
+          )
         </div>
 
         {/* Phone */}

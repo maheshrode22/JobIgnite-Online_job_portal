@@ -55,7 +55,7 @@ export default function UpdateJobForm() {
           title: job.title || job.job_title || "",
           company: job.company || "",
           location: job.location || "",
-          package: job.package ? job.package.replace(/[^0-9.]/g, '') : "",
+          package: job.package || "",
           opening: job.opening || "",
           experience_required: job.experience_required || "",
           skills_required: job.skills_required || "",
@@ -65,8 +65,11 @@ export default function UpdateJobForm() {
             : "",
         };
         
+        // Add debugging to see exact data
+        console.log("Raw job data from API:", job);
         console.log("Formatted job data for form:", formattedJobData);
-        console.log("All job object keys:", Object.keys(job));
+        console.log("Opening value:", job.opening, "Type:", typeof job.opening);
+        console.log("Package value:", job.package, "Type:", typeof job.package);
         console.log("=== END DEBUG ===");
 
         setJobData(formattedJobData);

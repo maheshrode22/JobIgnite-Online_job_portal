@@ -3,12 +3,15 @@ import { getApplicationsByHR } from "../../Services/HRService";
 import { Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { jwtDecode } from "jwt-decode";
+import ViewSeekerDetails from "./ViewSeekerDetails";
 
 export default function Applications() {
   const [applications, setApplications] = useState([]);
   const [searchJob, setSearchJob] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
+  const [showSeekerModal, setShowSeekerModal] = useState(false);
+  const [selectedSeekerId, setSelectedSeekerId] = useState(null);
   const itemsPerPage = 5;
 
   // Derive hr_id from token
@@ -52,8 +55,14 @@ export default function Applications() {
     fetchData();
   }, [hr_id]);
 
-  const handleShow = (id) => {
-    alert("Seeker ID: " + id);
+  const handleShow = (seekerId) => {
+    setSelectedSeekerId(seekerId);
+    setShowSeekerModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowSeekerModal(false);
+    setSelectedSeekerId(null);
   };
 
   // Safe filter
@@ -271,6 +280,13 @@ export default function Applications() {
           )}
         </div>
       </div>
+
+      {/* View Seeker Details Modal */}
+      <ViewSeekerDetails
+        show={showSeekerModal}
+        onHide={handleCloseModal}
+        seekerId={selectedSeekerId}
+      />
     </div>
   );
 }

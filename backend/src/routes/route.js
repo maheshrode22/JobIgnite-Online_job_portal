@@ -33,6 +33,9 @@ router.post("/deleteHr", hrctr.delHr);
 router.post("/updateStatusHr", hrctr.updateStatusHr);
 router.post("/viewAllPostHrById", hrctr.viewAllPostHrById);
 
+// Add this route for HR to view job seeker profiles
+router.get("/hr/getSeekerProfile/:seekerId", auth, jobseekCtr.getCompleteProfile);
+
 // ---------------- Job Seeker Routes ----------------
 router.post("/jobseekerLogin", jobseekCtr.loginJobSeeker);
 router.post("/jobSeekerRegister", jobseekCtr.jobSeekerRegister);

@@ -276,87 +276,140 @@ const handleUpdate = () => {
           )}
 
           {/* Modal for job details */}
-          <Modal show={show} onHide={handleClose} centered size="lg" className="custom-job-modal">
-            <Modal.Header closeButton className="bg-gradient text-white">
-              <Modal.Title>
-                <i className="bi bi-info-circle-fill me-2"></i> Job Details
+          <Modal show={show} onHide={handleClose} centered size="lg" className="custom-job-modal" style={{maxHeight: '90vh'}}>
+            <Modal.Header closeButton className="bg-gradient-primary text-white border-0">
+              <Modal.Title className="fw-bold">
+                <i className="bi bi-briefcase-fill me-2"></i> Job Details
               </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body className="p-3" style={{maxHeight: '60vh', overflowY: 'auto'}}>
               {selectedJob && (
                 <div className="job-details-container">
-                  <h3 className="fw-bold text-primary mb-4 text-center">
-                    <i className="bi bi-briefcase-fill me-2"></i>
-                    {selectedJob.title || selectedJob.job_title}
-                  </h3>
+                  {/* Job Title Header */}
+                  <div className="text-center mb-3 p-3 bg-light rounded-3 border-start border-5 border-primary">
+                    <h2 className="fw-bold text-primary mb-2">
+                      <i className="bi bi-briefcase-fill me-2"></i>
+                      {selectedJob.title || selectedJob.job_title}
+                    </h2>
+                    <p className="text-muted mb-0">
+                      <i className="bi bi-building me-1"></i>
+                      {selectedJob.company}
+                    </p>
+                  </div>
 
+                  {/* Job Details Grid */}
                   <div className="row g-3">
+                    {/* Location & Package */}
                     <div className="col-12 col-md-6">
-                      <div className="detail-card">
-                        <i className="bi bi-building text-primary me-2"></i>
-                        <strong>Company:</strong> {selectedJob.company}
+                      <div className="detail-card h-100 p-3 bg-white border rounded-3 shadow-sm">
+                        <div className="d-flex align-items-center mb-2">
+                          <i className="bi bi-geo-alt-fill text-danger fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-dark">Location</h6>
+                        </div>
+                        <p className="mb-0 text-muted">{selectedJob.location}</p>
                       </div>
                     </div>
+                    
                     <div className="col-12 col-md-6">
-                      <div className="detail-card">
-                        <i className="bi bi-geo-alt-fill text-danger me-2"></i>
-                        <strong>Location:</strong> {selectedJob.location}
+                      <div className="detail-card h-100 p-3 bg-white border rounded-3 shadow-sm">
+                        <div className="d-flex align-items-center mb-2">
+                          <i className="bi bi-cash-coin text-success fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-dark">Package</h6>
+                        </div>
+                        <p className="mb-0 text-muted">
+                          {selectedJob.package || 'Not specified'} LPA
+                        </p>
                       </div>
                     </div>
+
+                    {/* Openings & Experience */}
                     <div className="col-12 col-md-6">
-                      <div className="detail-card">
-                        <i className="bi bi-cash-coin text-success me-2"></i>
-                        <strong>Package:</strong> {selectedJob.package ? selectedJob.package.replace(/[^0-9.]/g, '') : 'Not specified'} LPA
+                      <div className="detail-card h-100 p-3 bg-white border rounded-3 shadow-sm">
+                        <div className="d-flex align-items-center mb-2">
+                          <i className="bi bi-people-fill text-info fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-dark">Openings</h6>
+                        </div>
+                        <p className="mb-0 text-muted">
+                          <span className="badge bg-info text-white fs-6">{selectedJob.opening}</span>
+                        </p>
                       </div>
                     </div>
+                    
                     <div className="col-12 col-md-6">
-                      <div className="detail-card">
-                        <i className="bi bi-people-fill text-info me-2"></i>
-                        <strong>Openings:</strong> {selectedJob.opening}
+                      <div className="detail-card h-100 p-3 bg-white border rounded-3 shadow-sm">
+                        <div className="d-flex align-items-center mb-2">
+                          <i className="bi bi-award-fill text-warning fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-dark">Experience</h6>
+                        </div>
+                        <p className="mb-0 text-muted">{selectedJob.experience_required}</p>
                       </div>
                     </div>
-                    <div className="col-12 col-md-6">
-                      <div className="detail-card">
-                        <i className="bi bi-award-fill text-warning me-2"></i>
-                        <strong>Experience:</strong> {selectedJob.experience_required} yrs
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-6">
-                      <div className="detail-card">
-                        <i className="bi bi-lightbulb-fill text-purple me-2"></i>
-                        <strong>Skills:</strong> {selectedJob.skills_required}
-                      </div>
-                    </div>
+
+                    {/* Skills */}
                     <div className="col-12">
-                      <div className="detail-card">
-                        <i className="bi bi-file-earmark-text-fill text-secondary me-2"></i>
-                        <strong>Description:</strong> {selectedJob.description}
+                      <div className="detail-card p-3 bg-white border rounded-3 shadow-sm">
+                        <div className="d-flex align-items-center mb-3">
+                          <i className="bi bi-lightbulb-fill text-warning fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-dark">Required Skills</h6>
+                        </div>
+                        <div className="skills-container">
+                          {selectedJob.skills_required?.split(',').map((skill, index) => (
+                            <span key={index} className="badge bg-warning text-dark me-2 mb-2 px-3 py-2">
+                              {skill.trim()}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+
+                    {/* Description */}
                     <div className="col-12">
-                      <div className="detail-card deadline">
-                        <i className="bi bi-calendar-event-fill text-danger me-2"></i>
-                        <strong>Deadline:</strong> {new Date(selectedJob.deadline).toLocaleDateString()}
+                      <div className="detail-card p-3 bg-white border rounded-3 shadow-sm">
+                        <div className="d-flex align-items-center mb-3">
+                          <i className="bi bi-file-earmark-text-fill text-secondary fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-dark">Job Description</h6>
+                        </div>
+                        <p className="mb-0 text-muted lh-lg">{selectedJob.description}</p>
+                      </div>
+                    </div>
+
+                    {/* Deadline */}
+                    <div className="col-12">
+                      <div className="detail-card p-3 bg-danger bg-opacity-10 border border-danger rounded-3">
+                        <div className="d-flex align-items-center mb-2">
+                          <i className="bi bi-calendar-event-fill text-danger fs-4 me-3"></i>
+                          <h6 className="mb-0 fw-semibold text-danger">Application Deadline</h6>
+                        </div>
+                        <p className="mb-0 fw-semibold text-danger">
+                          {new Date(selectedJob.deadline).toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
               )}
             </Modal.Body>
-            <Modal.Footer className="d-flex justify-content-between flex-wrap gap-2">
-              <Button variant="outline-secondary" onClick={handleClose}>
-                <i className="bi bi-x-circle me-1"></i> Close
-              </Button>
-              {selectedJob && (
-                <div className="d-flex gap-2">
-                  <Button variant="warning" onClick={() => handleUpdate()}>
-                    <i className="bi bi-pencil-square me-1"></i> Update
-                  </Button>
-                  <Button variant="danger" onClick={() => handleDelete(selectedJob.job_id)}>
-                    <i className="bi bi-trash-fill me-1"></i> Delete
-                  </Button>
-                </div>
-              )}
+            <Modal.Footer className="bg-light border-0 p-3">
+              <div className="d-flex justify-content-between w-100 flex-wrap gap-2">
+                <Button variant="outline-secondary" onClick={handleClose} className="px-4">
+                  <i className="bi bi-x-circle me-2"></i> Close
+                </Button>
+                {selectedJob && (
+                  <div className="d-flex gap-2">
+                    <Button variant="warning" onClick={() => handleUpdate()} className="px-4">
+                      <i className="bi bi-pencil-square me-2"></i> Update Job
+                    </Button>
+                    <Button variant="danger" onClick={() => handleDelete(selectedJob.job_id)} className="px-4">
+                      <i className="bi bi-trash-fill me-2"></i> Delete Job
+                    </Button>
+                  </div>
+                )}
+              </div>
             </Modal.Footer>
           </Modal>
         </div>

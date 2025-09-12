@@ -10,10 +10,22 @@ const axiosInstance = axios.create({
 // Automatically attach token to every request
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
+    // Check for HR token first, then job seeker token, then generic token
+    const hrToken = localStorage.getItem("hr_token");
+    const jobSeekerToken = localStorage.getItem("jobseeker_token");
+    const token = localStorage.getItem("token"); // Generic token for job seekers
+    const adminToken = localStorage.getItem("admin_token");
+    
+    if (hrToken) {
+      config.headers.Authorization = `Bearer ${hrToken}`;
+    } else if (jobSeekerToken) {
+      config.headers.Authorization = `Bearer ${jobSeekerToken}`;
+    } else if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else if (adminToken) {
+      config.headers.Authorization = `Bearer ${adminToken}`;
     }
+    
     return config;
   },
   (error) => Promise.reject(error)

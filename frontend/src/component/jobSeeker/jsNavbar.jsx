@@ -215,16 +215,7 @@ export default function JSNavbar() {
                 </div>
               </div>
 
-              <div className="d-flex justify-content-around text-center my-4">
-                <div>
-                  <h5 className="text-danger mb-0">47</h5>
-                  <small className="text-muted">Search Appearances</small>
-                </div>
-                <div>
-                  <h5 className="text-danger mb-0">15</h5>
-                  <small className="text-muted">Recruiter Actions</small>
-                </div>
-              </div>
+             
 
               <ul className="list-group mb-3">
                 <li className="list-group-item list-group-item-action">

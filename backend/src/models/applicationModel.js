@@ -1,4 +1,5 @@
 let db = require("../config/db.js");
+
 exports.jobSeekerApply = (seeker_id, job_id) => {
     return new Promise((resolve, reject) => {
         db.query("insert into applications(seeker_id,job_id) values (?,?)", [seeker_id, job_id], (err, result) => {
@@ -9,7 +10,23 @@ exports.jobSeekerApply = (seeker_id, job_id) => {
                 resolve(result);
             }
         });
+    });
+};
 
+// Check if user has already applied for this job
+exports.checkExistingApplication = (seeker_id, job_id) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            "SELECT * FROM applications WHERE seeker_id = ? AND job_id = ?",
+            [seeker_id, job_id],
+            (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.length > 0);
+                }
+            }
+        );
     });
 };
 

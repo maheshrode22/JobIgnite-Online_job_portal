@@ -10,7 +10,9 @@ import {
   savePersonalInfo,
   saveEducation,
   saveSkills,
-  saveExperience
+  saveExperience,
+  uploadResume,
+  uploadProfileImage
 } from "../../Services/SeekerService";
 
 export default function SeekerProfile() {
@@ -180,30 +182,95 @@ export default function SeekerProfile() {
     }
   };
 
-  // Keep the old handleSaveResumeProfile for resume and profile image uploads
+  // Separate handler for resume upload only
+  const handleSaveResume = async () => {
+    try {
+      if (!resumeFile) {
+        setError("Please select a resume file to upload");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      const userInfo = JSON.parse(atob(token.split('.')[1]));
+      const seekerId = userInfo.seeker_id;
+
+      console.log("Uploading resume:", resumeFile.name);
+      
+      const response = await uploadResume(seekerId, resumeFile);
+      
+      // Update profile with new resume path
+      setProfile({ 
+        ...profile, 
+        resume: response.data.filename || response.data.resume
+      });
+      
+      setResumeFile(null);
+      setSuccess("Resume uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading resume:", error);
+      setError("Failed to upload resume");
+    }
+  };
+
+  // Separate handler for profile image upload only
+  const handleSaveProfileImage = async () => {
+    try {
+      if (!profileFile) {
+        setError("Please select a profile image to upload");
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      const userInfo = JSON.parse(atob(token.split('.')[1]));
+      const seekerId = userInfo.seeker_id;
+
+      console.log("Uploading profile image:", profileFile.name);
+      
+      const response = await uploadProfileImage(seekerId, profileFile);
+      
+      // Update profile with new image path
+      setProfile({ 
+        ...profile, 
+        profile_image: response.data.filename || response.data.profile_image
+      });
+      
+      setProfileFile(null);
+      setSuccess("Profile image uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading profile image:", error);
+      setError("Failed to upload profile image");
+    }
+  };
+
+  // Keep the combined handler for backward compatibility
   const handleSaveResumeProfile = async () => {
     try {
       const form = new FormData();
-      // Don't append seeker_id - backend will get it from JWT token
       if (resumeFile) form.append("resume", resumeFile);
       if (profileFile) form.append("profile_image", profileFile);
 
+      if (!resumeFile && !profileFile) {
+        setError("Please select at least one file to upload");
+        return;
+      }
+
       console.log("Uploading files:", { resumeFile: resumeFile?.name, profileFile: profileFile?.name });
 
-      await updateJobSeekerProfile(form);
-
+      const response = await updateJobSeekerProfile(form);
+      
+      // Use the file paths returned from the server
       setProfile({ 
         ...profile, 
-        resume: resumeFile ? resumeFile.name : profile.resume, 
-        profile_image: profileFile ? URL.createObjectURL(profileFile) : profile.profile_image
+        resume: response.data.data.resume || profile.resume, 
+        profile_image: response.data.data.profile_image || profile.profile_image
       });
       setEditing({ ...editing, resumeProfile: false });
       setResumeFile(null);
       setProfileFile(null);
-      setSuccess("Resume and profile image updated successfully!");
+      setSuccess("Files uploaded successfully!");
     } catch (error) {
-      console.error("Error saving resume/profile:", error);
-      setError("Failed to update resume and profile image");
+      console.error("Error saving files:", error);
+      setError("Failed to upload files");
     }
   };
 
@@ -238,7 +305,7 @@ export default function SeekerProfile() {
             <div className="profile-avatar me-3 position-relative">
               {formData.profile_image ? (
                 <img 
-                  src={formData.profile_image.startsWith('http') ? formData.profile_image : `http://localhost:3000/uploads/resumes/${formData.profile_image}`} 
+                  src={formData.profile_image.startsWith('http') ? formData.profile_image : `http://localhost:3000/uploads/profile_images/${formData.profile_image}`} 
                   alt="Profile" 
                   className="rounded-circle" 
                   width="80" 
@@ -284,9 +351,18 @@ export default function SeekerProfile() {
                     </select>
                     : field==="birth_date" ? 
                     <input type="date" className="form-control" value={formData.birth_date?formData.birth_date.split('T')[0]:''} onChange={(e)=>handleInputChange(field,e.target.value)} />
-                    : <input type={field==="email"?"email":field==="phone"?"tel":"text"} className="form-control" value={formData[field]||''} onChange={(e)=>handleInputChange(field,e.target.value)} />
+                      : <input 
+                          type={field==="email"?"email":field==="phone"?"tel":"text"} 
+                          className="form-control" 
+                          value={formData[field]||''} 
+                          onChange={(e)=>handleInputChange(field,e.target.value)}
+                          readOnly={field === "email"}
+                        />
                   )
                 }
+
+
+
               </div>
             ))}
           </div>
@@ -307,7 +383,8 @@ export default function SeekerProfile() {
         <div className="d-flex justify-content-between align-items-start mb-3">
           <h5 className="fw-semibold mb-0"><FileEarmarkTextFill className="me-2"/> Resume & Profile</h5>
           {!editing.resumeProfile ? <PencilSquare className="text-secondary" style={{cursor:'pointer'}} onClick={()=>handleEdit('resumeProfile')} /> : <div>
-            <button className="btn btn-success btn-sm me-2" onClick={handleSaveResumeProfile}>Save</button>
+            <button className="btn btn-success btn-sm me-2" onClick={handleSaveResume}>Save Resume</button>
+            <button className="btn btn-success btn-sm me-2" onClick={handleSaveProfileImage}>Save Profile Image</button>
             <button className="btn btn-secondary btn-sm" onClick={()=>handleCancel('resumeProfile')}>Cancel</button>
           </div>}
         </div>
@@ -329,7 +406,14 @@ export default function SeekerProfile() {
                 )}
               </div>
             ) : (
-              <input type="file" className="form-control" onChange={handleResumeChange} />
+              <div>
+                <input type="file" className="form-control mb-2" onChange={handleResumeChange} />
+                {resumeFile && (
+                  <button className="btn btn-success btn-sm" onClick={handleSaveResume}>
+                    Upload Resume
+                  </button>
+                )}
+              </div>
             )}
           </div>
           <div className="col-md-6 mb-3">
@@ -345,10 +429,29 @@ export default function SeekerProfile() {
                 />
               ) : <p>Not uploaded</p>
             ) : (
-              <input type="file" className="form-control" accept="image/*" onChange={handleProfileImageChange} />
+              <div>
+                <input type="file" className="form-control mb-2" accept="image/*" onChange={handleProfileImageChange} />
+                {profileFile && (
+                  <button className="btn btn-success btn-sm" onClick={handleSaveProfileImage}>
+                    Upload Image
+                  </button>
+                )}
+              </div>
             )}
           </div>
         </div>
+        
+        {/* Keep the combined save button for uploading both at once */}
+        {editing.resumeProfile && (resumeFile || profileFile) && (
+          <div className="text-center mt-3">
+            <button className="btn btn-primary btn-sm me-2" onClick={handleSaveResumeProfile}>
+              Save Both Files
+            </button>
+            <button className="btn btn-secondary btn-sm" onClick={()=>handleCancel('resumeProfile')}>
+              Cancel
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Skills & Interests */}

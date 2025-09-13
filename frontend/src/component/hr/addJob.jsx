@@ -38,7 +38,7 @@ export default function AddJob() {
     const jobData = {
       title,
       company,
-      opening,
+      opening: Number(opening), // Convert string to number
       experience_required: experience,
       location,
       package: pkg,
@@ -48,8 +48,12 @@ export default function AddJob() {
       hr_id,
     };
 
+    // Add debugging to see what's being sent
+    console.log("Job data being sent:", jobData);
+    console.log("Opening value type:", typeof jobData.opening);
+    console.log("Opening value:", jobData.opening);
 
-     const error = validateJobData(jobData);
+    const error = validateJobData(jobData);
       if (error) {
       setMsg(error);  // Show validation error
       return;         // Stop submission

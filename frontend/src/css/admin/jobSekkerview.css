@@ -1,0 +1,31 @@
+/* seeker table styling */
+.table-hover tbody tr:hover {
+    background-color: #f5f8ff !important;
+  }
+  
+  .card {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  
+  .card-header {
+    border-bottom: none;
+  }
+  
+  .table td,
+  .table th {
+    vertical-align: middle;
+  }
+  
+  .btn-outline-primary {
+    border-radius: 20px;
+    padding: 4px 12px;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    transform: scale(1.05);
+  }
+  

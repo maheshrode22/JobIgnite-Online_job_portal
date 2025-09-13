@@ -29,4 +29,4 @@ function validateJobData(data) {
   return ""; // No errors
 }
 
-module.exports = { validateJobData };
+export { validateJobData };

@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const hrModel = require("../models/hrModel.js");
 const { sendMail } = require("../Services/mailService");
-const { registrationTemplate } = require("../Services/mailTemplates");
+const { registrationTemplate } = require("../Services/mailTemplates.js");
+const { approvalTemplate } = require("../Services/approvalTemplate.js");
+const { rejectionTemplate } = require("../Services/rejectionTemplate.js");
 const { validateHRData } = require("../validation/hrValidation/hrValidation.js");
 
 const signToken = (payload) =>
@@ -184,18 +186,41 @@ exports.delHr = (req, res) => {
 
 }
 
-exports.updateStatusHr = ((req, res) => {
+
+// update hr status 
+exports.updateStatusHr = async (req, res) => {
+  try {
     let { id, status } = req.body;
-    let Promise = hrModel.updateStatusHr(id, status);
-    Promise.then((result) => {
-        res.send({ msg: "status updated" });
 
-    }).catch((err) => {
-        res.send({ msg: "status not updated / id not found" });
+    // step 1: update
+    await hrModel.updateStatusHr(id, status);
 
-    })
+    // step 2: find HR details
+    let data = await hrModel.hrFindById(id);
+    if (!data || data.length === 0) {
+      return res.send({ msg: "HR not found" });
+    }
 
-})
+    // Fix: data is an array, so get the first element
+    let { hr_name, company_name, email, password } = data[0];
+
+    if (status === "approved") {
+      const { subject, body } = approvalTemplate(hr_name, company_name, email, password);
+      await sendMail(email, subject, body);
+    } else if (status === "rejected") {
+      const { subject, body } = rejectionTemplate(hr_name, company_name);
+      await sendMail(email, subject, body);
+    }
+
+    res.send({ msg: "Status updated successfully and email sent" });
+
+  } catch (err) {
+    console.error("Error:", err);
+    res.send({ msg: "status not updated / id not found" });
+  }
+};
+
+
 
 // List all HRs
 exports.AllHr = (req, res) => {
@@ -215,7 +240,3 @@ exports.viewAllPostHrById = (req, res) => {
     })
     .catch((err) => res.status(500).send(err));
 };
-
-
-
-

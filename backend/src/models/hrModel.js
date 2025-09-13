@@ -15,7 +15,7 @@ exports.hrFindByEmail = (email) => {
 exports.hrFindById = (id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      "SELECT hr_id, hr_name, company_name, email, phone, status FROM hr WHERE hr_id = ? LIMIT 1",
+      "SELECT hr_id, hr_name, company_name, email,password, phone, status FROM hr WHERE hr_id = ? LIMIT 1",
       [id],
       (err, result) => (err ? reject(err) : resolve(result))
     );

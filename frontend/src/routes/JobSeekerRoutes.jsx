@@ -6,7 +6,10 @@ import JobDetails from "../component/jobSeeker/jobDetails";
 import SeekerDetail from "../component/jobSeeker/seekerDetails";
 import SeekerProfile from "../component/jobSeeker/jobseekerProfile";
 import ApplicationHistory from "../component/jobSeeker/appliedHistory";
+
 import Footer from "../component/footer";
+import HelpPass from "../component/jobSeeker/helpPass";
+
 export default function JobSeekerRoutes() {
   return (<>
       <Routes>
@@ -18,7 +21,9 @@ export default function JobSeekerRoutes() {
         <Route path="jobSeekerPro" element={<SeekerProfile />}/>
         <Route path="application-status" element={<ApplicationHistory />}/>
         <Route path="seekerProfile" element={<SeekerProfile/>}/>
-      </Route>
+       <Route path="/helpPass" element={<HelpPass/>}/>
+        
+        </Route>
       
     </Routes>
     <Footer />

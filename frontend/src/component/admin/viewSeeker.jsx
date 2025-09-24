@@ -146,7 +146,7 @@ export default function ViewSeeker() {
   }
 
   return (
-    <div className="view-seeker-container">
+    <div>
       {/* Header Section */}
       <div className="seeker-header">
         <div className="header-content">

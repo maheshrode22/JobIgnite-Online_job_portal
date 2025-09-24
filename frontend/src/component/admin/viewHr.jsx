@@ -237,7 +237,7 @@ export default function ViewHR() {
   }
 
   return (
-    <div className="view-hr-container">
+    <div className="">
       {/* Header Section */}
       <div className="hr-header">
         <div className="header-content">

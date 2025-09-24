@@ -144,7 +144,7 @@ export default function DashboardAdmin() {
   };
 
   return (
-    <div className="dashboard-admin-container">
+    <div className="">
       {/* Header Section */}
       <div className="dashboard-header">
         <div className="welcome-section">

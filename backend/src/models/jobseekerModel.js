@@ -1,17 +1,32 @@
 ﻿let db = require("../config/db.js");
 // jobSeekerModel.js
+// exports.jobSeekerLogin = (jobUser) => {
+//     return new Promise((resolve, reject) => {
+//       db.query(
+//         "SELECT * FROM job_seekers WHERE email=?",
+//         [jobUser],
+//         (err, result) => {
+//           if (err) reject(err);
+//           else resolve(result);
+//         }
+//       );
+//     });
+//   };
 exports.jobSeekerLogin = (jobUser) => {
-    return new Promise((resolve, reject) => {
-      db.query(
-        "SELECT * FROM job_seekers WHERE email=?",
-        [jobUser],
-        (err, result) => {
-          if (err) reject(err);
-          else resolve(result);
-        }
-      );
-    });
-  };
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT js.*, jsp.profile_image
+       FROM job_seekers js
+       LEFT JOIN job_seeker_profile jsp ON js.seeker_id = jsp.seeker_id
+       WHERE js.email = ?`,
+      [jobUser],
+      (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+  });
+};
   exports.jobSeekerRegister = (...data) => {
     return new Promise((resolve, reject) => {
         db.query("INSERT INTO job_seekers(name,email,password,phone,address_line1) VALUES(?,?,?,?,?)", [...data], (err, result) => {

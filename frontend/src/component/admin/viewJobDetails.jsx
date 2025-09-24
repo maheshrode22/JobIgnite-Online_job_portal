@@ -194,7 +194,7 @@ export default function ViewJobDetails() {
             <Button
               variant="primary"
               size="lg"
-              onClick={() => navigate("/Admin/viewJob")}
+              onClick={() => navigate("/Admin/viewJobs")}
               className="me-3"
             >
               <i className="bi bi-arrow-left me-2"></i>

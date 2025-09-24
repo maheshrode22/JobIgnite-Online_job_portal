@@ -57,10 +57,10 @@ export default function ViewJobs() {
   }
 
   return (
-    <div className="container my-5">
-      <div className="row mb-4">
+    <div className="">
+      <div className="row">
         <div className="col-12">
-          <h2 className="text-center mb-4 fw-bold text-primary">
+          <h2 className="text-center mb-1 fw-bold text-primary">
             <i className="bi bi-briefcase-fill me-2"></i>
             All Jobs
           </h2>

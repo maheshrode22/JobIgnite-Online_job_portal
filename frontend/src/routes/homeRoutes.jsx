@@ -13,6 +13,7 @@ import HRAuth from "../component/hr/HRAuth";
 import AdminLogin from "../component/admin/adminLogin";
 import JobSeekerAuth from "../component/jobSeeker/JobseekerAuth";
 
+
 function HomeRoutes() {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
@@ -35,6 +36,7 @@ function HomeRoutes() {
         <Route path="/HRAuth" element={<HRAuth/>}/>
         <Route path="/AdminLogin" element={<AdminLogin />} />
          <Route path="/jobSeekerAuth" element={<JobSeekerAuth />} />
+        
       </Routes>
       <Footer />
       <ScrollToTop />

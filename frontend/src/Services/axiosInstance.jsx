@@ -1,8 +1,8 @@
 // src/services/axiosInstance.js
 import axios from "axios";
-
-const API_URL = "http://localhost:3000"; // backend URL
-
+//const API_URL = "http://localhost:3000";
+const API_URL = "https://jobignite-online-job-portal-1.onrender.com";
+// backend URL
 const axiosInstance = axios.create({
   baseURL: API_URL,
 });

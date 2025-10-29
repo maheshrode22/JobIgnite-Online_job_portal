@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const API_URL = "http://localhost:3000";
+// export const API_URL = "http://localhost:3000";
+const API_URL = "https://jobignite-online-job-portal-1.onrender.com";
 
 // ✅ Admin Login
 export const adminLogin = async ({ username, password }) => {
